@@ -4,18 +4,35 @@ import edu.ec.ups.controlador.ProductoController;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.dao.impl.ProductoDAOMemoria;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-
-                ProductoAnadirView productoView = new ProductoAnadirView();
-                ProductoListaView productoListaView = new ProductoListaView();
+                PrincipalView principalView = new PrincipalView();
                 ProductoDAO productoDAO = new ProductoDAOMemoria();
-                ProductoModificarView productoModificarView = new ProductoModificarView();
+                ProductoController productoController = new ProductoController(productoDAO);
 
-                new ProductoController(productoView,productoListaView,productoDAO,productoModificarView);
+
+                principalView.getMenuItemCrearProducto().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ProductoAnadirView productoAnadirView = new ProductoAnadirView();
+                        productoController.setProductoAnadirView(productoAnadirView);
+//                        principalView.getjDeskopPane.add(productoAnadirView);
+                    }
+                });
+                principalView.getMenuItemBusacarProducto().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                });
+
+
             }
         });
     }
