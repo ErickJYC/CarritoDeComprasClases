@@ -14,6 +14,7 @@ public class Main {
             public void run() {
                 PrincipalView principalView = new PrincipalView();
                 ProductoDAO productoDAO = new ProductoDAOMemoria();
+
                 ProductoController productoController = new ProductoController(productoDAO);
 
 
@@ -22,7 +23,8 @@ public class Main {
                     public void actionPerformed(ActionEvent e) {
                         ProductoAnadirView productoAnadirView = new ProductoAnadirView();
                         productoController.setProductoAnadirView(productoAnadirView);
-//                        principalView.getjDeskopPane.add(productoAnadirView);
+
+                        principalView.getjDesktopPane().add(productoAnadirView);
                     }
                 });
                 principalView.getMenuItemBusacarProducto().addActionListener(new ActionListener() {

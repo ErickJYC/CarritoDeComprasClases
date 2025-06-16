@@ -1,8 +1,6 @@
 package edu.ec.ups.vista;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PrincipalView extends JFrame {
     private JMenuBar menuBar;
@@ -37,23 +35,6 @@ public class PrincipalView extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
 
-        menuItemCrearProducto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JInternalFrame jInternalFrame = new JInternalFrame("Crear Producto");
-                jInternalFrame.setSize(500,500);
-
-                jInternalFrame.setClosable(true);
-                jInternalFrame.setMaximizable(true);
-                jInternalFrame.setResizable(true);
-                jInternalFrame.setIconifiable(true);
-                jInternalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-
-
-                jInternalFrame.setVisible(true);
-                jDesktopPane.add(jInternalFrame);
-            }
-        });
     }
 
     public JMenuItem getMenuItemCrearProducto() {
@@ -86,5 +67,9 @@ public class PrincipalView extends JFrame {
 
     public void setMenuItemBusacarProducto(JMenuItem menuItemBusacarProducto) {
         this.menuItemBusacarProducto = menuItemBusacarProducto;
+    }
+
+    public JDesktopPane getjDesktopPane() {
+        return jDesktopPane;
     }
 }

@@ -22,7 +22,7 @@ public class ProductoController {
 
     public ProductoController(ProductoDAO productoDAO) {
         this.productoDAO = productoDAO;
-        configureEventos();
+
     }
 
     public ProductoAnadirView getProductoAnadirView() {
@@ -70,12 +70,14 @@ public class ProductoController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 guardarProducto();
+                configureEventos();
             }
         });
         productoListaView.getBtnBuscar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buscarProducto();
+
             }
         });
 
