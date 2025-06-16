@@ -14,6 +14,7 @@ public class ProductoModificarView extends JFrame{
     private JTextField txtNombre;
     private JTextField txtPrecio;
     private JButton btnModificar;
+    private JTextField txtCodigo;
     private DefaultTableModel modelo;
 
     public ProductoModificarView() {
@@ -95,6 +96,13 @@ public class ProductoModificarView extends JFrame{
         this.btnModificar = btnModificar;
     }
 
+    public JTextField getTxtCodigo() {
+        return txtCodigo;
+    }
+
+    public void setTxtCodigo(JTextField txtCodigo) {
+        this.txtCodigo = txtCodigo;
+    }
 
     public DefaultTableModel getModelo() {
         return modelo;
@@ -124,6 +132,8 @@ public class ProductoModificarView extends JFrame{
         txtBuscar.setText("");
         txtNombre.setText("");
         txtPrecio.setText("");
+        txtCodigo.setText("");
         cargarDatos(null);
     }
+
 }

@@ -108,11 +108,21 @@ public class ProductoController {
 
     private void actualizarProducto(int codigo){
         Producto producto = productoDAO.buscarPorCodigo(codigo);
-        producto.setNombre(productoModificarView.getTxtNombre().getText());
-        producto.setPrecio(Double.parseDouble(productoModificarView.getTxtPrecio().getText()));
-        productoDAO.actualizar(producto);
+        if (producto != null) {
+            int nuevoCodigo = Integer.parseInt(productoModificarView.getTxtCodigo().getText());
+            String nuevoNombre = productoModificarView.getTxtNombre().getText();
+            double nuevoPrecio = Double.parseDouble(productoModificarView.getTxtPrecio().getText());
+
+            producto.setCodigo(nuevoCodigo);
+            producto.setNombre(nuevoNombre);
+            producto.setPrecio(nuevoPrecio);
+
+            productoDAO.actualizar(producto);
+            productoModificarView.mostrarMensaje("Producto modificado exitosamente.");
+            productoModificarView.limpiarCampos();
+        } else {
+            productoModificarView.mostrarMensaje("Producto no encontrado.");
+        }
     }
-
-
 }
 
