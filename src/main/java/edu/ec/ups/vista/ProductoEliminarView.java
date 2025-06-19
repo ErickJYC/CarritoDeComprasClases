@@ -5,7 +5,7 @@ import edu.ec.ups.modelo.Producto;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class ProductoEliminarView extends JFrame{
+public class ProductoEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField txtBuscar;
     private JButton btnBuscar;
@@ -14,13 +14,16 @@ public class ProductoEliminarView extends JFrame{
     private DefaultTableModel modelo;
 
     public ProductoEliminarView() {
-        setTitle("Modificar o Eliminar Producto");
+        setTitle("Eliminar Producto");
         setContentPane(panelPrincipal);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(700,250);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setIconifiable(true);
+//        setResizable(false);
+//        setVisible(true);
 
         modelo = new DefaultTableModel();
         Object[] columnas = {"Codigo", "Nombre", "Precio"};

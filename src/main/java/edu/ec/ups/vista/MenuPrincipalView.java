@@ -2,36 +2,49 @@ package edu.ec.ups.vista;
 
 import javax.swing.*;
 
-public class PrincipalView extends JFrame {
+public class MenuPrincipalView extends JFrame {
     private JMenuBar menuBar;
+
     private JMenu menuProducto;
+    private JMenu menuCarrito;
+
     private JMenuItem menuItemCrearProducto;
     private JMenuItem menuItemEliminarProducto;
     private JMenuItem menuItemActualizarProducto;
-    private JMenuItem menuItemBusacarProducto;
+    private JMenuItem menuItemBuscarProducto;
+
+    private JMenuItem menuItemCrearCarrito;
+
     private JDesktopPane jDesktopPane;
 
-    public PrincipalView() {
+    public MenuPrincipalView() {
         jDesktopPane = new JDesktopPane();
         menuBar = new JMenuBar();
+
         menuProducto = new JMenu("Producto");
+        menuCarrito = new JMenu("Carrito");
+
         menuItemCrearProducto = new JMenuItem("Crear Producto");
         menuItemEliminarProducto = new JMenuItem("Eliminar Producto");
         menuItemActualizarProducto = new JMenuItem("Actualizar Producto");
-        menuItemBusacarProducto = new JMenuItem("Buscar Producto");
+        menuItemBuscarProducto = new JMenuItem("Buscar Producto");
+
+        menuItemCrearCarrito = new JMenuItem("Crear Carrito");
 
         menuBar.add(menuProducto);
+        menuBar.add(menuCarrito);
+
         menuProducto.add(menuItemCrearProducto);
         menuProducto.add(menuItemEliminarProducto);
         menuProducto.add(menuItemActualizarProducto);
-        menuProducto.add(menuItemBusacarProducto);
+        menuProducto.add(menuItemBuscarProducto);
+
+        menuCarrito.add(menuItemCrearCarrito);
 
         setJMenuBar(menuBar);
         setContentPane(jDesktopPane);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema Carrito De Compras En Linea");
-        setLocationRelativeTo(null);
-        setSize(700,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Sistema de Carrito de Compras En Línea");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
 
@@ -61,15 +74,43 @@ public class PrincipalView extends JFrame {
         this.menuItemActualizarProducto = menuItemActualizarProducto;
     }
 
-    public JMenuItem getMenuItemBusacarProducto() {
-        return menuItemBusacarProducto;
+    public JMenuItem getMenuItemBuscarProducto() {
+        return menuItemBuscarProducto;
     }
 
-    public void setMenuItemBusacarProducto(JMenuItem menuItemBusacarProducto) {
-        this.menuItemBusacarProducto = menuItemBusacarProducto;
+    public void setMenuItemBuscarProducto(JMenuItem menuItemBuscarProducto) {
+        this.menuItemBuscarProducto = menuItemBuscarProducto;
+    }
+
+    public JMenu getMenuProducto() {
+        return menuProducto;
+    }
+
+    public void setMenuProducto(JMenu menuProducto) {
+        this.menuProducto = menuProducto;
+    }
+
+    public JMenu getMenuCarrito() {
+        return menuCarrito;
+    }
+
+    public void setMenuCarrito(JMenu menuCarrito) {
+        this.menuCarrito = menuCarrito;
+    }
+
+    public JMenuItem getMenuItemCrearCarrito() {
+        return menuItemCrearCarrito;
+    }
+
+    public void setMenuItemCrearCarrito(JMenuItem menuItemCrearCarrito) {
+        this.menuItemCrearCarrito = menuItemCrearCarrito;
     }
 
     public JDesktopPane getjDesktopPane() {
         return jDesktopPane;
+    }
+
+    public void setjDesktopPane(JDesktopPane jDesktopPane) {
+        this.jDesktopPane = jDesktopPane;
     }
 }

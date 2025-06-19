@@ -8,7 +8,7 @@
     <properties>
       <background color="-6339355"/>
     </properties>
-    <border type="line" title="Modificar o Eliminar Producto" title-justification="2">
+    <border type="line" title="Eliminar Producto" title-justification="2">
       <color color="-2104859"/>
     </border>
     <children>
