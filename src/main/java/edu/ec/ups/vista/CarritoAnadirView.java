@@ -18,6 +18,7 @@ public class CarritoAnadirView  extends JInternalFrame{
     private JButton btnLimpiar;
     private JComboBox cbxCantidad;
 
+
     public CarritoAnadirView(){
 
         super("Carrito de Compras", true, true, false, true);
@@ -26,13 +27,9 @@ public class CarritoAnadirView  extends JInternalFrame{
         setSize(500, 500);
 
         DefaultTableModel modelo = new DefaultTableModel();
-        Object[] columnas = {"Codigo", "Nombre", "Precio"};
+        Object[] columnas = {"Codigo", "Nombre", "Precio","Cantidad","Iva", "Subtotal"};
         modelo.setColumnIdentifiers(columnas);
         tblProductos.setModel(modelo);
-
-//        DefaultTableModel modelo = new DefaultTableModel();
-//        modelo.setColumnIdentifiers(new Object[]{"Código", "Nombre", "Precio"});
-//        tblProductos.setModel(modelo);
         cargarDatos();
 
     }
@@ -99,5 +96,4 @@ public class CarritoAnadirView  extends JInternalFrame{
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this,mensaje);
     }
-
 }

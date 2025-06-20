@@ -5,7 +5,6 @@ import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.vista.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -62,51 +61,6 @@ public class ProductoController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buscarProductoPorCodigo();
-            }
-        });
-        carritoAnadirView.getBtnAnadir().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int codigo = Integer.parseInt(carritoAnadirView.getTxtCodigo().getText());
-                String nombre = carritoAnadirView.getTxtNombre().getText();
-                double precio = Double.parseDouble(carritoAnadirView.getTxtPrecio().getText());
-
-                DefaultTableModel modelo = (DefaultTableModel) carritoAnadirView.getTblProductos().getModel();
-                modelo.addRow(new Object[]{codigo, nombre, precio});
-
-                actualizarTotales();
-            }
-        });
-        carritoAnadirView.getBtnGuardar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DefaultTableModel modelo = (DefaultTableModel) carritoAnadirView.getTblProductos().getModel();
-
-                for (int i = 0; i < modelo.getRowCount(); i++) {
-                    int codigo = (int) modelo.getValueAt(i, 0);
-                    String nombre = (String) modelo.getValueAt(i, 1);
-                    double precio = (double) modelo.getValueAt(i, 2);
-
-                    Producto producto = new Producto(codigo, nombre, precio);
-                    productoDAO.crear(producto);
-                }
-
-                carritoAnadirView.mostrarMensaje("Productos guardados correctamente.");
-            }
-        });
-        carritoAnadirView.getBtnLimpiar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carritoAnadirView.getTxtCodigo().setText("");
-                carritoAnadirView.getTxtNombre().setText("");
-                carritoAnadirView.getTxtPrecio().setText("");
-                carritoAnadirView.getTxtSubtotal().setText("");
-                carritoAnadirView.getTxtIva().setText("");
-                carritoAnadirView.getTxtTotal().setText("");
-                carritoAnadirView.getCbxCantidad().setSelectedIndex(0);
-
-                DefaultTableModel modelo = (DefaultTableModel) carritoAnadirView.getTblProductos().getModel();
-                modelo.setRowCount(0);
             }
         });
         productoEliminarView.getBtnBuscar().addActionListener(new ActionListener() {
@@ -218,20 +172,5 @@ public class ProductoController {
         }
     }
 
-    private void actualizarTotales() {
-        DefaultTableModel modelo = (DefaultTableModel) carritoAnadirView.getTblProductos().getModel();
-        double subtotal = 0;
-
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            subtotal += (double) modelo.getValueAt(i, 2);
-        }
-
-        double iva = subtotal * 0.12;
-        double total = subtotal + iva;
-
-        carritoAnadirView.getTxtSubtotal().setText(String.format("%.2f", subtotal));
-        carritoAnadirView.getTxtIva().setText(String.format("%.2f", iva));
-        carritoAnadirView.getTxtTotal().setText(String.format("%.2f", total));
-    }
 }
 
