@@ -17,6 +17,8 @@ public class MenuPrincipalView extends JFrame {
 
     private JDesktopPane jDesktopPane;
 
+    private JMenuItem cerrarSesion;
+
     public MenuPrincipalView() {
         jDesktopPane = new JDesktopPane();
         menuBar = new JMenuBar();
@@ -40,6 +42,13 @@ public class MenuPrincipalView extends JFrame {
         menuProducto.add(menuItemBuscarProducto);
 
         menuCarrito.add(menuItemCrearCarrito);
+
+        JMenu menuCuenta = new JMenu("Cuenta");
+        JMenuItem cerrarSesion = new JMenuItem("Cerrar sesion");
+        menuCuenta.add(cerrarSesion);
+        menuBar.add(menuCuenta);
+        this.cerrarSesion = cerrarSesion;
+
 
         setJMenuBar(menuBar);
         setContentPane(jDesktopPane);
@@ -112,5 +121,9 @@ public class MenuPrincipalView extends JFrame {
 
     public void setjDesktopPane(JDesktopPane jDesktopPane) {
         this.jDesktopPane = jDesktopPane;
+    }
+
+    public JMenuItem getCerrarSesion() {
+        return cerrarSesion;
     }
 }

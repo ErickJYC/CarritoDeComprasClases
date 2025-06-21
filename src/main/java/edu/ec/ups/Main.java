@@ -52,7 +52,7 @@ public class Main {
                             //instanciamos Controladores
                             ProductoController productoController = new ProductoController(productoDAO,
                                     productoAnadirView, productoListaView, carritoAnadirView,productoModificarView,productoEliminarView);
-                            CarritoController carritoController = new CarritoController(carritoDAO, productoDAO, carritoAnadirView);
+                            CarritoController carritoController = new CarritoController(carritoDAO, productoDAO, carritoAnadirView,usuarioAuntenticado);
 
                             principalView.getMenuItemCrearProducto().addActionListener(new ActionListener() {
                                 @Override
@@ -99,6 +99,15 @@ public class Main {
                                         productoEliminarView.setVisible(true);
                                         principalView.getjDesktopPane().add(productoEliminarView);
                                     }
+                                }
+                            });
+                            principalView.getCerrarSesion().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    principalView.dispose();
+                                    LoginView nuevoLogin = new LoginView();
+                                    nuevoLogin.setVisible(true);
+                                    new UsuarioController(usuarioDAO,nuevoLogin);
                                 }
                             });
                         }

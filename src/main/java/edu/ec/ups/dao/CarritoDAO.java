@@ -16,4 +16,6 @@ public interface CarritoDAO {
 
     List<Carrito> listarTodos();
 
+    List<Carrito> buscarPorUsuario(String username);
+
 }

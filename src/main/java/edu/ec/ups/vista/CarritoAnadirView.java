@@ -3,7 +3,7 @@ package edu.ec.ups.vista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CarritoAnadirView  extends JInternalFrame{
+public class CarritoAnadirView  extends JInternalFrame {
     private JButton btnBuscar;
     private JTextField txtCodigo;
     private JTextField txtNombre;
@@ -19,7 +19,7 @@ public class CarritoAnadirView  extends JInternalFrame{
     private JComboBox cbxCantidad;
 
 
-    public CarritoAnadirView(){
+    public CarritoAnadirView() {
 
         super("Carrito de Compras", true, true, false, true);
         setContentPane(panelPrincipal);
@@ -27,16 +27,16 @@ public class CarritoAnadirView  extends JInternalFrame{
         setSize(500, 500);
 
         DefaultTableModel modelo = new DefaultTableModel();
-        Object[] columnas = {"Codigo", "Nombre", "Precio","Cantidad","Iva", "Subtotal"};
+        Object[] columnas = {"Codigo", "Nombre", "Precio", "Cantidad", "Iva", "Subtotal"};
         modelo.setColumnIdentifiers(columnas);
         tblProductos.setModel(modelo);
         cargarDatos();
 
     }
 
-    private void cargarDatos(){
+    private void cargarDatos() {
         cbxCantidad.removeAllItems();
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             cbxCantidad.addItem(String.valueOf(i + 1));
         }
     }
@@ -94,6 +94,20 @@ public class CarritoAnadirView  extends JInternalFrame{
     }
 
     public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this,mensaje);
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public void limpiarCampos() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        cbxCantidad.setSelectedIndex(0);
+        txtSubtotal.setText("");
+        txtIva.setText("");
+        txtTotal.setText("");
+
+        DefaultTableModel model = (DefaultTableModel) tblProductos.getModel();
+        model.setRowCount(0);
+
     }
 }

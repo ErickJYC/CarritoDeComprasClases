@@ -1,5 +1,6 @@
 package edu.ec.ups.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -15,6 +16,8 @@ public class Carrito {
     private GregorianCalendar fechaCreacion;
 
     private List<ItemCarrito> items;
+
+    private Usuario usuario;
 
     public Carrito() {
         codigo = contador++;
@@ -40,6 +43,14 @@ public class Carrito {
 
     public void agregarProducto(Producto producto, int cantidad) {
         items.add(new ItemCarrito(producto, cantidad));
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public void eliminarProducto(int codigoProducto) {
@@ -83,10 +94,12 @@ public class Carrito {
 
     @Override
     public String toString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String fechaFormateada = simpleDateFormat.format(fechaCreacion.getTime());
         return "Carrito{" +
                 "IVA=" + IVA +
                 ", codigo=" + codigo +
-                ", fechaCreacion=" + fechaCreacion +
+                ", fechaCreacion=" + fechaFormateada+
                 ", items=" + items +
                 '}';
     }

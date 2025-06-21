@@ -5,6 +5,7 @@ public class Usuario {
     private String contrasenia;
     private Rol rol;
 
+
     public Usuario() {
 
     }
@@ -38,6 +39,7 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
 
     @Override
     public String toString() {
