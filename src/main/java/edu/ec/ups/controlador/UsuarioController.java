@@ -39,29 +39,49 @@ public class UsuarioController {
         String username = loginView.getTxtUsername().getText();
         String contrasenia = loginView.getTxtContrasenia().getText();
 
-        usuario = usuarioDAO.autenticar(username, contrasenia);
-        loginView.mostrarMensaje("Llene toda la informacion");
-
-        if(usuario == null){
-            loginView.mostrarMensaje("Usuario e contraseña incorrectos.");
-        }else{
-            loginView.dispose();
+        if (username.isEmpty() || contrasenia.isEmpty()) {
+            loginView.mostrarMensaje("Por favor, llena todos los campos.");
+            return;
         }
+
+        usuario = usuarioDAO.autenticar(username, contrasenia);
+
+        if (usuario == null) {
+            loginView.mostrarMensaje("Usuario o contraseña incorrectos.");
+            return;
+        }
+
+        loginView.mostrarMensaje("Sesión iniciada correctamente.");
+        loginView.dispose();
+
     }
 
     public Usuario getUsuarioAutenticado(){
         return usuario;
     }
     private void registrar() {
-        if(loginView.getTxtUsername().getText().isEmpty() || loginView.getTxtContrasenia().getText().isEmpty()){
+        String username = loginView.getTxtUsername().getText();
+        String contrasena = loginView.getTxtContrasenia().getText();
+
+        if (username.isEmpty() || contrasena.isEmpty()) {
             loginView.mostrarMensaje("Llena los campos para crear tu usuario");
-        }else{
-            Usuario usuarioRegistrado = new Usuario();
-            usuarioRegistrado.setUsername(loginView.getTxtUsername().getText());
-            usuarioRegistrado.setContrasenia(loginView.getTxtContrasenia().getText());
-            usuarioRegistrado.setRol(Rol.USUARIO);
-            usuarioDAO.crear(usuarioRegistrado);
+            return;
         }
+
+        Usuario usuarioExistente = usuarioDAO.autenticar(username, contrasena);
+        if (usuarioExistente != null) {
+            loginView.mostrarMensaje("Ese nombre de usuario ya está en uso.");
+            return;
+        }
+
+        Usuario nuevo = new Usuario();
+        nuevo.setUsername(username);
+        nuevo.setContrasenia(contrasena);
+        nuevo.setRol(Rol.USUARIO);
+
+        usuarioDAO.crear(nuevo);
+        loginView.mostrarMensaje("Usuario registrado correctamente. Ahora puedes iniciar sesión.");
+
     }
 
 }

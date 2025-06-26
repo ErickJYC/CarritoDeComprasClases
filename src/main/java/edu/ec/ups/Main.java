@@ -10,6 +10,7 @@ import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.dao.impl.CarritoDAOMemoria;
 import edu.ec.ups.dao.impl.ProductoDAOMemoria;
 import edu.ec.ups.dao.impl.UsuarioDAOMemoria;
+import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.vista.*;
 
@@ -54,6 +55,11 @@ public class Main {
                                     productoAnadirView, productoListaView, carritoAnadirView,productoModificarView,productoEliminarView);
                             CarritoController carritoController = new CarritoController(carritoDAO, productoDAO, carritoAnadirView,usuarioAuntenticado);
 
+                            principalView.mostrarMensaje("Bienvenido: " + usuarioAuntenticado.getUsername());
+                            if (usuarioAuntenticado.getRol().equals(Rol.USUARIO)) {
+                                principalView.deshabilitarMenusAdministrador();
+                            }
+
                             principalView.getMenuItemCrearProducto().addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
@@ -82,6 +88,26 @@ public class Main {
                                     }
                                 }
                             });
+                            principalView.getMenuItemIdiomaEspanol().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    principalView.cambiarIdioma("es", "EC");
+                                }
+                            });
+
+                            principalView.getMenuItemIdiomaIngles().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    principalView.cambiarIdioma("en", "US");
+                                }
+                            });
+
+                            principalView.getMenuItemIdiomaFrances().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    principalView.cambiarIdioma("fr", "FR");
+                                }
+                            });
 
                             principalView.getMenuItemActualizarProducto().addActionListener(new ActionListener() {
                                 @Override
@@ -101,7 +127,7 @@ public class Main {
                                     }
                                 }
                             });
-                            principalView.getCerrarSesion().addActionListener(new ActionListener() {
+                            principalView.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     principalView.dispose();

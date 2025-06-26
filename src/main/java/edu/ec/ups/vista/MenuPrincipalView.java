@@ -1,13 +1,19 @@
 package edu.ec.ups.vista;
 
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+
 import javax.swing.*;
 
 public class MenuPrincipalView extends JFrame {
+
+    private MensajeInternacionalizacionHandler mensajeInternacionalizacionHandler;
+
     private JMenuBar menuBar;
 
     private JMenu menuProducto;
     private JMenu menuCarrito;
-    private JMenu menuCuenta;
+    private JMenu menuIdioma;
+    private JMenu menuSalir;
 
     private JMenuItem menuItemCrearProducto;
     private JMenuItem menuItemEliminarProducto;
@@ -16,164 +22,149 @@ public class MenuPrincipalView extends JFrame {
 
     private JMenuItem menuItemCrearCarrito;
 
+    private JMenuItem menuItemIdiomaEspanol;
+    private JMenuItem menuItemIdiomaIngles;
+    private JMenuItem menuItemIdiomaFrances;
+
+    private JMenuItem menuItemSalir;
+    private JMenuItem menuItemCerrarSesion;
+
     private JDesktopPane jDesktopPane;
 
-    private JMenuItem menuItemcerrarSesion;
-
-    private JMenuItem menuItemCrearUsuario;
-    private JMenuItem menuItemEliminarUsuario;
-    private JMenuItem menuItemListarUsuario;
-    private JMenuItem menuItemModificarUsuario;
-
     public MenuPrincipalView() {
-        jDesktopPane = new JDesktopPane();
-        menuBar = new JMenuBar();
-
-        menuProducto = new JMenu("Producto");
-        menuCarrito = new JMenu("Carrito");
-        menuCuenta = new JMenu("Cuenta");
-
-        menuItemCrearProducto = new JMenuItem("Crear Producto");
-        menuItemEliminarProducto = new JMenuItem("Eliminar Producto");
-        menuItemActualizarProducto = new JMenuItem("Actualizar Producto");
-        menuItemBuscarProducto = new JMenuItem("Buscar Producto");
-
-        menuItemCrearCarrito = new JMenuItem("Crear Carrito");
-        menuItemcerrarSesion = new JMenuItem("Cerrar sesion");
-
-        menuItemCrearUsuario = new JMenuItem("Crear Usuario");
-        menuItemEliminarUsuario = new JMenuItem("Eliminar Usuario");
-        menuItemListarUsuario = new JMenuItem("Listar Usuario");
-        menuItemModificarUsuario = new JMenuItem("Modificar Usuario");
-
-
-        menuBar.add(menuProducto);
-        menuBar.add(menuCarrito);
-        menuBar.add(menuCuenta);
-
-        menuProducto.add(menuItemCrearProducto);
-        menuProducto.add(menuItemEliminarProducto);
-        menuProducto.add(menuItemActualizarProducto);
-        menuProducto.add(menuItemBuscarProducto);
-
-        menuCuenta.add(menuItemcerrarSesion);
-        menuCarrito.add(menuItemCrearCarrito);
-
-        menuCuenta.add(menuItemCrearUsuario);
-        menuCuenta.add(menuItemEliminarUsuario);
-        menuCuenta.add(menuItemListarUsuario);
-        menuCuenta.add(menuItemModificarUsuario);
-
-
-
-
-        setJMenuBar(menuBar);
-        setContentPane(jDesktopPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Sistema de Carrito de Compras En Línea");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setVisible(true);
-
-
+        mensajeInternacionalizacionHandler = new MensajeInternacionalizacionHandler("es", "EC");
+        initComponents();
     }
 
     public JMenuItem getMenuItemCrearProducto() {
         return menuItemCrearProducto;
     }
 
-    public void setMenuItemCrearProducto(JMenuItem menuItemCrearProducto) {
-        this.menuItemCrearProducto = menuItemCrearProducto;
-    }
-
     public JMenuItem getMenuItemEliminarProducto() {
         return menuItemEliminarProducto;
-    }
-
-    public void setMenuItemEliminarProducto(JMenuItem menuItemEliminarProducto) {
-        this.menuItemEliminarProducto = menuItemEliminarProducto;
     }
 
     public JMenuItem getMenuItemActualizarProducto() {
         return menuItemActualizarProducto;
     }
 
-    public void setMenuItemActualizarProducto(JMenuItem menuItemActualizarProducto) {
-        this.menuItemActualizarProducto = menuItemActualizarProducto;
-    }
-
     public JMenuItem getMenuItemBuscarProducto() {
         return menuItemBuscarProducto;
-    }
-
-    public void setMenuItemBuscarProducto(JMenuItem menuItemBuscarProducto) {
-        this.menuItemBuscarProducto = menuItemBuscarProducto;
-    }
-
-    public JMenu getMenuProducto() {
-        return menuProducto;
-    }
-
-    public void setMenuProducto(JMenu menuProducto) {
-        this.menuProducto = menuProducto;
-    }
-
-    public JMenu getMenuCarrito() {
-        return menuCarrito;
-    }
-
-    public void setMenuCarrito(JMenu menuCarrito) {
-        this.menuCarrito = menuCarrito;
     }
 
     public JMenuItem getMenuItemCrearCarrito() {
         return menuItemCrearCarrito;
     }
 
-    public void setMenuItemCrearCarrito(JMenuItem menuItemCrearCarrito) {
-        this.menuItemCrearCarrito = menuItemCrearCarrito;
-    }
-
     public JDesktopPane getjDesktopPane() {
         return jDesktopPane;
     }
 
-    public void setjDesktopPane(JDesktopPane jDesktopPane) {
-        this.jDesktopPane = jDesktopPane;
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 
-    public JMenuItem getCerrarSesion() {
-        return menuItemcerrarSesion;
+    public JMenuItem getMenuItemIdiomaEspanol() {
+        return menuItemIdiomaEspanol;
     }
 
-    public JMenuItem getMenuItemListarUsuario() {
-        return menuItemListarUsuario;
+    public JMenuItem getMenuItemIdiomaIngles() {
+        return menuItemIdiomaIngles;
     }
 
-    public void setMenuItemListarUsuario(JMenuItem menuItemListarUsuario) {
-        this.menuItemListarUsuario = menuItemListarUsuario;
+    public JMenuItem getMenuItemIdiomaFrances() {
+        return menuItemIdiomaFrances;
     }
 
-    public JMenuItem getMenuItemEliminarUsuario() {
-        return menuItemEliminarUsuario;
+    public JMenuItem getMenuItemSalir() {
+        return menuItemSalir;
     }
 
-    public void setMenuItemEliminarUsuario(JMenuItem menuItemEliminarUsuario) {
-        this.menuItemEliminarUsuario = menuItemEliminarUsuario;
+    public JMenuItem getMenuItemCerrarSesion() {
+        return menuItemCerrarSesion;
     }
 
-    public JMenuItem getMenuItemCrearUsuario() {
-        return menuItemCrearUsuario;
+    private void initComponents() {
+        jDesktopPane = new JDesktopPane();
+        menuBar = new JMenuBar();
+
+        menuProducto = new JMenu(mensajeInternacionalizacionHandler.get("menu.producto"));
+        menuCarrito = new JMenu(mensajeInternacionalizacionHandler.get("menu.carrito"));
+        menuIdioma = new JMenu(mensajeInternacionalizacionHandler.get("menu.idiomas"));
+        menuSalir = new JMenu(mensajeInternacionalizacionHandler.get("menu.salir"));
+
+        menuItemCrearProducto = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.producto.crear"));
+        menuItemEliminarProducto = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.producto.eliminar"));
+        menuItemActualizarProducto = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.producto.actualizar"));
+        menuItemBuscarProducto = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.producto.buscar"));
+
+        menuItemCrearCarrito = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.carrito.crear"));
+
+        menuItemIdiomaEspanol = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.idioma.es"));
+        menuItemIdiomaIngles = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.idioma.en"));
+        menuItemIdiomaFrances = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.idioma.fr"));
+
+        menuItemSalir = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.salir.salir"));
+        menuItemCerrarSesion = new JMenuItem(mensajeInternacionalizacionHandler.get("menu.salir.cerrar"));
+
+        menuBar.add(menuProducto);
+        menuBar.add(menuCarrito);
+        menuBar.add(menuIdioma);
+        menuBar.add(menuSalir);
+
+        menuProducto.add(menuItemCrearProducto);
+        menuProducto.add(menuItemEliminarProducto);
+        menuProducto.add(menuItemActualizarProducto);
+        menuProducto.add(menuItemBuscarProducto);
+
+        menuCarrito.add(menuItemCrearCarrito);
+
+        menuIdioma.add(menuItemIdiomaEspanol);
+        menuIdioma.add(menuItemIdiomaIngles);
+        menuIdioma.add(menuItemIdiomaFrances);
+
+        menuSalir.add(menuItemSalir);
+        menuSalir.add(menuItemCerrarSesion);
+
+        setJMenuBar(menuBar);
+        setContentPane(jDesktopPane);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle(mensajeInternacionalizacionHandler.get("app.titulo"));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
     }
 
-    public void setMenuItemCrearUsuario(JMenuItem menuItemCrearUsuario) {
-        this.menuItemCrearUsuario = menuItemCrearUsuario;
+    public void deshabilitarMenusAdministrador() {
+        getMenuItemCrearProducto().setEnabled(false);
+        getMenuItemBuscarProducto().setEnabled(false);
+        getMenuItemActualizarProducto().setEnabled(false);
+        getMenuItemEliminarProducto().setEnabled(false);
     }
 
-    public JMenuItem getMenuItemModificarUsuario() {
-        return menuItemModificarUsuario;
-    }
 
-    public void setMenuItemModificarUsuario(JMenuItem menuItemModificarUsuario) {
-        this.menuItemModificarUsuario = menuItemModificarUsuario;
+    public void cambiarIdioma(String lenguaje, String pais) {
+        mensajeInternacionalizacionHandler.setLenguaje(lenguaje, pais);
+
+        setTitle(mensajeInternacionalizacionHandler.get("app.titulo"));
+
+        menuProducto.setText(mensajeInternacionalizacionHandler.get("menu.producto"));
+        menuCarrito.setText(mensajeInternacionalizacionHandler.get("menu.carrito"));
+        menuIdioma.setText(mensajeInternacionalizacionHandler.get("menu.idiomas"));
+        menuSalir.setText(mensajeInternacionalizacionHandler.get("menu.salir"));
+
+        menuItemCrearProducto.setText(mensajeInternacionalizacionHandler.get("menu.producto.crear"));
+        menuItemEliminarProducto.setText(mensajeInternacionalizacionHandler.get("menu.producto.eliminar"));
+        menuItemActualizarProducto.setText(mensajeInternacionalizacionHandler.get("menu.producto.actualizar"));
+        menuItemBuscarProducto.setText(mensajeInternacionalizacionHandler.get("menu.producto.buscar"));
+
+        menuItemCrearCarrito.setText(mensajeInternacionalizacionHandler.get("menu.carrito.crear"));
+
+        menuItemIdiomaEspanol.setText(mensajeInternacionalizacionHandler.get("menu.idioma.es"));
+        menuItemIdiomaIngles.setText(mensajeInternacionalizacionHandler.get("menu.idioma.en"));
+        menuItemIdiomaFrances.setText(mensajeInternacionalizacionHandler.get("menu.idioma.fr"));
+
+        menuItemSalir.setText(mensajeInternacionalizacionHandler.get("menu.salir.salir"));
+        menuItemCerrarSesion.setText(mensajeInternacionalizacionHandler.get("menu.salir.cerrar"));
     }
 }
