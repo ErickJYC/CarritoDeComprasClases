@@ -44,8 +44,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "nombreDeUsuario='" + username + '\'' +
-                ", contrasenia='" + contrasenia + '\'' +
+                "username='" + username + '\'' +
                 ", rol=" + rol +
                 '}';
     }

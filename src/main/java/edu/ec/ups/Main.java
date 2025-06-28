@@ -1,7 +1,6 @@
 package edu.ec.ups;
 
 
-import edu.ec.ups.controlador.CarritoController;
 import edu.ec.ups.controlador.ProductoController;
 import edu.ec.ups.controlador.UsuarioController;
 import edu.ec.ups.dao.CarritoDAO;
@@ -21,15 +20,20 @@ import java.awt.event.WindowEvent;
 
 public class Main {
     public static void main(String[] args) {
+
+        UsuarioDAO usuarioDAO = new UsuarioDAOMemoria();
+        LoginView loginView = new LoginView();
+        ProductoDAO productoDAO = new ProductoDAOMemoria();
+        CarritoDAO carritoDAO = new CarritoDAOMemoria();
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                //Iniciar sesión
-                UsuarioDAO usuarioDAO = new UsuarioDAOMemoria();
-                LoginView loginView = new LoginView();
+
+                UsuarioEliminarView  usuarioEliminarView = new UsuarioEliminarView();
                 loginView.setVisible(true);
 
-                UsuarioController usuarioController = new UsuarioController(usuarioDAO, loginView);
+                UsuarioController usuarioController = new UsuarioController(usuarioDAO,loginView,usuarioEliminarView);
 
                 loginView.addWindowListener(new WindowAdapter() {
                     @Override
@@ -38,22 +42,19 @@ public class Main {
                         Usuario usuarioAuntenticado = usuarioController.getUsuarioAutenticado();
                         if (usuarioAuntenticado != null) {
                             //instanciamos DAO (Singleton)
-                            ProductoDAO productoDAO = new ProductoDAOMemoria();
-                            CarritoDAO carritoDAO = new CarritoDAOMemoria();
 
                             //instancio Vistas
                             MenuPrincipalView principalView = new MenuPrincipalView();
                             ProductoAnadirView productoAnadirView = new ProductoAnadirView();
                             ProductoListaView productoListaView = new ProductoListaView();
-                            CarritoAnadirView carritoAnadirView = new CarritoAnadirView();
                             ProductoModificarView productoModificarView = new ProductoModificarView();
                             ProductoEliminarView productoEliminarView = new ProductoEliminarView();
 
+                            CarritoAnadirView carritoAnadirView = new CarritoAnadirView();
 
                             //instanciamos Controladores
-                            ProductoController productoController = new ProductoController(productoDAO,
-                                    productoAnadirView, productoListaView, carritoAnadirView,productoModificarView,productoEliminarView);
-                            CarritoController carritoController = new CarritoController(carritoDAO, productoDAO, carritoAnadirView,usuarioAuntenticado);
+                            ProductoController productoController = new ProductoController(productoDAO, productoAnadirView,
+                                                                productoListaView,carritoAnadirView, productoModificarView, productoEliminarView);
 
                             principalView.mostrarMensaje("Bienvenido: " + usuarioAuntenticado.getUsername());
                             if (usuarioAuntenticado.getRol().equals(Rol.USUARIO)) {
@@ -79,6 +80,28 @@ public class Main {
                                     }
                                 }
                             });
+
+                            principalView.getMenuItemEliminarProducto().addActionListener(new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if (!productoEliminarView.isVisible()) {
+                                        productoEliminarView.setVisible(true);
+                                        principalView.getjDesktopPane().add(productoEliminarView);
+                                    }
+                                }
+                            });
+
+                            principalView.getMenuItemActualizarProducto().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if (!productoModificarView.isVisible()) {
+                                        productoModificarView.setVisible(true);
+                                        principalView.getjDesktopPane().add(productoModificarView);
+                                    }
+                                }
+                            });
+
                             principalView.getMenuItemCrearCarrito().addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
@@ -86,6 +109,14 @@ public class Main {
                                         carritoAnadirView.setVisible(true);
                                         principalView.getjDesktopPane().add(carritoAnadirView);
                                     }
+                                }
+                            });
+
+                            principalView.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    principalView.dispose();
+                                    usuarioController.cerrarSesion();
                                 }
                             });
                             principalView.getMenuItemIdiomaEspanol().addActionListener(new ActionListener() {
@@ -109,33 +140,6 @@ public class Main {
                                 }
                             });
 
-                            principalView.getMenuItemActualizarProducto().addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    if (!productoModificarView.isVisible()){
-                                        productoModificarView.setVisible(true);
-                                        principalView.getjDesktopPane().add(productoModificarView);
-                                    }
-                                }
-                            });
-                            principalView.getMenuItemEliminarProducto().addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    if (!productoEliminarView.isVisible()) {
-                                        productoEliminarView.setVisible(true);
-                                        principalView.getjDesktopPane().add(productoEliminarView);
-                                    }
-                                }
-                            });
-                            principalView.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    principalView.dispose();
-                                    LoginView nuevoLogin = new LoginView();
-                                    nuevoLogin.setVisible(true);
-                                    new UsuarioController(usuarioDAO,nuevoLogin);
-                                }
-                            });
                         }
                     }
                 });
@@ -143,5 +147,3 @@ public class Main {
         });
     }
 }
-
-

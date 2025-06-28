@@ -4,6 +4,7 @@ import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.vista.LoginView;
+import edu.ec.ups.vista.UsuarioEliminarView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ public class UsuarioController {
     private final UsuarioDAO usuarioDAO;
     private final LoginView loginView;
 
-    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView) {
+    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, UsuarioEliminarView usuarioEliminarView) {
         this.usuarioDAO = usuarioDAO;
         this.loginView = loginView;
         this.usuario = null;
@@ -81,6 +82,11 @@ public class UsuarioController {
 
         usuarioDAO.crear(nuevo);
         loginView.mostrarMensaje("Usuario registrado correctamente. Ahora puedes iniciar sesión.");
+
+    }
+    public void cerrarSesion(){
+        usuario = null;
+        loginView.setVisible(true);
 
     }
 

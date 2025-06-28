@@ -17,6 +17,12 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public void agregarProducto(Producto producto, int cantidad) {
+        for (ItemCarrito item : items) {
+            if (item.getProducto().getCodigo() == producto.getCodigo()) {
+                item.setCantidad(item.getCantidad() + cantidad);
+                return;
+            }
+        }
         items.add(new ItemCarrito(producto, cantidad));
     }
 

@@ -1,6 +1,6 @@
 package edu.ec.ups.vista;
 
-import edu.ec.ups.modelo.Producto;
+import edu.ec.ups.modelo.Usuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +26,7 @@ public class UsuarioEliminarView extends JInternalFrame{
 //        setVisible(true);
 
         modelo = new DefaultTableModel();
-        Object[] columnas = {"Codigo", "Nombre", "Precio"};
+        Object[] columnas = {"Username", "Rol"};
         modelo.setColumnIdentifiers(columnas);
         tblResultadosBuscar.setModel(modelo);
     }
@@ -78,17 +78,14 @@ public class UsuarioEliminarView extends JInternalFrame{
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
     }
-    public void cargarDatos(Producto producto) {
+    public void cargarDatos(Usuario usuario) {
         modelo.setNumRows(0);
-        if (producto != null) {
-            Object[] fila = {
-                    producto.getCodigo(),
-                    producto.getNombre(),
-                    producto.getPrecio()
-            };
+        if (usuario != null) {
+            Object[] fila = { usuario.getUsername(), usuario.getRol() };
             modelo.addRow(fila);
         }
     }
+
 
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
