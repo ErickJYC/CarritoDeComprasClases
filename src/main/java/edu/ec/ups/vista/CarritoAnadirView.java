@@ -1,5 +1,9 @@
 package edu.ec.ups.vista;
 
+import edu.ec.ups.modelo.Carrito;
+import edu.ec.ups.modelo.ItemCarrito;
+import edu.ec.ups.modelo.Usuario;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,28 +21,48 @@ public class CarritoAnadirView  extends JInternalFrame {
     private JPanel panelPrincipal;
     private JButton btnLimpiar;
     private JComboBox cbxCantidad;
+    private Carrito carrito;
+    DefaultTableModel modelo = new DefaultTableModel();
 
 
-    public CarritoAnadirView() {
 
-        super("Carrito de Compras", true, true, false, true);
+
+    public CarritoAnadirView(Usuario usuario) {
+
+        super("carrito de Compras", true, true, false, true);
         setContentPane(panelPrincipal);
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
+        this.carrito = new Carrito(usuario);
 
         DefaultTableModel modelo = new DefaultTableModel();
-        Object[] columnas = {"Codigo", "Nombre", "Precio", "Cantidad", "Iva", "Subtotal"};
+        Object[] columnas = {"Codigo", "Nombre", "Precio", "Cantidad", "Subtotal"};
         modelo.setColumnIdentifiers(columnas);
         tblProductos.setModel(modelo);
-        cargarDatos();
+
+        cargarDatosProductos();
 
     }
 
-    private void cargarDatos() {
+    private void cargarDatosProductos(){
         cbxCantidad.removeAllItems();
-        for (int i = 0; i < 20; i++) {
+        for(int i = 0; i < 20; i++){
             cbxCantidad.addItem(String.valueOf(i + 1));
         }
+    }
+
+    public void cargarDatosProductos(Carrito carrito) {
+        modelo.setRowCount(0);
+        for(ItemCarrito item : carrito.obtenerItems()) {
+            Object[] fila = {
+                    item.getProducto().getCodigo(),
+                    item.getProducto().getNombre(),
+                    item.getProducto().getPrecio(),
+                    item.getCantidad()
+            };
+            modelo.addRow(fila);
+        }
+
     }
 
     public JButton getBtnBuscar() {
@@ -59,6 +83,14 @@ public class CarritoAnadirView  extends JInternalFrame {
 
     public JButton getBtnAnadir() {
         return btnAnadir;
+    }
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
     }
 
     public JTable getTblProductos() {
@@ -93,21 +125,16 @@ public class CarritoAnadirView  extends JInternalFrame {
         return panelPrincipal;
     }
 
+    public DefaultTableModel getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(DefaultTableModel modelo) {
+        this.modelo = modelo;
+    }
+
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
 
-    public void limpiarCampos() {
-        txtCodigo.setText("");
-        txtNombre.setText("");
-        txtPrecio.setText("");
-        cbxCantidad.setSelectedIndex(0);
-        txtSubtotal.setText("");
-        txtIva.setText("");
-        txtTotal.setText("");
-
-        DefaultTableModel model = (DefaultTableModel) tblProductos.getModel();
-        model.setRowCount(0);
-
-    }
 }

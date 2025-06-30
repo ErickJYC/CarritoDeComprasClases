@@ -19,7 +19,7 @@ public class Carrito {
 
     private Usuario usuario;
 
-    public Carrito() {
+    public Carrito(Usuario usuario) {
         codigo = contador++;
         items = new ArrayList<>();
         fechaCreacion = new GregorianCalendar();
@@ -75,6 +75,8 @@ public class Carrito {
         return items.isEmpty();
     }
 
+
+
     public double calcularSubtotal() {
         double subtotal = 0;
         for (ItemCarrito item : items) {
@@ -90,6 +92,10 @@ public class Carrito {
 
     public double calcularTotal() {
         return calcularSubtotal() + calcularIVA();
+    }
+    public String getFechaFormateada() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(fechaCreacion.getTime());
     }
 
     @Override
