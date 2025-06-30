@@ -73,7 +73,7 @@ public class ProductoController {
         });
 
 
-        productoModificarView.getBtnModificar().addActionListener(new ActionListener() {
+        productoModificarView.getBtnBuscar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buscarProductoPorCodigoActualizar();
@@ -124,15 +124,22 @@ public class ProductoController {
     public void buscarProductoPorCodigoActualizar() {
         int codigo = Integer.parseInt(productoModificarView.getTxtCodigobusqueda().getText());
         Producto producto = productoDAO.buscarPorCodigo(codigo);
+
         if (producto == null) {
-            productoModificarView.mostrarMensaje("No se encontro el producto");
+            productoModificarView.mostrarMensaje("No se encontró el producto");
             productoModificarView.getTxtNombre().setText("");
             productoModificarView.getTxtPrecio().setText("");
         } else {
             productoModificarView.getTxtCodigo().setText(String.valueOf(producto.getCodigo()));
             productoModificarView.getTxtNombre().setText(producto.getNombre());
             productoModificarView.getTxtPrecio().setText(String.valueOf(producto.getPrecio()));
+
+            // 🔒 Bloquear edición al cargar
+            productoModificarView.getTxtCodigo().setEnabled(false);
+            productoModificarView.getTxtNombre().setEnabled(false);
+            productoModificarView.getTxtPrecio().setEnabled(false);
         }
+
     }
 
     public void actualizarProducto() {
@@ -146,7 +153,7 @@ public class ProductoController {
             productoDAO.actualizar(producto);
             productoModificarView.mostrarMensaje("Producto actualizado correctamente");
             productoModificarView.limpiarCampos();
-        } else  {
+        } else {
             productoModificarView.mostrarMensaje("No se actualizó el producto");
         }
 
@@ -154,7 +161,6 @@ public class ProductoController {
 
     public void editarValoresActualizar() {
         productoModificarView.getTxtNombre().setEnabled(true);
-        productoModificarView.getTxtPrecio().setEnabled(true);
     }
 
     private void buscarProductoPorCodigoEliminar() {
@@ -163,22 +169,41 @@ public class ProductoController {
         if (producto == null) {
             productoEliminarView.mostrarMensaje("No se encontro el producto");
         } else {
-            productoEliminarView.cargarDatos((Producto) List.of(producto));
+            productoEliminarView.cargarDatos(producto);
         }
     }
 
     private void eliminarProducto() {
-        int codigo = Integer.parseInt(productoEliminarView.getTxtCodigo().getText());
-        Producto producto = productoDAO.buscarPorCodigo(codigo);
-        boolean confirmacion =  productoEliminarView.confirmarEliminacion();
+        String textoCodigo = productoEliminarView.getTxtCodigo().getText();
 
-        if (confirmacion && producto != null) {
-            productoDAO.eliminar(codigo);
-            productoEliminarView.mostrarMensaje("Producto eliminado correctamente");
-            productoEliminarView.limpiarCampos();
-        } else {
-            productoEliminarView.mostrarMensaje("Producto no encontrado");
+        if (textoCodigo == null || textoCodigo.isBlank()) {
+            productoEliminarView.mostrarMensaje("Ingrese un código antes de eliminar.");
+            return;
         }
+
+        if (!textoCodigo.matches("\\d+")) {
+            productoEliminarView.mostrarMensaje("Código inválido. Use solo números.");
+            return;
+        }
+
+        int codigo = Integer.parseInt(textoCodigo);
+        Producto producto = productoDAO.buscarPorCodigo(codigo);
+
+        if (producto == null) {
+            productoEliminarView.mostrarMensaje("Producto no encontrado.");
+            return;
+        }
+
+        if (productoEliminarView.confirmarEliminacion()) {
+            productoDAO.eliminar(codigo);
+            productoEliminarView.mostrarMensaje("Producto eliminado correctamente.");
+            productoEliminarView.limpiarCampos();
+            productoEliminarView.getModelo().setRowCount(0); // Limpia la tabla visual también
+        } else {
+            productoEliminarView.mostrarMensaje("Eliminación cancelada.");
+        }
+
     }
 }
+
 

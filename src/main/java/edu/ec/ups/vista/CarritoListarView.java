@@ -98,13 +98,14 @@ public class CarritoListarView extends JInternalFrame {
         }
     }
 
-    public void cargargaDatosBusqueda(List<Carrito> carritos) {
-        modelo.setNumRows(0);
+    public void cargargaDatos(List<Carrito> carritos) {
+        modelo.setRowCount(0);
         for (Carrito carrito : carritos) {
+            String username = carrito.getUsuario() != null ? carrito.getUsuario().getUsername() : "Sin usuario";
             Object[] fila = {
                     carrito.getCodigo(),
                     carrito.getFechaFormateada(),
-                    carrito.getUsuario().getUsername(),
+                    username,
                     carrito.calcularSubtotal(),
                     carrito.calcularTotal()
             };
