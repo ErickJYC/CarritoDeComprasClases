@@ -29,10 +29,10 @@ public class MenuPrincipalView extends JFrame {
 
     private JMenuItem menuItemCerrarSesion;
 
-    private JDesktopPane jDesktopPane;
+    private MiDesktopPane jDesktopPane;
 
     public MenuPrincipalView() {
-        jDesktopPane = new JDesktopPane();
+        jDesktopPane = new MiDesktopPane();
         menuBar = new JMenuBar();
 
         menuProducto = new JMenu("Producto");
@@ -83,6 +83,7 @@ public class MenuPrincipalView extends JFrame {
 
         setJMenuBar(menuBar);
         setContentPane(jDesktopPane);
+        jDesktopPane.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Sistema de Carrito de Compras En Línea");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -241,7 +242,7 @@ public class MenuPrincipalView extends JFrame {
         return jDesktopPane;
     }
 
-    public void setjDesktopPane(JDesktopPane jDesktopPane) {
+    public void setjDesktopPane(MiDesktopPane jDesktopPane) {
         this.jDesktopPane = jDesktopPane;
     }
 
