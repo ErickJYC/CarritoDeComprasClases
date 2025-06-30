@@ -3,8 +3,7 @@ package edu.ec.ups.controlador;
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
-import edu.ec.ups.vista.LoginView;
-import edu.ec.ups.vista.UsuarioEliminarView;
+import edu.ec.ups.vista.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +13,7 @@ public class UsuarioController {
     private final UsuarioDAO usuarioDAO;
     private final LoginView loginView;
 
-    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, UsuarioEliminarView usuarioEliminarView) {
+    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, UsuarioAnadirView usuarioAnadirView, UsuarioListarView usuarioListarView, UsuarioActualizarView usuarioActualizarView, UsuarioEliminarView usuarioEliminarView) {
         this.usuarioDAO = usuarioDAO;
         this.loginView = loginView;
         this.usuario = null;

@@ -8,18 +8,18 @@ public class ProductoModificarView extends JInternalFrame{
     private JTextField txtPrecio;
     private JButton btnModificar;
     private JPanel panelPrincipal;
+    private JTextField txtCodigobusqueda;
+    private JButton btnBuscar;
+    private JButton btnEditar;
 
     public ProductoModificarView(){
-        setTitle("Modificar Producto");
         setContentPane(panelPrincipal);
+        setTitle("Actualizar Producto");
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        setSize(700,250);
+        setSize(500, 500);
         setClosable(true);
-        setMaximizable(true);
-        setResizable(true);
         setIconifiable(true);
-//        setResizable(false);
-//        setVisible(true);
+        setResizable(true);
 
     }
 
@@ -62,10 +62,39 @@ public class ProductoModificarView extends JInternalFrame{
     public void setPanelPrincipal(JPanel panelPrincipal) {
         this.panelPrincipal = panelPrincipal;
     }
+
+    public JTextField getTxtCodigobusqueda() {
+        return txtCodigobusqueda;
+    }
+
+    public void setTxtCodigobusqueda(JTextField txtCodigobusqueda) {
+        this.txtCodigobusqueda = txtCodigobusqueda;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public void setBtnBuscar(JButton btnBuscar) {
+        this.btnBuscar = btnBuscar;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public void setBtnEditar(JButton btnEditar) {
+        this.btnEditar = btnEditar;
+    }
+
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
 
+    public boolean confirmarEliminacion() {
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro de actualizar el producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        return respuesta == JOptionPane.YES_OPTION;
+    }
     public void limpiarCampos() {
         txtNombre.setText("");
         txtPrecio.setText("");

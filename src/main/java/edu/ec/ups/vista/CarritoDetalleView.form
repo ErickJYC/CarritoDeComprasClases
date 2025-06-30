@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="edu.ec.ups.vista.UsuarioEliminarView">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="edu.ec.ups.vista.CarritoDetalleView">
   <grid id="27dc6" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties/>
-    <border type="line" title="Eliminar Usuario" title-justification="2"/>
+    <border type="line" title="Detalle de Carrito" title-justification="2"/>
     <children>
-      <component id="a24ea" class="javax.swing.JLabel">
+      <component id="65d68" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -16,12 +16,12 @@
           <text value="Codigo Carrito"/>
         </properties>
       </component>
-      <vspacer id="3e8d5">
+      <vspacer id="d87b0">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="aba4c" class="javax.swing.JTextField" binding="txtCarrito">
+      <component id="fbe1" class="javax.swing.JTextField" binding="txtCodigocarrito">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -29,7 +29,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="30056" class="javax.swing.JButton" binding="btnBuscar">
+      <component id="f9d2f" class="javax.swing.JButton" binding="btnBuscar">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -37,34 +37,19 @@
           <text value="Buscar"/>
         </properties>
       </component>
-      <scrollpane id="722ea">
+      <scrollpane id="fa5c4">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="ce3a3">
+          <component id="abde8" class="javax.swing.JTable" binding="tblDetallecarrito">
             <constraints/>
             <properties/>
-            <border type="none"/>
-            <children>
-              <component id="51410" class="javax.swing.JTable" binding="tblResultadosBuscar">
-                <constraints/>
-                <properties/>
-              </component>
-            </children>
-          </scrollpane>
+          </component>
         </children>
       </scrollpane>
-      <component id="7efd1" class="javax.swing.JButton" binding="btnEliminar">
-        <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Eliminar"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

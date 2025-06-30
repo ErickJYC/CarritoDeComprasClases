@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ProductoEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
-    private JTextField txtBuscar;
+    private JTextField txtCodigo;
     private JButton btnBuscar;
     private JTable tblResultadoBuscar;
     private JButton btnEliminar;
@@ -39,12 +39,12 @@ public class ProductoEliminarView extends JInternalFrame{
         this.panelPrincipal = panelPrincipal;
     }
 
-    public JTextField getTxtBuscar() {
-        return txtBuscar;
+    public JTextField getTxtCodigo() {
+        return txtCodigo;
     }
 
-    public void setTxtBuscar(JTextField txtBuscar) {
-        this.txtBuscar = txtBuscar;
+    public void setTxtCodigo(JTextField txtCodigo) {
+        this.txtCodigo = txtCodigo;
     }
 
     public JButton getBtnBuscar() {
@@ -91,9 +91,15 @@ public class ProductoEliminarView extends JInternalFrame{
             modelo.addRow(fila);
         }
     }
-
+    public boolean confirmarEliminacion() {
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        return respuesta == JOptionPane.YES_OPTION;
+    }
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+    public void limpiarCampos() {
+        txtCodigo.setText("");
     }
 
 

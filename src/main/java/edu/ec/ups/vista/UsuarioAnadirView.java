@@ -1,35 +1,31 @@
 package edu.ec.ups.vista;
 
+import edu.ec.ups.dao.UsuarioDAO;
+import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
 public class UsuarioAnadirView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField txtUsuario;
     private JTextField txtContrasena;
-    private JButton btnAceptar;
-    private JButton btnLimpiar;
+    private JButton btnRegistrar;
+    private JButton btnCancelar;
+    private JComboBox cbxRol;
+    private UsuarioDAO usuarioDAO;
 
-    public UsuarioAnadirView(){
+    public UsuarioAnadirView (UsuarioDAO usuarioDAO) {
         setContentPane(panelPrincipal);
-        setTitle("Datos del Usuario");
+        setTitle("Crear Usuario");
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
+        setSize(500, 400);
         setClosable(true);
-        setMaximizable(true);
-        setResizable(true);
         setIconifiable(true);
+        setResizable(true);
+        this.usuarioDAO = usuarioDAO;
+        cargarRoles();
 
-        btnLimpiar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                limpiarCampos();
-            }
-        });
     }
 
     public JPanel getPanelPrincipal() {
@@ -56,32 +52,71 @@ public class UsuarioAnadirView extends JInternalFrame {
         this.txtContrasena = txtContrasena;
     }
 
-    public JButton getBtnAceptar() {
-        return btnAceptar;
+    public JButton getBtnRegistrar() {
+        return btnRegistrar;
     }
 
-    public void setBtnAceptar(JButton btnAceptar) {
-        this.btnAceptar = btnAceptar;
+    public void setBtnRegistrar(JButton btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
     }
 
-    public JButton getBtnLimpiar() {
-        return btnLimpiar;
+    public JButton getBtnCancelar() {
+        return btnCancelar;
     }
 
-    public void setBtnLimpiar(JButton btnLimpiar) {
-        this.btnLimpiar = btnLimpiar;
+    public void setBtnCancelar(JButton btnCancelar) {
+        this.btnCancelar = btnCancelar;
     }
+
+    public JComboBox getCbxRol() {
+        return cbxRol;
+    }
+
+    public void setCbxRol(JComboBox cbxRol) {
+        this.cbxRol = cbxRol;
+    }
+
+    public UsuarioDAO getUsuarioDAO() {
+        return usuarioDAO;
+    }
+
+    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
+    }
+    public void crearUsuario() {
+        String username = txtUsuario.getText();
+        String password = txtContrasena.getText();
+        Rol rol = Rol.valueOf(cbxRol.getSelectedItem().toString());
+
+        if (txtUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty() || rol == null) {
+            mostrarMensaje("Todos los campos son obligatorios.");
+            return;
+        }
+
+        if (usuarioDAO.buscarPorUsername(username) != null) {
+            mostrarMensaje("Ese nombre de usuario ya está en uso.");
+            return;
+        }
+
+        Usuario usuario = new Usuario(username, password, rol);
+        usuarioDAO.crear(usuario);
+
+        mostrarMensaje("Usuario creado exitosamente: " + username);
+    }
+
+    public void limpiarCampos() {
+        txtUsuario.setText("");
+        txtContrasena.setText("");
+        cbxRol.setSelectedIndex(0);
+    }
+
+    public void cargarRoles() {
+        cbxRol.removeAllItems();
+        cbxRol.addItem("ADMINISTRADOR");
+        cbxRol.addItem("USUARIO");
+    }
+
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
-    }
-
-    public void limpiarCampos(){
-        txtContrasena.setText("");
-        txtUsuario.setText("");
-    }
-    public void mostrarUsuarios(List<Usuario> usuarios){
-        for (Usuario usuario : usuarios){
-            System.out.println(usuario);
-        }
     }
 }
