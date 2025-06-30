@@ -11,6 +11,11 @@ public class ProductoModificarView extends JInternalFrame{
     private JTextField txtCodigobusqueda;
     private JButton btnBuscar;
     private JButton btnEditar;
+    private JLabel LblCodigobusqueda;
+    private JLabel LblCodigo;
+    private JLabel LblNombre;
+    private JLabel LblPrecio;
+    private JLabel LblTitulo;
 
     public ProductoModificarView(){
         setContentPane(panelPrincipal);

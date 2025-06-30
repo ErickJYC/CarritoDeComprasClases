@@ -13,6 +13,10 @@ public class UsuarioAnadirView extends JInternalFrame {
     private JButton btnRegistrar;
     private JButton btnCancelar;
     private JComboBox cbxRol;
+    private JLabel LblTitulo;
+    private JLabel LblUsuario;
+    private JLabel LblContrasena;
+    private JLabel LblRol;
     private UsuarioDAO usuarioDAO;
 
     public UsuarioAnadirView (UsuarioDAO usuarioDAO) {

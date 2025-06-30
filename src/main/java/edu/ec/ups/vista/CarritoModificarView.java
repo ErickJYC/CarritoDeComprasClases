@@ -16,6 +16,9 @@ public class CarritoModificarView extends JInternalFrame{
     private JTable tblProductos;
     private JButton btnActualizar;
     private JComboBox cbxCantidad;
+    private JLabel LblCodigo;
+    private JLabel LblCantidad;
+    private JLabel LblTitulo;
     private Carrito carritoActual;
     private CarritoDAO carritoDAO;
     DefaultTableModel modelo;

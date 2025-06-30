@@ -21,6 +21,14 @@ public class CarritoAnadirView  extends JInternalFrame {
     private JPanel panelPrincipal;
     private JButton btnLimpiar;
     private JComboBox cbxCantidad;
+    private JLabel LblTitulo;
+    private JLabel LblCodigo;
+    private JLabel LblNombre;
+    private JLabel LblPrecio;
+    private JLabel LblCantidad;
+    private JLabel LblSubtotal;
+    private JLabel LblIva;
+    private JLabel LblTotal;
     private Carrito carrito;
     DefaultTableModel modelo = new DefaultTableModel();
 
@@ -127,6 +135,14 @@ public class CarritoAnadirView  extends JInternalFrame {
 
     public DefaultTableModel getModelo() {
         return modelo;
+    }
+
+    public JLabel getLblTitulo() {
+        return LblTitulo;
+    }
+
+    public void setLblTitulo(JLabel lblTitulo) {
+        LblTitulo = lblTitulo;
     }
 
     public void setModelo(DefaultTableModel modelo) {

@@ -14,6 +14,10 @@ public class ProductoAnadirView extends JInternalFrame {
     private JTextField txtCodigo;
     private JButton btnAceptar;
     private JButton btnLimpiar;
+    private JLabel LblTitulo;
+    private JLabel LblCodigo;
+    private JLabel LblNombre;
+    private JLabel LblPrecio;
 
     public ProductoAnadirView() {
 

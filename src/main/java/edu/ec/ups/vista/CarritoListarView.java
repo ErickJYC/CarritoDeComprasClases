@@ -12,6 +12,8 @@ public class CarritoListarView extends JInternalFrame {
     private JButton btnBuscar;
     private JButton btnListar;
     private JTable tblCarritos;
+    private JLabel LblTitulo;
+    private JLabel LblCodigo;
     private JButton BtnDetallesCarrito;
     private DefaultTableModel modelo;
 

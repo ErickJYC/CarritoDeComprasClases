@@ -13,6 +13,8 @@ public class ProductoListaView extends JInternalFrame {
     private JTable tblProductos;
     private JButton btnListar;
     private JPanel panelPrincipal;
+    private JLabel LblNombre;
+    private JLabel LblTitulo;
     private DefaultTableModel modelo;
 
     public ProductoListaView() {

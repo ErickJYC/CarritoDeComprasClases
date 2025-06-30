@@ -12,6 +12,8 @@ public class UsuarioListarView  extends JInternalFrame{
     private JButton btnBuscar;
     private JButton btnListar;
     private JTable tblUsuario;
+    private JLabel LblUsuario;
+    private JLabel LblTitulo;
     private DefaultTableModel modelo;
 
     public UsuarioListarView() {

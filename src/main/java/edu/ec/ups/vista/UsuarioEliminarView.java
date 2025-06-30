@@ -13,6 +13,7 @@ public class UsuarioEliminarView extends JInternalFrame{
     private JButton btnBuscar;
     private JTable tblResultadosBuscar;
     private JButton btnEliminar;
+    private JLabel LblCondigocarrito;
     private DefaultTableModel modelo;
     private UsuarioDAO usuarioDAO;
 

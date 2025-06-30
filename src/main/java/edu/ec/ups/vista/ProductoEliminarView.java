@@ -11,6 +11,8 @@ public class ProductoEliminarView extends JInternalFrame{
     private JButton btnBuscar;
     private JTable tblResultadoBuscar;
     private JButton btnEliminar;
+    private JLabel LblCodigo;
+    private JLabel LblTitulo;
     private DefaultTableModel modelo;
 
     public ProductoEliminarView() {

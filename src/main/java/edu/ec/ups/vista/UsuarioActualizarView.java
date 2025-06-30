@@ -14,6 +14,11 @@ public class UsuarioActualizarView extends JInternalFrame {
     private JTextField txtContrasena;
     private JComboBox cbxRol;
     private JButton btnGuardar;
+    private JLabel LblUsuariobusqueda;
+    private JLabel LblUsuario;
+    private JLabel LblContrasena;
+    private JLabel LblRol;
+    private JLabel LblTitulo;
     private UsuarioDAO usuarioDAO;
     private Usuario usuarioSeleccionado;
 
