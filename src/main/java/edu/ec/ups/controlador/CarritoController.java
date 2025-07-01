@@ -5,6 +5,7 @@ import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import edu.ec.ups.vista.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +29,7 @@ public class CarritoController {
                              CarritoListarView carritoListarView,
                              CarritoModificarView carritoModificarView,
                              CarritoEliminarView carritoEliminarView,
-                             CarritoDetalleView carritoDetalleView) {
+                             CarritoDetalleView carritoDetalleView, MensajeInternacionalizacionHandler mIH) {
         this.carritoDAO = carritoDAO;
         this.productoDAO = productoDAO;
         this.carritoAnadirView = carritoAnadirView;

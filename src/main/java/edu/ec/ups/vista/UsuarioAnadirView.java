@@ -3,6 +3,7 @@ package edu.ec.ups.vista;
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 
@@ -18,19 +19,76 @@ public class UsuarioAnadirView extends JInternalFrame {
     private JLabel LblContrasena;
     private JLabel LblRol;
     private UsuarioDAO usuarioDAO;
+    private MensajeInternacionalizacionHandler mIH;
 
-    public UsuarioAnadirView (UsuarioDAO usuarioDAO) {
+    public UsuarioAnadirView(UsuarioDAO usuarioDAO, MensajeInternacionalizacionHandler mIH) {
+        this.usuarioDAO = usuarioDAO;
+        this.mIH = mIH;
+
         setContentPane(panelPrincipal);
-        setTitle("Crear Usuario");
+        setTitle(mIH.get("usuario.crear.titulo"));
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 400);
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        this.usuarioDAO = usuarioDAO;
-        cargarRoles();
 
+        cargarRoles();
+        aplicarTextos();
     }
+
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("usuario.crear.titulo"));
+        LblUsuario.setText(mIH.get("usuario.nombre"));
+        LblContrasena.setText(mIH.get("usuario.contrasena"));
+        LblRol.setText(mIH.get("usuario.rol"));
+
+        btnRegistrar.setText(mIH.get("boton.registrar"));
+        btnCancelar.setText(mIH.get("boton.cancelar"));
+
+        cbxRol.removeAllItems();
+        cbxRol.addItem(mIH.get("rol.admin"));
+        cbxRol.addItem(mIH.get("rol.usuario"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("usuario.crear.titulo"));
+        aplicarTextos();
+    }
+
+    public void crearUsuario() {
+        String username = txtUsuario.getText();
+        String password = txtContrasena.getText();
+        String rolString = cbxRol.getSelectedItem().toString();
+        Rol rol = rolString.equals(mIH.get("rol.admin")) ? Rol.ADMINISTRADOR : Rol.USUARIO;
+
+        if (username.isEmpty() || password.isEmpty()) {
+            mostrarMensaje(mIH.get("mensaje.campos.obligatorios"));
+            return;
+        }
+
+        if (usuarioDAO.buscarPorUsername(username) != null) {
+            mostrarMensaje(mIH.get("mensaje.usuario.duplicado"));
+            return;
+        }
+
+        Usuario usuario = new Usuario(username, password, rol);
+        usuarioDAO.crear(usuario);
+
+        mostrarMensaje(mIH.get("mensaje.usuario.creado") + ": " + username);
+    }
+
+    public void limpiarCampos() {
+        txtUsuario.setText("");
+        txtContrasena.setText("");
+        cbxRol.setSelectedIndex(0);
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -87,32 +145,6 @@ public class UsuarioAnadirView extends JInternalFrame {
     public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
-    public void crearUsuario() {
-        String username = txtUsuario.getText();
-        String password = txtContrasena.getText();
-        Rol rol = Rol.valueOf(cbxRol.getSelectedItem().toString());
-
-        if (txtUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty() || rol == null) {
-            mostrarMensaje("Todos los campos son obligatorios.");
-            return;
-        }
-
-        if (usuarioDAO.buscarPorUsername(username) != null) {
-            mostrarMensaje("Ese nombre de usuario ya está en uso.");
-            return;
-        }
-
-        Usuario usuario = new Usuario(username, password, rol);
-        usuarioDAO.crear(usuario);
-
-        mostrarMensaje("Usuario creado exitosamente: " + username);
-    }
-
-    public void limpiarCampos() {
-        txtUsuario.setText("");
-        txtContrasena.setText("");
-        cbxRol.setSelectedIndex(0);
-    }
 
     public void cargarRoles() {
         cbxRol.removeAllItems();
@@ -120,7 +152,4 @@ public class UsuarioAnadirView extends JInternalFrame {
         cbxRol.addItem("USUARIO");
     }
 
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
 }

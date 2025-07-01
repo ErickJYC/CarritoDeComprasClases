@@ -2,6 +2,7 @@ package edu.ec.ups.vista;
 
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Usuario;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 
@@ -21,18 +22,73 @@ public class UsuarioActualizarView extends JInternalFrame {
     private JLabel LblTitulo;
     private UsuarioDAO usuarioDAO;
     private Usuario usuarioSeleccionado;
+    private MensajeInternacionalizacionHandler mIH;
 
-    public UsuarioActualizarView(UsuarioDAO usuarioDAO) {
+    public UsuarioActualizarView(UsuarioDAO usuarioDAO, MensajeInternacionalizacionHandler mIH) {
+        this.usuarioDAO = usuarioDAO;
+        this.mIH = mIH;
+
         setContentPane(panelPrincipal);
-        setTitle("Actualizar Usuario");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setClosable(true);
         setResizable(true);
         setIconifiable(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.usuarioDAO = usuarioDAO;
+        setTitle(mIH.get("usuario.actualizar.titulo"));
+
         cargarDatosRol();
+        aplicarTextos();
     }
+
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("usuario.actualizar.titulo"));
+        LblUsuariobusqueda.setText(mIH.get("usuario.buscar.titulo"));
+        LblUsuario.setText(mIH.get("usuario.nombre"));
+        LblContrasena.setText(mIH.get("usuario.contrasena"));
+        LblRol.setText(mIH.get("usuario.rol"));
+
+        btnBuscar.setText(mIH.get("boton.buscar"));
+        btnEditar.setText(mIH.get("boton.editar"));
+        btnGuardar.setText(mIH.get("boton.guardar"));
+
+        cbxRol.removeAllItems();
+        cbxRol.addItem(mIH.get("rol.admin"));
+        cbxRol.addItem(mIH.get("rol.usuario"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("usuario.actualizar.titulo"));
+        aplicarTextos();
+    }
+
+    public void buscarUsuario() {
+        String username = txtUsuariobusqueda.getText();
+        Usuario usuario = usuarioDAO.buscarPorUsername(username);
+        if (usuario == null) {
+            mostrarMensaje(mIH.get("mensaje.usuario.noencontrado"));
+            return;
+        }
+
+        txtUsuario.setText(usuario.getUsername());
+        txtContrasena.setText(usuario.getContrasenia());
+        cbxRol.setSelectedItem(usuario.getRol().toString());
+    }
+
+    public boolean confirmarEliminacion() {
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                mIH.get("mensaje.confirmacion.actualizar.usuario"),
+                mIH.get("mensaje.confirmacion"),
+                JOptionPane.YES_NO_OPTION
+        );
+        return respuesta == JOptionPane.YES_OPTION;
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -119,18 +175,6 @@ public class UsuarioActualizarView extends JInternalFrame {
         cbxRol.addItem("USUARIO");
     }
 
-    public void buscarUsuario() {
-        String username = txtUsuariobusqueda.getText();
-        Usuario usuario = usuarioDAO.buscarPorUsername(username);
-        if (usuario == null) {
-            mostrarMensaje("Usuario no encontrado");
-            return;
-        }
-
-        txtUsuario.setText(usuario.getUsername());
-        txtContrasena.setText(usuario.getContrasenia());
-        cbxRol.setSelectedItem(usuario.getRol());
-    }
 
     public void editarValoresActualizarTrue() {
         txtContrasena.setEnabled(true);
@@ -148,13 +192,4 @@ public class UsuarioActualizarView extends JInternalFrame {
         txtUsuariobusqueda.setText("");
     }
 
-    public boolean confirmarEliminacion() {
-        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro de actualizar el usuario?",
-                "Confirmación", JOptionPane.YES_NO_OPTION);
-        return respuesta == JOptionPane.YES_OPTION;
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
 }

@@ -1,6 +1,7 @@
 package edu.ec.ups.vista;
 
 import edu.ec.ups.modelo.Producto;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,20 +20,19 @@ public class ProductoAnadirView extends JInternalFrame {
     private JLabel LblNombre;
     private JLabel LblPrecio;
 
-    public ProductoAnadirView() {
+    private MensajeInternacionalizacionHandler mIH;
+
+    public ProductoAnadirView(MensajeInternacionalizacionHandler mIH) {
+        this.mIH = mIH;
 
         setContentPane(panelPrincipal);
-        setTitle("Datos del Producto");
+        setTitle(mIH.get("producto.anadir.titulo"));
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setIconifiable(true);
-        //setResizable(false);
-//        setLocationRelativeTo(null);
-//        setVisible(true);
-        //pack();
 
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
@@ -40,7 +40,41 @@ public class ProductoAnadirView extends JInternalFrame {
                 limpiarCampos();
             }
         });
+
+        aplicarTextos();
     }
+
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("producto.anadir.titulo"));
+        LblCodigo.setText(mIH.get("producto.codigo"));
+        LblNombre.setText(mIH.get("producto.nombre"));
+        LblPrecio.setText(mIH.get("producto.precio"));
+        btnAceptar.setText(mIH.get("boton.aceptar"));
+        btnLimpiar.setText(mIH.get("boton.limpiar"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("producto.anadir.titulo"));
+        aplicarTextos();
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void limpiarCampos() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtPrecio.setText("");
+    }
+
+    public void mostrarProdutos(List<Producto> productos) {
+        for (Producto producto : productos) {
+            System.out.println(producto);
+        }
+    }
+
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -88,22 +122,6 @@ public class ProductoAnadirView extends JInternalFrame {
 
     public void setBtnLimpiar(JButton btnLimpiar) {
         this.btnLimpiar = btnLimpiar;
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
-
-    public void limpiarCampos() {
-        txtCodigo.setText("");
-        txtNombre.setText("");
-        txtPrecio.setText("");
-    }
-    public void mostrarProdutos (List<Producto> productos){
-        for (Producto producto : productos) {
-            System.out.println(producto);
-
-        }
     }
 
 }

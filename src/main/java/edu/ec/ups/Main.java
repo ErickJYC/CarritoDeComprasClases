@@ -24,19 +24,20 @@ public class Main {
     public static void main(String[] args) {
 
         UsuarioDAO usuarioDAO = new UsuarioDAOMemoria();
-        LoginView loginView = new LoginView();
         ProductoDAO productoDAO = new ProductoDAOMemoria();
         CarritoDAO carritoDAO = new CarritoDAOMemoria();
 
-        MensajeInternacionalizacionHandler mi = new MensajeInternacionalizacionHandler("es", "EC");
+        MensajeInternacionalizacionHandler mIH = new MensajeInternacionalizacionHandler("es", "EC");
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                UsuarioAnadirView usuarioAnadirView = new UsuarioAnadirView(usuarioDAO);
-                UsuarioListarView usuarioListarView = new UsuarioListarView();
-                UsuarioActualizarView usuarioActualizarView = new UsuarioActualizarView(usuarioDAO);
-                UsuarioEliminarView  usuarioEliminarView = new UsuarioEliminarView();
+
+                LoginView loginView = new LoginView(mIH);
+                UsuarioAnadirView usuarioAnadirView = new UsuarioAnadirView(usuarioDAO,mIH);
+                UsuarioListarView usuarioListarView = new UsuarioListarView(mIH);
+                UsuarioActualizarView usuarioActualizarView = new UsuarioActualizarView(usuarioDAO,mIH);
+                UsuarioEliminarView  usuarioEliminarView = new UsuarioEliminarView(mIH);
                 loginView.setVisible(true);
 
                 UsuarioController usuarioController = new UsuarioController(usuarioDAO,loginView,
@@ -49,35 +50,70 @@ public class Main {
 
                         Usuario usuarioAuntenticado = usuarioController.getUsuarioAutenticado();
                         if (usuarioAuntenticado != null) {
-                            //instanciamos DAO (Singleton)
 
-                            //instancio Vistas
-                            MenuPrincipalView principalView = new MenuPrincipalView();
-                            ProductoAnadirView productoAnadirView = new ProductoAnadirView();
-                            ProductoListaView productoListaView = new ProductoListaView();
-                            ProductoModificarView productoModificarView = new ProductoModificarView();
-                            ProductoEliminarView productoEliminarView = new ProductoEliminarView();
+                            MenuPrincipalView principalView = new MenuPrincipalView(mIH);
 
-                            CarritoAnadirView carritoAnadirView = new CarritoAnadirView(usuarioAuntenticado);
-                            CarritoListarView carritoListarView = new CarritoListarView();
-                            CarritoModificarView carritoModificarView = new CarritoModificarView(carritoDAO);
-                            CarritoEliminarView carritoEliminarView = new CarritoEliminarView();
-                            CarritoDetalleView carritoDetalleView = new CarritoDetalleView();
+                            ProductoAnadirView productoAnadirView = new ProductoAnadirView(mIH);
+                            ProductoListaView productoListaView = new ProductoListaView(mIH);
+                            ProductoModificarView productoModificarView = new ProductoModificarView(mIH);
+                            ProductoEliminarView productoEliminarView = new ProductoEliminarView(mIH);
 
-                            //instanciamos Controladores
+                            CarritoAnadirView carritoAnadirView = new CarritoAnadirView(usuarioAuntenticado,mIH);
+                            CarritoListarView carritoListarView = new CarritoListarView(mIH);
+                            CarritoModificarView carritoModificarView = new CarritoModificarView(carritoDAO,mIH);
+                            CarritoEliminarView carritoEliminarView = new CarritoEliminarView(mIH);
+                            CarritoDetalleView carritoDetalleView = new CarritoDetalleView(mIH);
+
                             ProductoController productoController = new ProductoController(productoDAO, productoAnadirView,
-                                    productoListaView,productoModificarView,productoEliminarView);
-                            CarritoController carritoController = new CarritoController(carritoDAO, productoDAO,
-                                    carritoAnadirView,
-                                    carritoListarView,
-                                    carritoModificarView,
-                                    carritoEliminarView,
-                                    carritoDetalleView);
+                                    productoListaView, productoModificarView, productoEliminarView);
 
-                            principalView.mostrarMensaje("Bienvenido: " + usuarioAuntenticado.getUsername());
+                            CarritoController carritoController = new CarritoController(carritoDAO, productoDAO,
+                                    carritoAnadirView, carritoListarView, carritoModificarView, carritoEliminarView,
+                                    carritoDetalleView, mIH);
+
+                            principalView.mostrarMensaje(mIH.get("app.bienvenida") + ": " + usuarioAuntenticado.getUsername());
+
                             if (usuarioAuntenticado.getRol().equals(Rol.USUARIO)) {
                                 principalView.deshabilitarMenusAdministrador();
                             }
+
+                            // 👉 Aquí viene el cambio de idioma con Runnable
+                            Runnable cambiarIdiomaRunnable = () -> {
+                                String lang = mIH.getLocale().getLanguage();
+                                String pais = mIH.getLocale().getCountry();
+
+                                principalView.cambiarIdioma(lang, pais);
+                                productoAnadirView.cambiarIdioma(lang, pais);
+                                productoListaView.cambiarIdioma(lang, pais);
+                                productoModificarView.cambiarIdioma(lang, pais);
+                                productoEliminarView.cambiarIdioma(lang, pais);
+
+                                carritoAnadirView.cambiarIdioma(lang, pais);
+                                carritoListarView.cambiarIdioma(lang, pais);
+                                carritoModificarView.cambiarIdioma(lang, pais);
+                                carritoEliminarView.cambiarIdioma(lang, pais);
+                                carritoDetalleView.cambiarIdioma(lang, pais);
+
+                                usuarioAnadirView.cambiarIdioma(lang, pais);
+                                usuarioListarView.cambiarIdioma(lang, pais);
+                                usuarioActualizarView.cambiarIdioma(lang, pais);
+                                usuarioEliminarView.cambiarIdioma(lang, pais);
+                            };
+
+                            principalView.getMenuItemEspanol().addActionListener(event -> {
+                                mIH.setLenguaje("es", "EC");
+                                cambiarIdiomaRunnable.run();
+                            });
+
+                            principalView.getMenuItemIngles().addActionListener(event -> {
+                                mIH.setLenguaje("en", "US");
+                                cambiarIdiomaRunnable.run();
+                            });
+
+                            principalView.getMenuItemFrances().addActionListener(event -> {
+                                mIH.setLenguaje("fr", "FR");
+                                cambiarIdiomaRunnable.run();
+                            });
 
                             principalView.getMenuItemCrearProducto().addActionListener(new ActionListener() {
                                 @Override
@@ -218,7 +254,6 @@ public class Main {
                                     }
                                 }
                             });
-
                         }
                     }
                 });

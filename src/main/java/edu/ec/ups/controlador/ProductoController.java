@@ -168,9 +168,7 @@ public class ProductoController {
         Producto producto = productoDAO.buscarPorCodigo(codigo);
         if (producto == null) {
             productoEliminarView.mostrarMensaje("No se encontro el producto");
-        } else {
-            productoEliminarView.cargarDatos(producto);
-        }
+        } else productoEliminarView.cargarDatos(producto);
     }
 
     private void eliminarProducto() {

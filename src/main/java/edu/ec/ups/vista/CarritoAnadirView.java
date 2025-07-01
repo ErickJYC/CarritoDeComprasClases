@@ -3,6 +3,7 @@ package edu.ec.ups.vista;
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Usuario;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -31,42 +32,78 @@ public class CarritoAnadirView  extends JInternalFrame {
     private JLabel LblTotal;
     private Carrito carrito;
     DefaultTableModel modelo = new DefaultTableModel();
+    private MensajeInternacionalizacionHandler mIH;
 
+    public CarritoAnadirView(Usuario usuario, MensajeInternacionalizacionHandler mIH) {
+        super(mIH.get("carrito.anadir.titulo"), true, true, false, true);
+        this.mIH = mIH;
+        this.carrito = new Carrito(usuario);
 
-
-
-    public CarritoAnadirView(Usuario usuario) {
-
-        super("carrito de Compras", true, true, false, true);
         setContentPane(panelPrincipal);
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
-        this.carrito = new Carrito(usuario);
 
-        DefaultTableModel modelo = new DefaultTableModel();
-        Object[] columnas = {"Codigo", "Nombre", "Precio", "Cantidad", "Subtotal"};
+        Object[] columnas = {
+                mIH.get("carrito.tabla.codigo"),
+                mIH.get("carrito.tabla.nombre"),
+                mIH.get("carrito.tabla.precio"),
+                mIH.get("carrito.tabla.cantidad"),
+                mIH.get("carrito.tabla.subtotal")
+        };
         modelo.setColumnIdentifiers(columnas);
         tblProductos.setModel(modelo);
 
         cargarDatosProductos();
-
+        aplicarTextos();
     }
 
-    private void cargarDatosProductos(){
+    private void cargarDatosProductos() {
         cbxCantidad.removeAllItems();
-        for(int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++) {
             cbxCantidad.addItem(String.valueOf(i + 1));
         }
     }
 
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("carrito.anadir.titulo"));
+        LblCodigo.setText(mIH.get("carrito.codigo"));
+        LblNombre.setText(mIH.get("carrito.nombre"));
+        LblPrecio.setText(mIH.get("carrito.precio"));
+        LblCantidad.setText(mIH.get("carrito.cantidad"));
+        LblSubtotal.setText(mIH.get("carrito.subtotal"));
+        LblIva.setText(mIH.get("carrito.iva"));
+        LblTotal.setText(mIH.get("carrito.total"));
+        btnBuscar.setText(mIH.get("boton.buscar"));
+        btnAnadir.setText(mIH.get("boton.anadir"));
+        btnGuardar.setText(mIH.get("boton.guardar"));
+        btnLimpiar.setText(mIH.get("boton.limpiar"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("carrito.anadir.titulo"));
+
+        String[] columnas = {
+                mIH.get("carrito.tabla.codigo"),
+                mIH.get("carrito.tabla.nombre"),
+                mIH.get("carrito.tabla.precio"),
+                mIH.get("carrito.tabla.cantidad"),
+                mIH.get("carrito.tabla.subtotal")
+        };
+        modelo.setColumnIdentifiers(columnas);
+
+        aplicarTextos();
+    }
+
     public void cargarDatosProductos(Carrito carrito) {
         modelo.setRowCount(0);
-        for(ItemCarrito item : carrito.obtenerItems()) {
+        for (ItemCarrito item : carrito.obtenerItems()) {
             Object[] fila = {
                     item.getProducto().getCodigo(),
                     item.getProducto().getNombre(),
                     item.getProducto().getPrecio(),
-                    item.getCantidad()
+                    item.getCantidad(),
+                    item.getSubtotal()
             };
             modelo.addRow(fila);
         }
@@ -152,5 +189,4 @@ public class CarritoAnadirView  extends JInternalFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
 }

@@ -1,5 +1,7 @@
 package edu.ec.ups.vista;
 
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+
 import javax.swing.*;
 
 public class LoginView extends JFrame{
@@ -14,14 +16,41 @@ public class LoginView extends JFrame{
     private JLabel LblUsuario;
     private JLabel LblContrasena;
     private JLabel LblTitulo;
+    private JButton btnSalir;
+    private MensajeInternacionalizacionHandler mIH;
 
-    public LoginView() {
+    public LoginView(MensajeInternacionalizacionHandler mIH) {
+        this.mIH = mIH;
+
         setContentPane(panelPrincipal);
-        setTitle("Iniciar Sesión");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
+
+        aplicarTextos();  // aplica los textos traducidos
     }
+
+    private void aplicarTextos() {
+        setTitle(mIH.get("login.titulo"));
+        LblTitulo.setText(mIH.get("login.titulo"));
+        LblUsuario.setText(mIH.get("login.usuario"));
+        LblContrasena.setText(mIH.get("login.contrasena"));
+        btnIniciarSesion.setText(mIH.get("boton.iniciar"));
+        btnRegistrarse.setText(mIH.get("boton.registrarse"));
+        btnRegistrar.setText(mIH.get("boton.registrar"));
+        btnSalir.setText(mIH.get("boton.salir"));
+    }
+
+    public void cambiarIdioma(String lenguaje, String pais) {
+        mIH.setLenguaje(lenguaje, pais);
+        aplicarTextos();
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
 
     public JPanel getPanelSecundario() {
         return panelSecundario;
@@ -63,6 +92,46 @@ public class LoginView extends JFrame{
         this.btnRegistrarse = btnRegistrarse;
     }
 
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public void setBtnSalir(JButton btnSalir) {
+        this.btnSalir = btnSalir;
+    }
+
+    public JLabel getLblTitulo() {
+        return LblTitulo;
+    }
+
+    public void setLblTitulo(JLabel lblTitulo) {
+        LblTitulo = lblTitulo;
+    }
+
+    public JLabel getLblContrasena() {
+        return LblContrasena;
+    }
+
+    public void setLblContrasena(JLabel lblContrasena) {
+        LblContrasena = lblContrasena;
+    }
+
+    public JLabel getLblUsuario() {
+        return LblUsuario;
+    }
+
+    public void setLblUsuario(JLabel lblUsuario) {
+        LblUsuario = lblUsuario;
+    }
+
+    public JButton getBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    public void setBtnRegistrar(JButton btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
+    }
+
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
     }
@@ -70,7 +139,5 @@ public class LoginView extends JFrame{
     public void setPanelPrincipal(JPanel panelPrincipal) {
         this.panelPrincipal = panelPrincipal;
     }
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
+
 }

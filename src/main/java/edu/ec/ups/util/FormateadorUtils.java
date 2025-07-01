@@ -15,4 +15,5 @@ public class FormateadorUtils {
         DateFormat formato = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         return formato.format(fecha);
     }
+
 }

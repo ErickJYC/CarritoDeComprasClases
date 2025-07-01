@@ -4,6 +4,7 @@ import edu.ec.ups.dao.CarritoDAO;
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,23 +23,57 @@ public class CarritoModificarView extends JInternalFrame{
     private Carrito carritoActual;
     private CarritoDAO carritoDAO;
     DefaultTableModel modelo;
+    private MensajeInternacionalizacionHandler mIH;
 
+    public CarritoModificarView(CarritoDAO carritoDAO, MensajeInternacionalizacionHandler mIH) {
+        this.mIH = mIH;
+        this.carritoDAO = carritoDAO;
 
-    public CarritoModificarView(CarritoDAO carritoDAO) {
         setContentPane(panelPrincipal);
-        setTitle("Actualizar Carrito");
+        setTitle(mIH.get("carrito.actualizar.titulo"));
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setClosable(true);
         setResizable(true);
-        this.carritoDAO = carritoDAO;
-        modelo = new DefaultTableModel();
-        Object[] columnas = {"Código", "Producto", "Cantidad", "Total"};
-        modelo.setColumnIdentifiers(columnas);
+
+        modelo = new DefaultTableModel(new Object[]{
+                mIH.get("carrito.tabla.codigo"),
+                mIH.get("carrito.tabla.producto"),
+                mIH.get("carrito.tabla.cantidad"),
+                mIH.get("carrito.tabla.total")
+        }, 0);
         tblProductos.setModel(modelo);
 
-        cargarDatosProductos();int cantidad = Integer.parseInt((String) cbxCantidad.getSelectedItem());
+        cargarDatosProductos();
+        aplicarTextos();
     }
+
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("carrito.actualizar.titulo"));
+        LblCodigo.setText(mIH.get("carrito.codigo"));
+        LblCantidad.setText(mIH.get("carrito.cantidad"));
+        btnBuscar.setText(mIH.get("boton.buscar"));
+        btnActualizar.setText(mIH.get("boton.actualizar"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("carrito.actualizar.titulo"));
+
+        modelo.setColumnIdentifiers(new Object[]{
+                mIH.get("carrito.tabla.codigo"),
+                mIH.get("carrito.tabla.producto"),
+                mIH.get("carrito.tabla.cantidad"),
+                mIH.get("carrito.tabla.total")
+        });
+
+        aplicarTextos();
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -177,10 +212,5 @@ public class CarritoModificarView extends JInternalFrame{
         } else {
             mostrarMensaje("Seleccione un producto para actualizar la cantidad.");
         }
-    }
-
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -3,6 +3,7 @@ package edu.ec.ups.vista;
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,25 +18,77 @@ public class CarritoDetalleView extends JInternalFrame{
     private JLabel LblCodigocarrito;
     private Carrito carrito;
     DefaultTableModel modelo;
+    private MensajeInternacionalizacionHandler mIH;
 
-    public CarritoDetalleView() {
+    public CarritoDetalleView(MensajeInternacionalizacionHandler mIH) {
+        this.mIH = mIH;
+
+        setTitle(mIH.get("carrito.detalle.titulo"));
         setContentPane(panelPrincipal);
-        setTitle("Detalles del Carrito");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 350);
         setClosable(true);
         setResizable(true);
         setIconifiable(true);
 
-
-        modelo = new DefaultTableModel(new Object[]{"Código", "Producto", "Cantidad", "Total"}, 0) {
+        modelo = new DefaultTableModel(
+                new Object[]{
+                        mIH.get("carrito.tabla.codigo"),
+                        mIH.get("carrito.tabla.producto"),
+                        mIH.get("carrito.tabla.cantidad"),
+                        mIH.get("carrito.tabla.total")
+                }, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-            tblDetallecarrito.setModel(modelo);
+        tblDetallecarrito.setModel(modelo);
+
+        aplicarTextos();
     }
+
+    private void aplicarTextos() {
+        LblTitulo.setText(mIH.get("carrito.detalle.titulo"));
+        LblCodigocarrito.setText(mIH.get("carrito.detalle.codigo"));
+        btnBuscar.setText(mIH.get("boton.buscar"));
+    }
+
+    public void cambiarIdioma(String lang, String pais) {
+        mIH.setLenguaje(lang, pais);
+        setTitle(mIH.get("carrito.detalle.titulo"));
+
+        modelo.setColumnIdentifiers(new Object[]{
+                mIH.get("carrito.tabla.codigo"),
+                mIH.get("carrito.tabla.producto"),
+                mIH.get("carrito.tabla.cantidad"),
+                mIH.get("carrito.tabla.total")
+        });
+
+        aplicarTextos();
+    }
+
+    public void cargarDatosCarrito(List<Carrito> carritos) {
+        modelo.setRowCount(0);
+        for (Carrito carrito : carritos) {
+            for (ItemCarrito itemCarrito : carrito.obtenerItems()) {
+                Producto producto = itemCarrito.getProducto();
+                Object[] fila = {
+                        producto.getCodigo(),
+                        producto.getNombre(),
+                        itemCarrito.getCantidad(),
+                        producto.getPrecio() * itemCarrito.getCantidad()
+                };
+                modelo.addRow(fila);
+            }
+        }
+    }
+
+    public void mostrarMensaje(String s) {
+        JOptionPane.showMessageDialog(this, s, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -92,23 +145,5 @@ public class CarritoDetalleView extends JInternalFrame{
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
     }
-    public void cargarDatosCarrito(List<Carrito> carritos) {
-        modelo.setRowCount(0);
-        for (Carrito carrito : carritos) {
-            for (ItemCarrito itemCarrito : carrito.obtenerItems()) {
-                Producto producto = itemCarrito.getProducto();
-                Object[] fila = {
-                        producto.getCodigo(),
-                        producto.getNombre(),
-                        itemCarrito.getCantidad(),
-                        producto.getPrecio() * itemCarrito.getCantidad()
-                };
-                modelo.addRow(fila);
-            }
-        }
-    }
 
-    public void mostrarMensaje(String s) {
-        JOptionPane.showMessageDialog(this, s, "Información", JOptionPane.INFORMATION_MESSAGE);
-    }
 }
