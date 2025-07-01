@@ -16,7 +16,7 @@ public class LoginView extends JFrame{
     private JLabel LblUsuario;
     private JLabel LblContrasena;
     private JLabel LblTitulo;
-    private JButton btnSalir;
+
     private MensajeInternacionalizacionHandler mIH;
 
     public LoginView(MensajeInternacionalizacionHandler mIH) {
@@ -38,7 +38,7 @@ public class LoginView extends JFrame{
         btnIniciarSesion.setText(mIH.get("boton.iniciar"));
         btnRegistrarse.setText(mIH.get("boton.registrarse"));
         btnRegistrar.setText(mIH.get("boton.registrar"));
-        btnSalir.setText(mIH.get("boton.salir"));
+
     }
 
     public void cambiarIdioma(String lenguaje, String pais) {
@@ -90,14 +90,6 @@ public class LoginView extends JFrame{
 
     public void setBtnRegistrarse(JButton btnRegistrarse) {
         this.btnRegistrarse = btnRegistrarse;
-    }
-
-    public JButton getBtnSalir() {
-        return btnSalir;
-    }
-
-    public void setBtnSalir(JButton btnSalir) {
-        this.btnSalir = btnSalir;
     }
 
     public JLabel getLblTitulo() {

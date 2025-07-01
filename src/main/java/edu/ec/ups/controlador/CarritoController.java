@@ -22,6 +22,7 @@ public class CarritoController {
     private final CarritoEliminarView carritoEliminarView;
     private final CarritoDetalleView carritoDetalleView;
     private Carrito carrito;
+    private final MensajeInternacionalizacionHandler mIH;
 
     public CarritoController(CarritoDAO carritoDAO,
                              ProductoDAO productoDAO,
@@ -38,6 +39,7 @@ public class CarritoController {
         this.carritoEliminarView = carritoEliminarView;
         this.carritoDetalleView = carritoDetalleView;
         this.carrito = carritoAnadirView.getCarrito();
+        this.mIH = mIH;
         configurarEventosEnVistas();
         confiurarEventosDetalles();
         configurarEventosActualizar();
@@ -239,12 +241,24 @@ public class CarritoController {
     }
 
     private void guardarCarrito() {
-        carrito.setUsuario(carritoAnadirView.getCarrito().getUsuario());
-        carritoDAO.crear(carritoAnadirView.getCarrito());
-        carritoAnadirView.mostrarMensaje("Carrito creado correctamente");
+        Carrito nuevo = carritoAnadirView.getCarrito();
+        int codigo = nuevo.getCodigo();
+
+        Carrito existente = carritoDAO.buscarPorCodigo(codigo);
+
+        if (existente == null) {
+            nuevo.setUsuario(nuevo.getUsuario());
+            carritoDAO.crear(nuevo);
+            carritoAnadirView.mostrarMensaje(mIH.get("carrito.creado"));
+        } else {
+            carritoAnadirView.mostrarMensaje(mIH.get("carrito.duplicado"));
+            return;
+        }
+
         limpiarCampos();
-        carritoAnadirView.setCarrito(new Carrito(carritoAnadirView.getCarrito().getUsuario()));
+        carritoAnadirView.setCarrito(new Carrito(nuevo.getUsuario()));
         System.out.println(carritoDAO.listarTodos());
+
 
     }
 
