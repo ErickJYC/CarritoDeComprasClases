@@ -1,6 +1,7 @@
 package edu.ec.ups.dao.impl;
 
 import edu.ec.ups.dao.CuestionarioDAO;
+import edu.ec.ups.modelo.Cuestionario;
 
 import java.util.ArrayList;
 import java.util.List;

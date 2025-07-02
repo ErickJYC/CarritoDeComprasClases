@@ -1,6 +1,5 @@
 package edu.ec.ups.vista;
 
-import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
@@ -10,79 +9,33 @@ import java.util.List;
 
 public class UsuarioEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
-    private JTextField txtCarrito;
-    private JButton btnBuscar;
-    private JTable tblResultadosBuscar;
-    private JButton btnEliminar;
-    private JLabel LblCondigocarrito;
+    private JTextField TxtUsuario;
+    private JButton BtnBuscar;
+    private JTable tblUser;
+    private JLabel usuarioLabel;
+    private JButton BtnEliminar;
+    private JLabel lblEliminar;
     private DefaultTableModel modelo;
-    private UsuarioDAO usuarioDAO;
-    private MensajeInternacionalizacionHandler mIH;
+    private MensajeInternacionalizacionHandler mi;
 
-    public UsuarioEliminarView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
+    public UsuarioEliminarView( MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
-        setTitle(mIH.get("usuario.eliminar.titulo"));
+        setTitle("Datos del Producto");
+        setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
-        setResizable(true);
         setClosable(true);
         setIconifiable(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(true);
 
-        modelo = new DefaultTableModel(new Object[]{
-                mIH.get("usuario.tabla.nombre"),
-                mIH.get("usuario.tabla.password"),
-                mIH.get("usuario.tabla.rol")
-        }, 0);
-        tblResultadosBuscar.setModel(modelo);
-
-        aplicarTextos();
+        modelo = new DefaultTableModel(new Object[]{"Nombre", "Usuario", "Contraseña", "Correo", "Celular", "Fcha de Nacimiento", "Rol"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblUser.setModel(modelo);
     }
-
-    private void aplicarTextos() {
-        LblCondigocarrito.setText(mIH.get("usuario.buscar.titulo"));
-        btnBuscar.setText(mIH.get("boton.buscar"));
-        btnEliminar.setText(mIH.get("boton.eliminar"));
-    }
-
-    public void cambiarIdioma(String lang, String pais) {
-        mIH.setLenguaje(lang, pais);
-        setTitle(mIH.get("usuario.eliminar.titulo"));
-        modelo.setColumnIdentifiers(new Object[]{
-                mIH.get("usuario.tabla.nombre"),
-                mIH.get("usuario.tabla.password"),
-                mIH.get("usuario.tabla.rol")
-        });
-        aplicarTextos();
-    }
-
-    public void cargarUsuario(List<Usuario> usuarios) {
-        modelo.setRowCount(0);
-        for (Usuario usuario : usuarios) {
-            Object[] fila = {
-                    usuario.getUsername(),
-                    usuario.getContrasenia(),
-                    usuario.getRol()
-            };
-            modelo.addRow(fila);
-        }
-    }
-
-    public boolean confirmarEliminacion() {
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                mIH.get("mensaje.confirmacion.eliminar.usuario"),
-                mIH.get("mensaje.confirmacion"),
-                JOptionPane.YES_NO_OPTION
-        );
-        return respuesta == JOptionPane.YES_OPTION;
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
-
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -93,35 +46,51 @@ public class UsuarioEliminarView extends JInternalFrame{
     }
 
     public JTextField getTxtUsuario() {
-        return txtCarrito;
+        return TxtUsuario;
     }
 
     public void setTxtUsuario(JTextField txtUsuario) {
-        this.txtCarrito = txtUsuario;
+        TxtUsuario = txtUsuario;
     }
 
     public JButton getBtnBuscar() {
-        return btnBuscar;
+        return BtnBuscar;
     }
 
     public void setBtnBuscar(JButton btnBuscar) {
-        this.btnBuscar = btnBuscar;
+        BtnBuscar = btnBuscar;
     }
 
-    public JTable getTblResultadosBuscar() {
-        return tblResultadosBuscar;
+    public JTable getTblUser() {
+        return tblUser;
     }
 
-    public void setTblResultadosBuscar(JTable tblResultadosBuscar) {
-        this.tblResultadosBuscar = tblResultadosBuscar;
+    public void setTblUser(JTable tblUser) {
+        this.tblUser = tblUser;
+    }
+
+    public JLabel getUsuarioLabel() {
+        return usuarioLabel;
+    }
+
+    public void setUsuarioLabel(JLabel usuarioLabel) {
+        this.usuarioLabel = usuarioLabel;
     }
 
     public JButton getBtnEliminar() {
-        return btnEliminar;
+        return BtnEliminar;
     }
 
     public void setBtnEliminar(JButton btnEliminar) {
-        this.btnEliminar = btnEliminar;
+        BtnEliminar = btnEliminar;
+    }
+
+    public JLabel getLblEliminar() {
+        return lblEliminar;
+    }
+
+    public void setLblEliminar(JLabel lblEliminar) {
+        this.lblEliminar = lblEliminar;
     }
 
     public DefaultTableModel getModelo() {
@@ -132,18 +101,28 @@ public class UsuarioEliminarView extends JInternalFrame{
         this.modelo = modelo;
     }
 
-    public UsuarioDAO getUsuarioDAO() {
-        return usuarioDAO;
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
     }
 
-    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
     }
 
-
-    public void limpiarCampos() {
-        txtCarrito.setText("");
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+    public void cargarUsuario(List<Usuario> usuarios) {
         modelo.setRowCount(0);
+
+        for (Usuario usuario : usuarios) {
+            Object[] fila = {
+                    usuario.getUsername(),
+                    usuario.getContrasenia(),
+                    usuario.getRol()
+            };
+            modelo.addRow(fila);
+        }
     }
 
 }

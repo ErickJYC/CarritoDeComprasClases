@@ -1,7 +1,6 @@
 package edu.ec.ups.vista;
 
 import edu.ec.ups.modelo.Carrito;
-import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
@@ -33,7 +32,7 @@ public class CarritoAnadirView  extends JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     private MensajeInternacionalizacionHandler mi;
 
-    public CarritoAnadirView(Usuario usuario, MensajeInternacionalizacionHandler mi) {
+    public CarritoAnadirView(MensajeInternacionalizacionHandler mi) {
         super("Carrito de Compras", true, true, false, true);
         this.mi = mi;
         setContentPane(panelPrincipal);

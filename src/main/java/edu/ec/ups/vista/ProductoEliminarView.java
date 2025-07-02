@@ -5,93 +5,57 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class ProductoEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
-    private JTextField txtCodigo;
+    private JTextField textField1;
     private JButton btnBuscar;
-    private JTable tblResultadoBuscar;
+    private JTable table1;
     private JButton btnEliminar;
-    private JLabel LblCodigo;
-    private JLabel LblTitulo;
+    private JLabel lblCodigo;
+    private JLabel lblEliminar;
     private DefaultTableModel modelo;
+    private MensajeInternacionalizacionHandler mi;
 
-    private MensajeInternacionalizacionHandler mIH;
-
-    public ProductoEliminarView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
-        setTitle(mIH.get("producto.eliminar.titulo"));
+    public ProductoEliminarView(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
+        setTitle(mi.get("producto.eliminar.titulo"));
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        setSize(700, 250);
+        setSize(500, 500);
         setClosable(true);
-        setMaximizable(true);
-        setResizable(true);
         setIconifiable(true);
+        setResizable(true);
 
         modelo = new DefaultTableModel();
         Object[] columnas = {
-                mIH.get("producto.tabla.codigo"),
-                mIH.get("producto.tabla.nombre"),
-                mIH.get("producto.tabla.precio")
+                mi.get("producto.eliminar.columna.codigo"),
+                mi.get("producto.eliminar.columna.nombre"),
+                mi.get("producto.eliminar.columna.precio")
         };
         modelo.setColumnIdentifiers(columnas);
-        tblResultadoBuscar.setModel(modelo);
+        table1.setModel(modelo);
 
-        aplicarTextos();
+        cambiarIdioma();
     }
 
-    private void aplicarTextos() {
-        LblTitulo.setText(mIH.get("producto.eliminar.titulo"));
-        LblCodigo.setText(mIH.get("producto.codigo"));
-        btnBuscar.setText(mIH.get("boton.buscar"));
-        btnEliminar.setText(mIH.get("boton.eliminar"));
-    }
+    public void cambiarIdioma() {
+        setTitle(mi.get("producto.eliminar.titulo"));
 
-    public void cambiarIdioma(String lang, String pais) {
-        mIH.setLenguaje(lang, pais);
-        setTitle(mIH.get("producto.eliminar.titulo"));
+        lblCodigo.setText(mi.get("producto.eliminar.etiqueta.codigo"));
+        lblEliminar.setText(mi.get("producto.eliminar.etiqueta.eliminar"));
 
+        btnBuscar.setText(mi.get("producto.eliminar.boton.buscar"));
+        btnEliminar.setText(mi.get("producto.eliminar.boton.eliminar"));
+
+        // Actualizar encabezados de tabla
         modelo.setColumnIdentifiers(new Object[]{
-                mIH.get("producto.tabla.codigo"),
-                mIH.get("producto.tabla.nombre"),
-                mIH.get("producto.tabla.precio")
+                mi.get("producto.eliminar.columna.codigo"),
+                mi.get("producto.eliminar.columna.nombre"),
+                mi.get("producto.eliminar.columna.precio")
         });
-
-        aplicarTextos();
     }
-
-    public void cargarDatos(Producto producto) {
-        modelo.setRowCount(0);
-        if (producto != null) {
-            Object[] fila = {
-                    producto.getCodigo(),
-                    producto.getNombre(),
-                    producto.getPrecio()
-            };
-            modelo.addRow(fila);
-        }
-    }
-
-    public boolean confirmarEliminacion() {
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                mIH.get("mensaje.confirmacion.eliminar.producto"),
-                mIH.get("mensaje.confirmacion"),
-                JOptionPane.YES_NO_OPTION
-        );
-        return respuesta == JOptionPane.YES_OPTION;
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void limpiarCampos() {
-        txtCodigo.setText("");
-    }
-
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -101,12 +65,12 @@ public class ProductoEliminarView extends JInternalFrame{
         this.panelPrincipal = panelPrincipal;
     }
 
-    public JTextField getTxtCodigo() {
-        return txtCodigo;
+    public JTextField getTextField1() {
+        return textField1;
     }
 
-    public void setTxtCodigo(JTextField txtCodigo) {
-        this.txtCodigo = txtCodigo;
+    public void setTextField1(JTextField textField1) {
+        this.textField1 = textField1;
     }
 
     public JButton getBtnBuscar() {
@@ -117,12 +81,12 @@ public class ProductoEliminarView extends JInternalFrame{
         this.btnBuscar = btnBuscar;
     }
 
-    public JTable getTblResultadoBuscar() {
-        return tblResultadoBuscar;
+    public JTable getTable1() {
+        return table1;
     }
 
-    public void setTblResultadoBuscar(JTable tblResultadoBuscar) {
-        this.tblResultadoBuscar = tblResultadoBuscar;
+    public void setTable1(JTable table1) {
+        this.table1 = table1;
     }
 
     public JButton getBtnEliminar() {
@@ -133,12 +97,58 @@ public class ProductoEliminarView extends JInternalFrame{
         this.btnEliminar = btnEliminar;
     }
 
+    public JLabel getLblCodigo() {
+        return lblCodigo;
+    }
+
+    public void setLblCodigo(JLabel lblCodigo) {
+        this.lblCodigo = lblCodigo;
+    }
+
+    public JLabel getLblEliminar() {
+        return lblEliminar;
+    }
+
+    public void setLblEliminar(JLabel lblEliminar) {
+        this.lblEliminar = lblEliminar;
+    }
+
     public DefaultTableModel getModelo() {
         return modelo;
     }
 
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
+    }
+
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
+    }
+
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
+    }
+
+    public void cargarDatos(List<Producto> listaProductos) {
+        modelo.setNumRows(0);
+
+        for (Producto producto : listaProductos) {
+            Object[] fila = {
+                    producto.getCodigo(),
+                    producto.getNombre(),
+                    producto.getPrecio()
+            };
+            modelo.addRow(fila);
+        }
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public void limpiarCampos() {
+        textField1.setText("");
+        modelo.setNumRows(0);
     }
 
 }

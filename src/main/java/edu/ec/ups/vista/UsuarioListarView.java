@@ -1,89 +1,39 @@
 package edu.ec.ups.vista;
 
-import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
 
 public class UsuarioListarView  extends JInternalFrame{
     private JPanel panelPrincipal;
-    private JTextField txtUsuario;
-    private JButton btnBuscar;
-    private JButton btnListar;
+    private JTextField TxtUsuario;
+    private JButton BtnBuscar;
+    private JButton BtnListar;
     private JTable tblUsuario;
-    private JLabel LblUsuario;
-    private JLabel LblTitulo;
+    private JLabel lblUser;
+    private JLabel lblListar;
     private DefaultTableModel modelo;
-    private MensajeInternacionalizacionHandler mIH;
+    private MensajeInternacionalizacionHandler mi;
 
-    public UsuarioListarView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
+    public UsuarioListarView( MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
-        setTitle(mIH.get("usuario.listar.titulo"));
+        setTitle("Listar Usuarios");
+        setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setClosable(true);
+        setIconifiable(true);
         setResizable(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        modelo = new DefaultTableModel(new Object[]{
-                mIH.get("usuario.tabla.nombre"),
-                mIH.get("usuario.tabla.password"),
-                mIH.get("usuario.tabla.rol")
-        }, 0);
-        tblUsuario.setModel(modelo);
-
-        aplicarTextos();
-    }
-
-    private void aplicarTextos() {
-        LblTitulo.setText(mIH.get("usuario.listar.titulo"));
-        LblUsuario.setText(mIH.get("usuario.nombre"));
-        btnBuscar.setText(mIH.get("boton.buscar"));
-        btnListar.setText(mIH.get("boton.listar"));
-    }
-
-    public void cambiarIdioma(String lang, String pais) {
-        mIH.setLenguaje(lang, pais);
-        setTitle(mIH.get("usuario.listar.titulo"));
-        modelo.setColumnIdentifiers(new Object[]{
-                mIH.get("usuario.tabla.nombre"),
-                mIH.get("usuario.tabla.password"),
-                mIH.get("usuario.tabla.rol")
-        });
-        aplicarTextos();
-    }
-
-    public void listarUsuarios(List<Usuario> listaUsuarios) {
-        modelo.setRowCount(0);
-        for (Usuario usuario : listaUsuarios) {
-            modelo.addRow(new Object[]{
-                    usuario.getUsername(),
-                    usuario.getContrasenia(),
-                    usuario.getRol().toString()
-            });
-        }
-    }
-
-    public void listarUsuariosPorUsername(List<Usuario> listaUsuarios, String username) {
-        modelo.setRowCount(0);
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getUsername().equalsIgnoreCase(username)) {
-                modelo.addRow(new Object[]{
-                        usuario.getUsername(),
-                        usuario.getContrasenia(),
-                        usuario.getRol().toString()
-                });
+        modelo = new DefaultTableModel(new Object[]{"Nombre", "Usuario", "Contraseña", "Correo", "Celular", "Fcha de Nacimiento", "Rol"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-        }
+        };
+        tblUsuario.setModel(modelo);
     }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
-
 
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
@@ -94,27 +44,27 @@ public class UsuarioListarView  extends JInternalFrame{
     }
 
     public JTextField getTxtUsuario() {
-        return txtUsuario;
+        return TxtUsuario;
     }
 
     public void setTxtUsuario(JTextField txtUsuario) {
-        this.txtUsuario = txtUsuario;
+        TxtUsuario = txtUsuario;
     }
 
     public JButton getBtnBuscar() {
-        return btnBuscar;
+        return BtnBuscar;
     }
 
     public void setBtnBuscar(JButton btnBuscar) {
-        this.btnBuscar = btnBuscar;
+        BtnBuscar = btnBuscar;
     }
 
     public JButton getBtnListar() {
-        return btnListar;
+        return BtnListar;
     }
 
     public void setBtnListar(JButton btnListar) {
-        this.btnListar = btnListar;
+        BtnListar = btnListar;
     }
 
     public JTable getTblUsuario() {
@@ -125,6 +75,22 @@ public class UsuarioListarView  extends JInternalFrame{
         this.tblUsuario = tblUsuario;
     }
 
+    public JLabel getLblUser() {
+        return lblUser;
+    }
+
+    public void setLblUser(JLabel lblUser) {
+        this.lblUser = lblUser;
+    }
+
+    public JLabel getLblListar() {
+        return lblListar;
+    }
+
+    public void setLblListar(JLabel lblListar) {
+        this.lblListar = lblListar;
+    }
+
     public DefaultTableModel getModelo() {
         return modelo;
     }
@@ -133,4 +99,15 @@ public class UsuarioListarView  extends JInternalFrame{
         this.modelo = modelo;
     }
 
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
+    }
+
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
 }

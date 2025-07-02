@@ -14,66 +14,50 @@ public class ProductoListaView extends JInternalFrame {
     private JTable tblProductos;
     private JButton btnListar;
     private JPanel panelPrincipal;
-    private JLabel LblNombre;
-    private JLabel LblTitulo;
+    private JLabel lblNombre;
+    private JLabel lblLista;
     private DefaultTableModel modelo;
-    private MensajeInternacionalizacionHandler mIH;
+    private MensajeInternacionalizacionHandler mi;
 
-    public ProductoListaView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
+    public ProductoListaView(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
-        setTitle(mIH.get("producto.lista.titulo"));
+        setTitle(mi.get("producto.lista.titulo"));
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 500);
+        setSize(500, 500);
         setClosable(true);
-        setMaximizable(true);
-        setResizable(true);
         setIconifiable(true);
+        setResizable(true);
 
-        modelo = new DefaultTableModel(new Object[]{
-                mIH.get("producto.tabla.codigo"),
-                mIH.get("producto.tabla.nombre"),
-                mIH.get("producto.tabla.precio")
-        }, 0);
+        modelo = new DefaultTableModel();
+        Object[] columnas = {
+                mi.get("producto.lista.columna.codigo"),
+                mi.get("producto.lista.columna.nombre"),
+                mi.get("producto.lista.columna.precio")
+        };
+        modelo.setColumnIdentifiers(columnas);
         tblProductos.setModel(modelo);
 
-        aplicarTextos();
+        cambiarIdioma();
     }
 
-    private void aplicarTextos() {
-        LblTitulo.setText(mIH.get("producto.lista.titulo"));
-        LblNombre.setText(mIH.get("producto.nombre"));
-        btnBuscar.setText(mIH.get("boton.buscar"));
-        btnListar.setText(mIH.get("boton.listar"));
-    }
+    public void cambiarIdioma() {
+        setTitle(mi.get("producto.lista.titulo"));
 
-    public void cambiarIdioma(String lang, String pais) {
-        mIH.setLenguaje(lang, pais);
-        setTitle(mIH.get("producto.lista.titulo"));
+        lblLista.setText(mi.get("producto.lista.etiqueta.lista"));
+        lblNombre.setText(mi.get("producto.lista.etiqueta.nombre"));
+
+        btnBuscar.setText(mi.get("producto.lista.boton.buscar"));
+        btnListar.setText(mi.get("producto.lista.boton.listar"));
+
         modelo.setColumnIdentifiers(new Object[]{
-                mIH.get("producto.tabla.codigo"),
-                mIH.get("producto.tabla.nombre"),
-                mIH.get("producto.tabla.precio")
+                mi.get("producto.lista.columna.codigo"),
+                mi.get("producto.lista.columna.nombre"),
+                mi.get("producto.lista.columna.precio")
         });
-        aplicarTextos();
     }
 
-    public void cargarDatos(List<Producto> listProductos) {
-        modelo.setRowCount(0);
-        for (Producto producto : listProductos) {
-            Object[] fila = {
-                    producto.getCodigo(),
-                    producto.getNombre(),
-                    producto.getPrecio()
-            };
-            modelo.addRow(fila);
-        }
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
+    // Getters y setters
 
 
     public JTextField getTxtBuscar() {
@@ -92,12 +76,12 @@ public class ProductoListaView extends JInternalFrame {
         this.btnBuscar = btnBuscar;
     }
 
-    public JTable getTable1() {
+    public JTable getTblProductos() {
         return tblProductos;
     }
 
-    public void setTable1(JTable table1) {
-        this.tblProductos = table1;
+    public void setTblProductos(JTable tblProductos) {
+        this.tblProductos = tblProductos;
     }
 
     public JButton getBtnListar() {
@@ -116,28 +100,20 @@ public class ProductoListaView extends JInternalFrame {
         this.panelPrincipal = panelPrincipal;
     }
 
-    public JTable getTblProductos() {
-        return tblProductos;
-    }
-
-    public void setTblProductos(JTable tblProductos) {
-        this.tblProductos = tblProductos;
-    }
-
     public JLabel getLblNombre() {
-        return LblNombre;
+        return lblNombre;
     }
 
     public void setLblNombre(JLabel lblNombre) {
-        LblNombre = lblNombre;
+        this.lblNombre = lblNombre;
     }
 
-    public JLabel getLblTitulo() {
-        return LblTitulo;
+    public JLabel getLblLista() {
+        return lblLista;
     }
 
-    public void setLblTitulo(JLabel lblTitulo) {
-        LblTitulo = lblTitulo;
+    public void setLblLista(JLabel lblLista) {
+        this.lblLista = lblLista;
     }
 
     public DefaultTableModel getModelo() {
@@ -148,4 +124,24 @@ public class ProductoListaView extends JInternalFrame {
         this.modelo = modelo;
     }
 
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
+    }
+
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
+    }
+
+    public void cargarDatos(List<Producto> listaProductos) {
+        modelo.setNumRows(0);
+
+        for (Producto producto : listaProductos) {
+            Object[] fila = {
+                    producto.getCodigo(),
+                    producto.getNombre(),
+                    producto.getPrecio()
+            };
+            modelo.addRow(fila);
+        }
+    }
 }

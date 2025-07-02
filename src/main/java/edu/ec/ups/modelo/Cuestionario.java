@@ -1,5 +1,7 @@
 package edu.ec.ups.modelo;
 
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 

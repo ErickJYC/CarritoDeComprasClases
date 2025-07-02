@@ -12,6 +12,7 @@ public class ProductoDAOMemoria  implements ProductoDAO {
 
     public ProductoDAOMemoria() {
         productos = new ArrayList<Producto>();
+        crear(new Producto(1, "Kentucky BBQ", 5.99));
     }
 
     @Override
@@ -33,7 +34,7 @@ public class ProductoDAOMemoria  implements ProductoDAO {
     public List<Producto> buscarPorNombre(String nombre) {
         List<Producto> productosEncontrados = new ArrayList<>();
         for (Producto producto : productos) {
-            if (producto.getNombre().equalsIgnoreCase(nombre)) {
+            if (producto.getNombre().startsWith(nombre)) {
                 productosEncontrados.add(producto);
             }
         }
@@ -64,5 +65,4 @@ public class ProductoDAOMemoria  implements ProductoDAO {
     public List<Producto> listarTodos() {
         return productos;
     }
-
 }

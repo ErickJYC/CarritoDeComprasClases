@@ -1,6 +1,5 @@
 package edu.ec.ups.vista;
 
-import edu.ec.ups.dao.CarritoDAO;
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
@@ -29,7 +28,7 @@ public class CarritoModificarView extends JInternalFrame{
     DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
 
-    public CarritoModificarView(CarritoDAO carritoDAO, MensajeInternacionalizacionHandler mi) {
+    public CarritoModificarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
         setTitle(mi.get("carrito.modificar.titulo"));
