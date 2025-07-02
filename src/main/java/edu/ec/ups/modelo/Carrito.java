@@ -7,22 +7,29 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Carrito {
-    private final double IVA = 0.12;
-
-    private static int contador = 1;
-
     private int codigo;
 
     private GregorianCalendar fechaCreacion;
+
+    //private int contador = 1;
 
     private List<ItemCarrito> items;
 
     private Usuario usuario;
 
-    public Carrito(Usuario usuario) {
-        codigo = contador++;
-        items = new ArrayList<>();
-        fechaCreacion = new GregorianCalendar();
+
+    public Carrito() {
+        //this.codigo = contador++;
+        this.items = new ArrayList<>();
+        this.fechaCreacion = new GregorianCalendar();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getCodigo() {
@@ -42,15 +49,13 @@ public class Carrito {
     }
 
     public void agregarProducto(Producto producto, int cantidad) {
+        for (ItemCarrito item : items) {
+            if (item.getProducto().getCodigo() == producto.getCodigo()) {
+                item.setCantidad(item.getCantidad() + cantidad);
+                return;
+            }
+        }
         items.add(new ItemCarrito(producto, cantidad));
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public void eliminarProducto(int codigoProducto) {
@@ -67,6 +72,14 @@ public class Carrito {
         items.clear();
     }
 
+    public double calcularTotal() {
+        double total = 0;
+        for (ItemCarrito item : items) {
+            total += item.getProducto().getPrecio() * item.getCantidad();
+        }
+        return total;
+    }
+
     public List<ItemCarrito> obtenerItems() {
         return items;
     }
@@ -76,37 +89,29 @@ public class Carrito {
     }
 
 
-
-    public double calcularSubtotal() {
-        double subtotal = 0;
-        for (ItemCarrito item : items) {
-            subtotal += item.getProducto().getPrecio() * item.getCantidad();
-        }
-        return subtotal;
-    }
-
     public double calcularIVA() {
-        double subtotal = calcularSubtotal();
-        return subtotal * IVA;
+        double total = calcularTotal();
+        return total * 0.12; // Asumiendo un IVA del 12%
+    }
+    public double calcularTotalConIVA() {
+        return calcularTotal() + calcularIVA();
     }
 
-    public double calcularTotal() {
-        return calcularSubtotal() + calcularIVA();
-    }
     public String getFechaFormateada() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(fechaCreacion.getTime());
     }
+    public Carrito copiar(){
+        Carrito copia = new Carrito();
+        copia.setFechaCreacion(this.fechaCreacion);
+        copia.setCodigo(this.codigo);
+        copia.setUsuario(this.usuario);
+        for (ItemCarrito item : this.items) {
+            Producto producto = item.getProducto();
+            int cantidad = item.getCantidad();
+            copia.agregarProducto(producto, cantidad);
 
-    @Override
-    public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String fechaFormateada = simpleDateFormat.format(fechaCreacion.getTime());
-        return "Carrito{" +
-                "IVA=" + IVA +
-                ", codigo=" + codigo +
-                ", fechaCreacion=" + fechaFormateada+
-                ", items=" + items +
-                '}';
+        }
+        return copia;
     }
 }
