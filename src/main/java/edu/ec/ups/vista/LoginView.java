@@ -12,45 +12,23 @@ public class LoginView extends JFrame{
     private JButton btnIniciarSesion;
     private JButton btnRegistrarse;
     private JPanel panelPrincipal;
-    private JButton btnRegistrar;
-    private JLabel LblUsuario;
-    private JLabel LblContrasena;
-    private JLabel LblTitulo;
+    private JButton btnOlvidar;
+    private JLabel lblUsuario;
+    private JLabel lblContrasena;
+    private JLabel lblIniciarSesion;
+    private JComboBox cbxIdiomas;
+    private JButton btnSalir;
+    private MensajeInternacionalizacionHandler mi;
 
-    private MensajeInternacionalizacionHandler mIH;
-
-    public LoginView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
+    public LoginView( MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
+        setTitle("Iniciar Sesión");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
-
-        aplicarTextos();  // aplica los textos traducidos
+        inicializarComponentes();
     }
-
-    private void aplicarTextos() {
-        setTitle(mIH.get("login.titulo"));
-        LblTitulo.setText(mIH.get("login.titulo"));
-        LblUsuario.setText(mIH.get("login.usuario"));
-        LblContrasena.setText(mIH.get("login.contrasena"));
-        btnIniciarSesion.setText(mIH.get("boton.iniciar"));
-        btnRegistrarse.setText(mIH.get("boton.registrarse"));
-        btnRegistrar.setText(mIH.get("boton.registrar"));
-
-    }
-
-    public void cambiarIdioma(String lenguaje, String pais) {
-        mIH.setLenguaje(lenguaje, pais);
-        aplicarTextos();
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
-
-
 
     public JPanel getPanelSecundario() {
         return panelSecundario;
@@ -92,44 +70,108 @@ public class LoginView extends JFrame{
         this.btnRegistrarse = btnRegistrarse;
     }
 
-    public JLabel getLblTitulo() {
-        return LblTitulo;
-    }
-
-    public void setLblTitulo(JLabel lblTitulo) {
-        LblTitulo = lblTitulo;
-    }
-
-    public JLabel getLblContrasena() {
-        return LblContrasena;
-    }
-
-    public void setLblContrasena(JLabel lblContrasena) {
-        LblContrasena = lblContrasena;
-    }
-
-    public JLabel getLblUsuario() {
-        return LblUsuario;
-    }
-
-    public void setLblUsuario(JLabel lblUsuario) {
-        LblUsuario = lblUsuario;
-    }
-
-    public JButton getBtnRegistrar() {
-        return btnRegistrar;
-    }
-
-    public void setBtnRegistrar(JButton btnRegistrar) {
-        this.btnRegistrar = btnRegistrar;
-    }
-
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
     }
 
     public void setPanelPrincipal(JPanel panelPrincipal) {
         this.panelPrincipal = panelPrincipal;
+    }
+
+    public JButton getBtnOlvidar() {
+        return btnOlvidar;
+    }
+
+    public void setBtnOlvidar(JButton btnOlvidar) {
+        this.btnOlvidar = btnOlvidar;
+    }
+
+    public JLabel getLblUsuario() {
+        return lblUsuario;
+    }
+
+    public void setLblUsuario(JLabel lblUsuario) {
+        this.lblUsuario = lblUsuario;
+    }
+
+    public JLabel getLblContrasena() {
+        return lblContrasena;
+    }
+
+    public void setLblContrasena(JLabel lblContrasena) {
+        this.lblContrasena = lblContrasena;
+    }
+
+    public JLabel getLblIniciarSesion() {
+        return lblIniciarSesion;
+    }
+
+    public void setLblIniciarSesion(JLabel lblIniciarSesion) {
+        this.lblIniciarSesion = lblIniciarSesion;
+    }
+
+    public JComboBox getCbxIdiomas() {
+        return cbxIdiomas;
+    }
+
+    public void setCbxIdiomas(JComboBox cbxIdiomas) {
+        this.cbxIdiomas = cbxIdiomas;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public void setBtnSalir(JButton btnSalir) {
+        this.btnSalir = btnSalir;
+    }
+
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
+    }
+
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public boolean mostrarMensajePregunta(String mensaje) {
+        int respuesta = JOptionPane.showConfirmDialog(this, mensaje, "Confirmación",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return respuesta == JOptionPane.YES_OPTION;
+    }
+
+    public void limpiarCampos() {
+        txtUsername.setText("");
+        txtContrasenia.setText("");
+    }
+    public void inicializarComponentes() {
+        cbxIdiomas.removeAllItems();
+        cbxIdiomas.addItem("Español");
+        cbxIdiomas.addItem("English");
+        cbxIdiomas.addItem("Français");
+        actualizarTextos(mi);
+    }
+
+    public void actualizarTextos(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi; // actualizamos el handler si cambia
+
+        // Etiquetas
+        lblIniciarSesion.setText(mi.get("login.titulo"));
+        lblUsuario.setText(mi.get("login.usuario"));
+        lblContrasena.setText(mi.get("login.contrasenia"));
+
+        // Botones
+        btnIniciarSesion.setText(mi.get("login.iniciar"));
+        btnRegistrarse.setText(mi.get("login.registrar"));
+        btnOlvidar.setText(mi.get("login.olvidar"));
+        btnSalir.setText(mi.get("login.salir"));
+
+        // Título de la ventana
+        setTitle(mi.get("login.titulo"));
     }
 
 }
