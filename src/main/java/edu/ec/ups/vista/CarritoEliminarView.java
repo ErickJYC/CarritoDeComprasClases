@@ -2,109 +2,65 @@ package edu.ec.ups.vista;
 
 import edu.ec.ups.dao.CarritoDAO;
 import edu.ec.ups.modelo.Carrito;
+import edu.ec.ups.modelo.ItemCarrito;
+import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
 
 public class CarritoEliminarView extends JInternalFrame {
     private JPanel panelPrincipal;
-    private JTextField txtCarrito;
+    private JTextField txtCodigo;
     private JTable tblCarritos;
     private JButton btnEliminar;
     private JButton btnBuscar;
-    private JLabel LblTitulo;
-    private JLabel LblCodigo;
+    private JLabel lblEliminar;
+    private JLabel lblCodigo;
     private CarritoDAO carritoDAO;
     DefaultTableModel modelo;
-    private MensajeInternacionalizacionHandler mIH;
+    private MensajeInternacionalizacionHandler mi;
 
-    public CarritoEliminarView(MensajeInternacionalizacionHandler mIH) {
-        this.mIH = mIH;
-
-        setTitle(mIH.get("carrito.eliminar.titulo"));
+    public CarritoEliminarView(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle(mi.get("carrito.eliminar.titulo"));
+        setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        setSize(500, 500);
         setClosable(true);
+        setIconifiable(true);
         setResizable(true);
 
-        modelo = new DefaultTableModel(new Object[] {
-                mIH.get("carrito.tabla.codigo"),
-                mIH.get("carrito.tabla.fecha"),
-                mIH.get("carrito.tabla.usuario"),
-                mIH.get("carrito.tabla.subtotal"),
-                mIH.get("carrito.tabla.total")
-        }, 0);
+        modelo = new DefaultTableModel();
+        Object[] columnas = {
+                mi.get("carrito.eliminar.columna.codigo"),
+                mi.get("carrito.eliminar.columna.nombre"),
+                mi.get("carrito.eliminar.columna.precio"),
+                mi.get("carrito.eliminar.columna.cantidad"),
+                mi.get("carrito.eliminar.columna.subtotal"),
+                mi.get("carrito.eliminar.columna.total")
+        };
+        modelo.setColumnIdentifiers(columnas);
         tblCarritos.setModel(modelo);
 
-        aplicarTextos();
+        cambiarIdioma();
     }
 
-    private void aplicarTextos() {
-        LblTitulo.setText(mIH.get("carrito.eliminar.titulo"));
-        LblCodigo.setText(mIH.get("carrito.codigo"));
-        btnBuscar.setText(mIH.get("boton.buscar"));
-        btnEliminar.setText(mIH.get("boton.eliminar"));
-    }
+    public void cambiarIdioma() {
+        setTitle(mi.get("carrito.eliminar.titulo"));
+        lblEliminar.setText(mi.get("carrito.eliminar.etiqueta"));
+        lblCodigo.setText(mi.get("carrito.eliminar.etiqueta.codigo"));
+        btnBuscar.setText(mi.get("carrito.eliminar.boton.buscar"));
+        btnEliminar.setText(mi.get("carrito.eliminar.boton.eliminar"));
 
-    public void cambiarIdioma(String lang, String pais) {
-        mIH.setLenguaje(lang, pais);
-        setTitle(mIH.get("carrito.eliminar.titulo"));
-
-        modelo.setColumnIdentifiers(new Object[] {
-                mIH.get("carrito.tabla.codigo"),
-                mIH.get("carrito.tabla.fecha"),
-                mIH.get("carrito.tabla.usuario"),
-                mIH.get("carrito.tabla.subtotal"),
-                mIH.get("carrito.tabla.total")
+        modelo.setColumnIdentifiers(new Object[]{
+                mi.get("carrito.eliminar.columna.codigo"),
+                mi.get("carrito.eliminar.columna.nombre"),
+                mi.get("carrito.eliminar.columna.precio"),
+                mi.get("carrito.eliminar.columna.cantidad"),
+                mi.get("carrito.eliminar.columna.subtotal"),
+                mi.get("carrito.eliminar.columna.total")
         });
-
-        aplicarTextos();
-    }
-
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, mIH.get("mensaje.informacion"), JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void cargargaDatosBusqueda(List<Carrito> carritos) {
-        modelo.setNumRows(0);
-        for (Carrito carrito : carritos) {
-            Object[] fila = {
-                    carrito.getCodigo(),
-                    carrito.getFechaFormateada(),
-                    carrito.getUsuario()!= null ? carrito.getUsuario().getUsername() : mIH.get("carrito.usuario.sin") ,
-                    carrito.calcularSubtotal(),
-                    carrito.calcularTotal()
-            };
-            modelo.addRow(fila);
-        }
-    }
-
-    public void buscarPorCodigoCarrito(int codigo) {
-        codigo = Integer.parseInt(txtCarrito.getText());
-        Carrito carrito = carritoDAO.buscarPorCodigo(codigo);
-        if (carrito == null && getTxtCarrito().getText().isEmpty()) {
-            mostrarMensaje(mIH.get("mensaje.carrito.noencontrado"));
-        } else {
-            cargargaDatosBusqueda(List.of(carrito));
-        }
-    }
-
-    public boolean confirmarEliminacion() {
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                mIH.get("mensaje.confirmacion.eliminar.carrito"),
-                mIH.get("mensaje.confirmacion"),
-                JOptionPane.YES_NO_OPTION
-        );
-        return respuesta == JOptionPane.YES_OPTION;
-    }
-
-    public void limpiarCampos() {
-        txtCarrito.setText("");
-        modelo.setRowCount(0);
     }
 
     public JPanel getPanelPrincipal() {
@@ -115,12 +71,12 @@ public class CarritoEliminarView extends JInternalFrame {
         this.panelPrincipal = panelPrincipal;
     }
 
-    public JTextField getTxtCarrito() {
-        return txtCarrito;
+    public JTextField getTxtCodigo() {
+        return txtCodigo;
     }
 
-    public void setTxtCarrito(JTextField txtCarrito) {
-        this.txtCarrito = txtCarrito;
+    public void setTxtCodigo(JTextField txtCodigo) {
+        this.txtCodigo = txtCodigo;
     }
 
     public JTable getTblCarritos() {
@@ -147,6 +103,22 @@ public class CarritoEliminarView extends JInternalFrame {
         this.btnBuscar = btnBuscar;
     }
 
+    public JLabel getLblEliminar() {
+        return lblEliminar;
+    }
+
+    public void setLblEliminar(JLabel lblEliminar) {
+        this.lblEliminar = lblEliminar;
+    }
+
+    public JLabel getLblCodigo() {
+        return lblCodigo;
+    }
+
+    public void setLblCodigo(JLabel lblCodigo) {
+        this.lblCodigo = lblCodigo;
+    }
+
     public CarritoDAO getCarritoDAO() {
         return carritoDAO;
     }
@@ -155,19 +127,45 @@ public class CarritoEliminarView extends JInternalFrame {
         this.carritoDAO = carritoDAO;
     }
 
-    public JLabel getLblTitulo() {
-        return LblTitulo;
-    }
-
-    public void setLblTitulo(JLabel lblTitulo) {
-        LblTitulo = lblTitulo;
-    }
-
     public DefaultTableModel getModelo() {
         return modelo;
     }
 
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
+    }
+
+    public MensajeInternacionalizacionHandler getMi() {
+        return mi;
+    }
+
+    public void setMi(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
+    }
+
+    public void cargarDatos(Carrito carrito) {
+        modelo.setRowCount(0);
+
+        for (ItemCarrito itemCarrito : carrito.obtenerItems()) {
+            Producto producto = itemCarrito.getProducto();
+            Object[] fila = {
+                    producto.getCodigo(),
+                    producto.getNombre(),
+                    producto.getPrecio(),
+                    itemCarrito.getCantidad(),
+                    itemCarrito.getSubtotal(),
+                    itemCarrito.getTotal()
+            };
+            modelo.addRow(fila);
+        }
+    }
+
+    public void limpiarCampos() {
+        modelo.setRowCount(0);
+        txtCodigo.setText("");
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 }
