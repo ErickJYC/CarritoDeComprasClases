@@ -2,7 +2,7 @@ package edu.ec.ups.controlador;
 
 import edu.ec.ups.dao.CuestionarioDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.modelo.Cuestionario;
+import edu.ec.ups.modelo.Preguntas;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
@@ -163,14 +163,14 @@ public class UsuarioController {
                 return;
             }
 
-            Cuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
+            Preguntas cuestionario = cuestionarioDAO.buscarPorUsername(username);
             if (cuestionario == null || cuestionario.getRespuestas().isEmpty()) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.sin_preguntas"));
                 return;
             }
 
-            CuestionarioRecuperarView recuperarView = new CuestionarioRecuperarView(mi);
-            CuestionarioController controller = new CuestionarioController(
+            PreguntasRecuperarContrasenaView recuperarView = new PreguntasRecuperarContrasenaView(mi);
+            PreguntasController controller = new PreguntasController(
                     recuperarView, cuestionarioDAO, username, usuario.getContrasenia(), mi
             );
 
@@ -407,12 +407,12 @@ public class UsuarioController {
         if (usuario == null) {
             loginView.mostrarMensaje(mi.get("login.mensaje.usuario_o_contrasena_incorrectos"));
         } else {
-            Cuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
+            Preguntas cuestionario = cuestionarioDAO.buscarPorUsername(username);
             if (cuestionario == null || cuestionario.getRespuestas().size() < 3) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.completar_cuestionario"));
 
-                CuestionarioView cuestionarioView = new CuestionarioView(mi);
-                CuestionarioController controller = new CuestionarioController(
+                PreguntaView cuestionarioView = new PreguntaView(mi);
+                PreguntasController controller = new PreguntasController(
                         cuestionarioView, cuestionarioDAO, username, mi
                 );
                 cuestionarioView.setVisible(true);

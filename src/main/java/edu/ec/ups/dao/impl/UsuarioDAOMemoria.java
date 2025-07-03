@@ -2,7 +2,7 @@ package edu.ec.ups.dao.impl;
 
 import edu.ec.ups.dao.CuestionarioDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.modelo.Cuestionario;
+import edu.ec.ups.modelo.Preguntas;
 import edu.ec.ups.modelo.Respuesta;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
@@ -26,7 +26,7 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         crear(new Usuario("user", "12345", Rol.USUARIO));
 
 
-        Cuestionario cuestionarioAdmin = new Cuestionario("admin");
+        Preguntas cuestionarioAdmin = new Preguntas("admin");
         List<Respuesta> preguntas = cuestionarioAdmin.preguntasPorDefecto();
 
         preguntas.get(0).setRespuesta("Negro");

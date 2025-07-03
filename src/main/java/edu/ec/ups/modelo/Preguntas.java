@@ -5,12 +5,12 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cuestionario {
+public class Preguntas {
     private String username;
     private List<Respuesta> respuestas;
     private Usuario usuario;
 
-    public Cuestionario(String username) {
+    public Preguntas(String username) {
         this.username = username;
         this.respuestas = new ArrayList<>();
     }

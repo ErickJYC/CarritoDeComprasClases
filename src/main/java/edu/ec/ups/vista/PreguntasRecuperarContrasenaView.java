@@ -4,7 +4,7 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 
-public class CuestionarioRecuperarView extends JFrame{
+public class PreguntasRecuperarContrasenaView extends JFrame{
     private JTextField txtRespuesta1;
     private JTextField txtRespuesta3;
     private JTextField txtRespuesta2;
@@ -17,7 +17,7 @@ public class CuestionarioRecuperarView extends JFrame{
     private JLabel lblTitulo;
     private final MensajeInternacionalizacionHandler mi;
 
-    public CuestionarioRecuperarView(MensajeInternacionalizacionHandler mi) {
+    public PreguntasRecuperarContrasenaView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
         setTitle("Recuperar Contraseña");

@@ -1,31 +1,31 @@
 package edu.ec.ups.controlador;
 
 import edu.ec.ups.dao.CuestionarioDAO;
-import edu.ec.ups.modelo.Cuestionario;
+import edu.ec.ups.modelo.Preguntas;
 import edu.ec.ups.modelo.Respuesta;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.CuestionarioRecuperarView;
-import edu.ec.ups.vista.CuestionarioView;
+import edu.ec.ups.vista.PreguntasRecuperarContrasenaView;
+import edu.ec.ups.vista.PreguntaView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-    public class CuestionarioController {
-        private final CuestionarioView cuestionarioView;
-        private final CuestionarioRecuperarView recuperarView;
+    public class PreguntasController {
+        private final PreguntaView cuestionarioView;
+        private final PreguntasRecuperarContrasenaView recuperarView;
         private final CuestionarioDAO cuestionarioDAO;
-        private final Cuestionario cuestionario;
+        private final Preguntas cuestionario;
         private List<Respuesta> preguntasAleatorias;
         private final MensajeInternacionalizacionHandler mi;
         private String contraseniaUsuario;
 
 
-        public CuestionarioController(CuestionarioView vista, CuestionarioDAO dao, String username,
-                                      MensajeInternacionalizacionHandler mi) {
+        public PreguntasController(PreguntaView vista, CuestionarioDAO dao, String username,
+                                   MensajeInternacionalizacionHandler mi) {
             this.mi = mi;
             this.cuestionarioView = vista;
             this.cuestionarioDAO = dao;
-            this.cuestionario = new Cuestionario(username);
+            this.cuestionario = new Preguntas(username);
             this.recuperarView = null;
             this.contraseniaUsuario = null;
 
@@ -44,8 +44,8 @@ import java.util.List;
         }
 
 
-        public CuestionarioController(CuestionarioRecuperarView recuperarView, CuestionarioDAO dao,
-                                      String username, String contrasenia, MensajeInternacionalizacionHandler mi) {
+        public PreguntasController(PreguntasRecuperarContrasenaView recuperarView, CuestionarioDAO dao,
+                                   String username, String contrasenia, MensajeInternacionalizacionHandler mi) {
             this.mi = mi;
             this.cuestionarioDAO = dao;
             this.cuestionarioView = null;

@@ -4,7 +4,7 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 
-public class CuestionarioView extends JFrame{
+public class PreguntaView extends JFrame{
     private JComboBox cbxPreguntas;
     private JTextField txtRespuesta;
     private JButton btnGuardar;
@@ -14,10 +14,10 @@ public class CuestionarioView extends JFrame{
     private JPanel panelPrincipal;
     private MensajeInternacionalizacionHandler mi;
 
-public CuestionarioView( MensajeInternacionalizacionHandler mi) {
+public PreguntaView(MensajeInternacionalizacionHandler mi) {
     this.mi = mi;
     setContentPane(panelPrincipal);
-    setTitle("Cuestionario");
+    setTitle("Preguntas");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(550, 350);
     setLocationRelativeTo(null);
