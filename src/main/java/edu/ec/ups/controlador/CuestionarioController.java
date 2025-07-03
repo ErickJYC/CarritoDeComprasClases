@@ -34,7 +34,7 @@ import java.util.List;
             List<Respuesta> todasLasPreguntas = cuestionario.preguntasPorDefecto();
             preguntasAleatorias = new ArrayList<>();
 
-            for (int i = 0; i < 10 && i < todasLasPreguntas.size(); i++) {
+            for (int i = 0; i < 3 && i < todasLasPreguntas.size(); i++) {
                 preguntasAleatorias.add(todasLasPreguntas.get(i));
             }
 

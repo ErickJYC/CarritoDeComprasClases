@@ -29,9 +29,9 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         Cuestionario cuestionarioAdmin = new Cuestionario("admin");
         List<Respuesta> preguntas = cuestionarioAdmin.preguntasPorDefecto();
 
-        preguntas.get(0).setRespuesta("Verde");
-        preguntas.get(1).setRespuesta("Nieves");
-        preguntas.get(2).setRespuesta("Camaron");
+        preguntas.get(0).setRespuesta("Negro");
+        preguntas.get(1).setRespuesta("Kobu");
+        preguntas.get(2).setRespuesta("Churrasco");
 
         cuestionarioAdmin.agregarRespuesta(preguntas.get(0));
         cuestionarioAdmin.agregarRespuesta(preguntas.get(1));
