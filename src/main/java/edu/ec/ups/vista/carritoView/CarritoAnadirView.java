@@ -2,9 +2,11 @@ package edu.ec.ups.vista.carritoView;
 
 import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.net.URL;
 
 public class CarritoAnadirView  extends JInternalFrame {
     private JButton btnBuscar;
@@ -44,6 +46,35 @@ public class CarritoAnadirView  extends JInternalFrame {
         tblProductos.setModel(modelo);
 
         cambiarIdioma();
+
+        URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
+        if(buscar != null){
+            ImageIcon icono = new ImageIcon(buscar);
+            btnBuscar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL anadir = LoginView.class.getClassLoader().getResource("imagenes/anadir.png");
+        if(anadir != null){
+            ImageIcon icono = new ImageIcon(anadir);
+            btnAnadir.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL guardar = LoginView.class.getClassLoader().getResource("imagenes/guardar.png");
+        if(guardar != null){
+            ImageIcon icono = new ImageIcon(guardar);
+            btnGuardar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL limpiar = LoginView.class.getClassLoader().getResource("imagenes/limpiar.png");
+        if(limpiar != null){
+            ImageIcon icono = new ImageIcon(limpiar);
+            btnLimpiar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
 
     private void cargarDatos() {

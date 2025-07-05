@@ -2,10 +2,12 @@ package edu.ec.ups.vista.usuarioView;
 
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class UsuarioCrearView extends JInternalFrame {
     private JPanel panelPrincipal;
@@ -40,6 +42,21 @@ public class UsuarioCrearView extends JInternalFrame {
         setIconifiable(true);
         setResizable(true);
         cargarRoles();
+
+        URL registrar = LoginView.class.getClassLoader().getResource("imagenes/registrar.png");
+        if(registrar != null){
+            ImageIcon icono = new ImageIcon(registrar);
+            BtnRegistrar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL limpiar = LoginView.class.getClassLoader().getResource("imagenes/limpiar.png");
+        if(limpiar != null){
+            ImageIcon icono = new ImageIcon(limpiar);
+            BtnLimpiar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
 
         BtnLimpiar.addActionListener(new ActionListener() {
             @Override

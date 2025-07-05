@@ -3,6 +3,7 @@ package edu.ec.ups.vista.loginView;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
+import java.net.URL;
 
 public class RegistrarView extends JFrame {
     private JLabel lblNombreCompleto;
@@ -23,6 +24,7 @@ public class RegistrarView extends JFrame {
     private JPanel panelPrincipal;
     private JLabel lblContrasena;
     private JLabel lblCelular;
+    private JComboBox cbxIdiomas;
     private MensajeInternacionalizacionHandler mi;
 
     public RegistrarView(MensajeInternacionalizacionHandler mi) {
@@ -33,15 +35,60 @@ public class RegistrarView extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
 
+        URL registrar = LoginView.class.getClassLoader().getResource("imagenes/registrar.png");
+        if(registrar != null){
+            ImageIcon icono = new ImageIcon(registrar);
+            btnRegistrar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL limpiar = LoginView.class.getClassLoader().getResource("imagenes/limpiar.png");
+        if(limpiar != null){
+            ImageIcon icono = new ImageIcon(limpiar);
+            btnLimpiar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+
         for (int i = 1; i <= 31; i++) cbxDia.addItem(i);
         for (int i = 1980; i <= 2025; i++) cbxAño.addItem(i);
 
+        cbxIdiomas.addItem("Español");
+        cbxIdiomas.addItem("Ingles");
+        cbxIdiomas.addItem("Frances");
+
+        // Establecer idioma seleccionado en el comboBox según el Locale actual
+        if (mi.getLocale().getLanguage().equals("en")) {
+            cbxIdiomas.setSelectedItem("Ingles");
+        } else if (mi.getLocale().getLanguage().equals("fr")) {
+            cbxIdiomas.setSelectedItem("Frances");
+        } else {
+            cbxIdiomas.setSelectedItem("Español");
+        }
+
+        cbxIdiomas.addActionListener(e -> {
+            String seleccion = (String) cbxIdiomas.getSelectedItem();
+
+            if (seleccion != null) {
+                switch (seleccion) {
+                    case "Español":
+                        mi.setLenguaje("es", "EC");
+                        break;
+                    case "Ingles":
+                        mi.setLenguaje("en", "US");
+                        break;
+                    case "Frances":
+                        mi.setLenguaje("fr", "FR");
+                        break;
+                }
+
+                cambiarIdioma(); // Esta línea actualiza los textos visibles
+            }
+        });
         cambiarIdioma();
-
-
     }
 
-    private void cambiarIdioma() {
+    public void cambiarIdioma() {
         lblRegistrar.setText(mi.get("registrar.titulo"));
         lblNombreCompleto.setText(mi.get("registrar.nombre"));
         lblUsuario.setText(mi.get("registrar.usuario"));

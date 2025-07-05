@@ -29,6 +29,7 @@ public class UsuarioController {
     private UsuarioModificarView usuarioModificarView;
     private PreguntaDAO cuestionarioDAO;
     private RegistrarView registrarView;
+    private PreguntasRecuperarContView recuperarView;
     private final MensajeInternacionalizacionHandler mi;
 
     public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, PreguntaDAO cuestionarioDAO, MensajeInternacionalizacionHandler mi) {
@@ -39,6 +40,7 @@ public class UsuarioController {
         this.usuario = null;
         this.registrarView = new RegistrarView(mi); // Inicializar registrarView aquí
         configurarEventosEnVistas();
+        recuperarView = new PreguntasRecuperarContView(mi);
     }
 
     public UsuarioController(UsuarioDAO usuarioDAO, UsuarioCrearView usuarioCrearView,
@@ -99,6 +101,9 @@ public class UsuarioController {
                     break;
             }
             loginView.actualizarTextos(mi);
+            if (registrarView != null) registrarView.cambiarIdioma();
+            if (recuperarView != null) recuperarView.cambiarIdioma();
+
         }
     }
 

@@ -4,9 +4,11 @@ import edu.ec.ups.modelo.Carrito;
 import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.net.URL;
 
 public class CarritoModificarView extends JInternalFrame{
     private JPanel panelPrincipal;
@@ -43,6 +45,28 @@ public class CarritoModificarView extends JInternalFrame{
         tblProductos.setModel(modelo);
 
         cambiarIdioma();
+
+        URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
+        if(buscar != null){
+            ImageIcon icono = new ImageIcon(buscar);
+            btnBuscar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL actualizar = LoginView.class.getClassLoader().getResource("imagenes/actualizar.png");
+        if(actualizar != null){
+            ImageIcon icono = new ImageIcon(actualizar);
+            btnActualizar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL limpiar = LoginView.class.getClassLoader().getResource("imagenes/limpiar.png");
+        if(limpiar != null){
+            ImageIcon icono = new ImageIcon(limpiar);
+            btnLimpiar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
 
     public void cambiarIdioma() {

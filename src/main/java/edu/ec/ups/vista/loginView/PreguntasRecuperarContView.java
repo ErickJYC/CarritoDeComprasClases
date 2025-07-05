@@ -3,6 +3,7 @@ package edu.ec.ups.vista.loginView;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
+import java.net.URL;
 
 public class PreguntasRecuperarContView extends JFrame{
     private JTextField txtRespuesta1;
@@ -15,6 +16,7 @@ public class PreguntasRecuperarContView extends JFrame{
     private JLabel lblPregunta3;
     private JPanel panelPrincipal;
     private JLabel lblTitulo;
+    private JComboBox cbxIdiomas;
     private final MensajeInternacionalizacionHandler mi;
 
     public PreguntasRecuperarContView(MensajeInternacionalizacionHandler mi) {
@@ -24,6 +26,59 @@ public class PreguntasRecuperarContView extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setLocationRelativeTo(null);
+        cambiarIdioma();
+
+        URL aceptar = LoginView.class.getClassLoader().getResource("imagenes/aceptar.png");
+        if(aceptar != null){
+            ImageIcon icono = new ImageIcon(aceptar);
+            btnEnviar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL finalizar = LoginView.class.getClassLoader().getResource("imagenes/finalizar.png");
+        if(finalizar != null){
+            ImageIcon icono = new ImageIcon(finalizar);
+            btnTerminar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+
+        cbxIdiomas.addItem("Español");
+        cbxIdiomas.addItem("Ingles");
+        cbxIdiomas.addItem("Frances");
+
+        cbxIdiomas.addItemListener(null);
+
+        // Seleccionar el idioma actual sin disparar el listener
+        String lang = mi.getLocale().getLanguage();
+        if (lang.equals("en")) {
+            cbxIdiomas.setSelectedItem("Ingles");
+        } else if (lang.equals("fr")) {
+            cbxIdiomas.setSelectedItem("Frances");
+        } else {
+            cbxIdiomas.setSelectedItem("Español");
+        }
+
+        cbxIdiomas.addActionListener(e -> {
+            String seleccion = (String) cbxIdiomas.getSelectedItem();
+
+            if (seleccion != null) {
+                switch (seleccion) {
+                    case "Español":
+                        mi.setLenguaje("es", "EC");
+                        break;
+                    case "Ingles":
+                        mi.setLenguaje("en", "US");
+                        break;
+                    case "Frances":
+                        mi.setLenguaje("fr", "FR");
+                        break;
+                }
+
+                cambiarIdioma(); // Recargar textos con el nuevo idioma
+            }
+        });
+
         cambiarIdioma();
     }
     public void cambiarIdioma() {
@@ -122,5 +177,6 @@ public class PreguntasRecuperarContView extends JFrame{
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+
 }
 

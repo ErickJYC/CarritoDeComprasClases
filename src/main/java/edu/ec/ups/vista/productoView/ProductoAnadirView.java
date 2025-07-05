@@ -2,10 +2,12 @@ package edu.ec.ups.vista.productoView;
 
 import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 
 public class ProductoAnadirView extends JInternalFrame {
@@ -39,6 +41,21 @@ public class ProductoAnadirView extends JInternalFrame {
                 limpiarCampos();
             }
         });
+
+        URL aceptar = LoginView.class.getClassLoader().getResource("imagenes/aceptar.png");
+        if(aceptar != null){
+            ImageIcon icono = new ImageIcon(aceptar);
+            btnAceptar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL limpiar = LoginView.class.getClassLoader().getResource("imagenes/limpiar.png");
+        if(limpiar != null){
+            ImageIcon icono = new ImageIcon(limpiar);
+            btnLimpiar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
 
     public void cambiarIdioma() {

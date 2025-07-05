@@ -1,9 +1,11 @@
 package edu.ec.ups.vista.usuarioView;
 
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.net.URL;
 
 public class UsuarioListarView  extends JInternalFrame{
     private JPanel panelPrincipal;
@@ -25,6 +27,21 @@ public class UsuarioListarView  extends JInternalFrame{
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
+
+        URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
+        if(buscar != null){
+            ImageIcon icono = new ImageIcon(buscar);
+            BtnBuscar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL listar = LoginView.class.getClassLoader().getResource("imagenes/listar.png");
+        if(listar != null){
+            ImageIcon icono = new ImageIcon(listar);
+            BtnListar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
 
         modelo = new DefaultTableModel(new Object[]{"Nombre", "Usuario", "Contraseña", "Correo", "Celular", "Fcha de Nacimiento", "Rol"}, 0) {
             @Override

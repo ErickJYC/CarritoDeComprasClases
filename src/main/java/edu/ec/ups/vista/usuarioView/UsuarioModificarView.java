@@ -1,8 +1,10 @@
 package edu.ec.ups.vista.usuarioView;
 
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
+import java.net.URL;
 
 public class UsuarioModificarView extends JInternalFrame {
     private JPanel panelPrincipal;
@@ -42,6 +44,21 @@ public class UsuarioModificarView extends JInternalFrame {
         for (int i = 1980; i <= 2025; i++) cbxAño.addItem(i);
 
         cambiarIdioma();
+
+        URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
+        if(buscar != null){
+            ImageIcon icono = new ImageIcon(buscar);
+            btnBuscar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL editar = LoginView.class.getClassLoader().getResource("imagenes/editar.png");
+        if(editar != null){
+            ImageIcon icono = new ImageIcon(editar);
+            btnEditar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
     public void cambiarIdioma() {
         setTitle(mi.get("usuario.modificar.titulo"));

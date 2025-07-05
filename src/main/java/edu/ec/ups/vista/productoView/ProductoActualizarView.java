@@ -2,9 +2,11 @@ package edu.ec.ups.vista.productoView;
 
 import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.net.URL;
 import java.util.List;
 
 public class ProductoActualizarView extends JInternalFrame{
@@ -35,6 +37,21 @@ public class ProductoActualizarView extends JInternalFrame{
         table1.setModel(modelo);
 
         cambiarIdioma(); // Traduce etiquetas y columnas al idioma actual
+
+        URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
+        if(buscar != null){
+            ImageIcon icono = new ImageIcon(buscar);
+            btnBuscar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL actualizar = LoginView.class.getClassLoader().getResource("imagenes/actualizar.png");
+        if(actualizar != null){
+            ImageIcon icono = new ImageIcon(actualizar);
+            btnActualizar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
 
     public void cambiarIdioma() {

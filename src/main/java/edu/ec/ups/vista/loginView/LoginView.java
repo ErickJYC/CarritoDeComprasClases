@@ -3,6 +3,7 @@ package edu.ec.ups.vista.loginView;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
+import java.net.URL;
 
 public class LoginView extends JFrame{
 
@@ -28,6 +29,35 @@ public class LoginView extends JFrame{
         setSize(600, 400);
         setLocationRelativeTo(null);
         inicializarComponentes();
+
+        URL iniciar = LoginView.class.getClassLoader().getResource("imagenes/iniciar.png");
+        if(iniciar != null){
+            ImageIcon icono = new ImageIcon(iniciar);
+            btnIniciarSesion.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL registrar = LoginView.class.getClassLoader().getResource("imagenes/registrar.png");
+        if(registrar != null){
+            ImageIcon icono = new ImageIcon(registrar);
+            btnRegistrarse.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL olvidar = LoginView.class.getClassLoader().getResource("imagenes/olvidar.png");
+        if(olvidar != null){
+            ImageIcon icono = new ImageIcon(olvidar);
+            btnOlvidar.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
+        URL salir = LoginView.class.getClassLoader().getResource("imagenes/salir.png");
+        if(salir != null){
+            ImageIcon icono = new ImageIcon(salir);
+            btnSalir.setIcon(icono);
+        }else {
+            System.err.println("Error: No se ha cargado el icono de Login");
+        }
     }
 
     public JPanel getPanelSecundario() {
@@ -154,6 +184,7 @@ public class LoginView extends JFrame{
         cbxIdiomas.addItem("English");
         cbxIdiomas.addItem("Français");
         actualizarTextos(mi);
+
     }
 
     public void actualizarTextos(MensajeInternacionalizacionHandler mi) {
