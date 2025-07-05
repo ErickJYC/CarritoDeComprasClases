@@ -17,7 +17,7 @@ public class PreguntaView extends JFrame{
 public PreguntaView(MensajeInternacionalizacionHandler mi) {
     this.mi = mi;
     setContentPane(panelPrincipal);
-    setTitle("Preguntas");
+    setTitle("PreguntaCuestionario");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(550, 350);
     setLocationRelativeTo(null);

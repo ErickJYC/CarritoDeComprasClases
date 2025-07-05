@@ -1,14 +1,14 @@
 package edu.ec.ups.controlador;
 
-import edu.ec.ups.dao.CuestionarioDAO;
+import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.modelo.Preguntas;
+import edu.ec.ups.modelo.PreguntaCuestionario;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import edu.ec.ups.vista.loginView.LoginView;
 import edu.ec.ups.vista.loginView.PreguntaView;
-import edu.ec.ups.vista.loginView.PreguntasRecuperarContrasenaView;
+import edu.ec.ups.vista.loginView.PreguntasRecuperarContView;
 import edu.ec.ups.vista.loginView.RegistrarView;
 import edu.ec.ups.vista.usuarioView.UsuarioCrearView;
 import edu.ec.ups.vista.usuarioView.UsuarioEliminarView;
@@ -27,17 +27,17 @@ public class UsuarioController {
     private UsuarioListarView usuarioListarView;
     private UsuarioEliminarView usuarioEliminarView;
     private UsuarioModificarView usuarioModificarView;
-    private CuestionarioDAO cuestionarioDAO;
+    private PreguntaDAO cuestionarioDAO;
     private RegistrarView registrarView;
     private final MensajeInternacionalizacionHandler mi;
 
-    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, CuestionarioDAO cuestionarioDAO, MensajeInternacionalizacionHandler mi) {
+    public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, PreguntaDAO cuestionarioDAO, MensajeInternacionalizacionHandler mi) {
         this.usuarioDAO = usuarioDAO;
         this.loginView = loginView;
         this.cuestionarioDAO = cuestionarioDAO;
         this.mi = mi;
         this.usuario = null;
-        this.registrarView = new RegistrarView(); // Inicializar registrarView aquí
+        this.registrarView = new RegistrarView(mi); // Inicializar registrarView aquí
         configurarEventosEnVistas();
     }
 
@@ -127,8 +127,7 @@ public class UsuarioController {
             usuarioCrearView.mostrarMensaje(mi.get("mensaje.error.celular_numerico"));
             return;
         }
-        // Validación de formato de correo electrónico
-        if (!correo.matches("^[\\w.-]+@gmail\\.com$")) {
+        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
             registrarView.mostrarMensaje("mensaje.correo.invalido");
             return;
         }
@@ -170,15 +169,15 @@ public class UsuarioController {
                 return;
             }
 
-            Preguntas cuestionario = cuestionarioDAO.buscarPorUsername(username);
+            PreguntaCuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
             if (cuestionario == null || cuestionario.getRespuestas().isEmpty()) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.sin_preguntas"));
                 return;
             }
 
-            PreguntasRecuperarContrasenaView recuperarView = new PreguntasRecuperarContrasenaView(mi);
-            PreguntasController controller = new PreguntasController(
-                    recuperarView, cuestionarioDAO, username, usuario.getContrasenia(), mi
+            PreguntasRecuperarContView recuperarView = new PreguntasRecuperarContView(mi);
+            PreguntaController controller = new PreguntaController(
+                    recuperarView, cuestionarioDAO, usuarioDAO,usuario,  username, usuario.getContrasenia(), mi
             );
 
             recuperarView.setVisible(true);
@@ -216,27 +215,23 @@ public class UsuarioController {
         Object mesObj = usuarioModificarView.getCbxMes().getSelectedItem();
         Object anioObj = usuarioModificarView.getCbxAño().getSelectedItem();
 
-        // Validación básica
         if (username.isEmpty() || contrasenia.isEmpty() || nombreCompleto.isEmpty()
                 || correo.isEmpty() || celular.isEmpty() || diaObj == null || mesObj == null || anioObj == null) {
             usuarioModificarView.mostrarMensaje(mi.get("mensaje.campos.obligatorios"));
             return;
         }
-        // Validación de formato de correo electrónico
-        if (!correo.matches("^[\\w.-]+@gmail\\.com$")) {
+        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
             registrarView.mostrarMensaje("mensaje.correo.invalido");
             return;
         }
 
-        if (!celular.matches("\\d{10}")) {
+        if (!celular.matches("\\d{7,}")) {
             usuarioModificarView.mostrarMensaje(mi.get("usuario.celular.invalido"));
             return;
         }
 
-        // Formatear fecha
         String fechaNacimiento = diaObj + "/" + mesObj + "/" + anioObj;
 
-        // Actualizar datos
         usuario1.setUsername(username);
         usuario1.setContrasenia(contrasenia);
         usuario1.setNombreCompleto(nombreCompleto);
@@ -267,7 +262,6 @@ public class UsuarioController {
         usuarioModificarView.getTxtCorreo().setText(usuario.getCorreo());
         usuarioModificarView.getTxtCelular().setText(usuario.getCelular());
 
-        // Separar fecha (formato esperado: "dia/mes/año")
         String[] fecha = usuario.getFechaNacimiento().split("/");
         if (fecha.length == 3) {
             usuarioModificarView.getCbxDia().setSelectedItem(Integer.parseInt(fecha[0]));
@@ -351,7 +345,7 @@ public class UsuarioController {
                         usuario.getRol().toString()
                 };
                 usuarioListarView.getModelo().addRow(fila);
-                break; // asumimos que username es único
+                break;
             }
         }
     }
@@ -367,34 +361,29 @@ public class UsuarioController {
         Object mes = registrarView.getCbxMes().getSelectedItem();
         Object año = registrarView.getCbxAño().getSelectedItem();
 
-        // Validación de campos vacíos
         if (nombreCompleto.isEmpty() || username.isEmpty() || contrasenia.isEmpty()
                 || celular.isEmpty() || correo.isEmpty() || dia == null || mes == null || año == null) {
             registrarView.mostrarMensaje(mi.get("mensaje.campos.obligatorios"));
             return;
         }
 
-        // Validación de celular (solo números)
         if (!celular.matches("\\d+")) {
             registrarView.mostrarMensaje(mi.get("usuario.celular.invalido")); // Asegúrate de tener este mensaje en tus archivos .properties
             return;
         }
-        // Validación de correo electrónico
-        if (!correo.matches("^[\\w.-]+@gmail\\.com$")) {
+        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
             registrarView.mostrarMensaje("mensaje.correo.invalido");
             return;
         }
 
-        // Validar si ya existe usuario
         if (usuarioDAO.buscarPorUsername(username) != null) {
             registrarView.mostrarMensaje(mi.get("usuario.nombre.en.uso"));
             return;
         }
 
-        // Aquí podrías guardar la fecha como texto o usar LocalDate si amplías el modelo
         String fechaNacimiento = dia + "/" + mes + "/" + año;
 
-        Usuario nuevoUsuario = new Usuario(username, contrasenia, Rol.USUARIO);
+        Usuario nuevoUsuario = new Usuario(username, contrasenia, Rol.USUARIO, nombreCompleto, fechaNacimiento, celular, correo);
         usuarioDAO.crear(nuevoUsuario);
 
         registrarView.mostrarMensaje(mi.get("usuario.creado"));
@@ -414,13 +403,13 @@ public class UsuarioController {
         if (usuario == null) {
             loginView.mostrarMensaje(mi.get("login.mensaje.usuario_o_contrasena_incorrectos"));
         } else {
-            Preguntas cuestionario = cuestionarioDAO.buscarPorUsername(username);
+            PreguntaCuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
             if (cuestionario == null || cuestionario.getRespuestas().size() < 3) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.completar_cuestionario"));
 
                 PreguntaView cuestionarioView = new PreguntaView(mi);
-                PreguntasController controller = new PreguntasController(
-                        cuestionarioView, cuestionarioDAO, username, mi
+                PreguntaController controller = new PreguntaController(
+                        cuestionarioView, cuestionarioDAO, username, mi, usuarioDAO
                 );
                 cuestionarioView.setVisible(true);
                 loginView.setVisible(false);
@@ -442,7 +431,7 @@ public class UsuarioController {
     private void crearUsuario() {
         boolean confirmado = loginView.mostrarMensajePregunta(mi.get("usuario.crear.confirmacion"));
         if (confirmado) {
-            this.registrarView = new RegistrarView();
+            this.registrarView = new RegistrarView(mi);
 
             registrarView.getBtnRegistrar().addActionListener(e -> registrarNuevoUsuario());
             registrarView.getBtnLimpiar().addActionListener(e -> registrarView.limpiarCampos());

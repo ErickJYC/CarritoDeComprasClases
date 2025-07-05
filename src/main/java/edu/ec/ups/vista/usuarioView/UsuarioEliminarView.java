@@ -35,6 +35,24 @@ public class UsuarioEliminarView extends JInternalFrame{
             }
         };
         tblUser.setModel(modelo);
+        cambiarIdioma();
+    }
+
+    public void cambiarIdioma() {
+        setTitle(mi.get("usuario.eliminar.titulo"));
+        lblEliminar.setText(mi.get("usuario.eliminar.tituloEtiqueta"));
+        BtnBuscar.setText(mi.get("usuario.eliminar.boton.buscar"));
+        BtnEliminar.setText(mi.get("usuario.eliminar.boton.eliminar"));
+
+        modelo.setColumnIdentifiers(new Object[]{
+                mi.get("usuario.eliminar.columna.nombre"),
+                mi.get("usuario.eliminar.columna.usuario"),
+                mi.get("usuario.eliminar.columna.contrasena"),
+                mi.get("usuario.eliminar.columna.correo"),
+                mi.get("usuario.eliminar.columna.celular"),
+                mi.get("usuario.eliminar.columna.fechaNacimiento"),
+                mi.get("usuario.eliminar.columna.rol")
+        });
     }
 
     public JPanel getPanelPrincipal() {

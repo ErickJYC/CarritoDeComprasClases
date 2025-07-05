@@ -1,8 +1,8 @@
 package edu.ec.ups.dao.impl;
 
-import edu.ec.ups.dao.CuestionarioDAO;
+import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.modelo.Preguntas;
+import edu.ec.ups.modelo.PreguntaCuestionario;
 import edu.ec.ups.modelo.Respuesta;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
@@ -14,10 +14,10 @@ import java.util.List;
 public class UsuarioDAOMemoria implements UsuarioDAO {
 
     private List<Usuario> usuarios;
-    private CuestionarioDAO cuestionarioDAO;
+    private PreguntaDAO cuestionarioDAO;
 
 
-    public UsuarioDAOMemoria( CuestionarioDAO cuestionarioDAO) {
+    public UsuarioDAOMemoria( PreguntaDAO cuestionarioDAO) {
         this.usuarios = new ArrayList<>();
         this.cuestionarioDAO = cuestionarioDAO;
 
@@ -26,7 +26,7 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         crear(new Usuario("user", "12345", Rol.USUARIO));
 
 
-        Preguntas cuestionarioAdmin = new Preguntas("admin");
+        PreguntaCuestionario cuestionarioAdmin = new PreguntaCuestionario("admin");
         List<Respuesta> preguntas = cuestionarioAdmin.preguntasPorDefecto();
 
         preguntas.get(0).setRespuesta("Negro");

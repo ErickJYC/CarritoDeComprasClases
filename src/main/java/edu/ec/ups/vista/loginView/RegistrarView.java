@@ -1,5 +1,7 @@
 package edu.ec.ups.vista.loginView;
 
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+
 import javax.swing.*;
 
 public class RegistrarView extends JFrame {
@@ -19,8 +21,12 @@ public class RegistrarView extends JFrame {
     private JButton btnLimpiar;
     private JLabel lblRegistrar;
     private JPanel panelPrincipal;
+    private JLabel lblContrasena;
+    private JLabel lblCelular;
+    private MensajeInternacionalizacionHandler mi;
 
-    public RegistrarView() {
+    public RegistrarView(MensajeInternacionalizacionHandler mi) {
+        this.mi = mi;
         setContentPane(panelPrincipal);
         setTitle("Recuperar Contraseña");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,17 +34,35 @@ public class RegistrarView extends JFrame {
         setLocationRelativeTo(null);
 
         for (int i = 1; i <= 31; i++) cbxDia.addItem(i);
-        for (int i = 1900; i <= 2025; i++) cbxAño.addItem(i);
-        String[] meses = {
-                "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        };
+        for (int i = 1980; i <= 2025; i++) cbxAño.addItem(i);
 
+        cambiarIdioma();
+
+
+    }
+
+    private void cambiarIdioma() {
+        lblRegistrar.setText(mi.get("registrar.titulo"));
+        lblNombreCompleto.setText(mi.get("registrar.nombre"));
+        lblUsuario.setText(mi.get("registrar.usuario"));
+        lblContrasena.setText(mi.get("registrar.contrasena"));
+        lblCelular.setText(mi.get("registrar.celular"));
+        lblCorreo.setText(mi.get("registrar.correo"));
+        lblFechaDeNacimiento.setText(mi.get("registrar.fechaNacimiento"));
+
+        btnRegistrar.setText(mi.get("registrar.boton.registrar"));
+        btnLimpiar.setText(mi.get("registrar.boton.limpiar"));
+
+        cbxMes.removeAllItems(); // Limpiar meses actuales
+        String[] meses = {
+                mi.get("mes.enero"), mi.get("mes.febrero"), mi.get("mes.marzo"),
+                mi.get("mes.abril"), mi.get("mes.mayo"), mi.get("mes.junio"),
+                mi.get("mes.julio"), mi.get("mes.agosto"), mi.get("mes.septiembre"),
+                mi.get("mes.octubre"), mi.get("mes.noviembre"), mi.get("mes.diciembre")
+        };
         for (String mes : meses) {
             cbxMes.addItem(mes);
         }
-
-
     }
 
     public JLabel getLblNombreCompleto() {

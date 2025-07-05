@@ -27,6 +27,7 @@ public class UsuarioCrearView extends JInternalFrame {
     private JComboBox cbxAño;
     private JLabel lblCorreo;
     private JLabel lblFechaN;
+    private JLabel lblCelular;
     private MensajeInternacionalizacionHandler mi;
 
     public UsuarioCrearView ( MensajeInternacionalizacionHandler mi) {
@@ -56,6 +57,28 @@ public class UsuarioCrearView extends JInternalFrame {
         for (String mes : meses) {
             cbxMes.addItem(mes);
         }
+    }
+    public void cambiarIdioma() {
+        setTitle(mi.get("usuario.crear.titulo"));
+        lblNuevoUsuario.setText(mi.get("usuario.crear.tituloEtiqueta"));
+        lblUsuario.setText(mi.get("usuario.crear.usuario"));
+        lblContrasena.setText(mi.get("usuario.crear.contrasena"));
+        lblRol.setText(mi.get("usuario.crear.rol"));
+        lblCorreo.setText(mi.get("usuario.crear.correo"));
+        lblCelular.setText(mi.get("usuario.crear.celular"));
+        lblNombreC.setText(mi.get("usuario.crear.nombreCompleto"));
+        lblFechaN.setText(mi.get("usuario.crear.fechaNacimiento"));
+        BtnRegistrar.setText(mi.get("usuario.crear.boton.registrar"));
+        BtnLimpiar.setText(mi.get("usuario.crear.boton.limpiar"));
+
+        cbxMes.removeAllItems();
+        for (int i = 1; i <= 12; i++) {
+            cbxMes.addItem(mi.get("mess." + i));
+        }
+
+        CbxRol.removeAllItems();
+        CbxRol.addItem(mi.get("rol.administrador"));
+        CbxRol.addItem(mi.get("rol.usuario"));
     }
 
     public JPanel getPanelPrincipal() {

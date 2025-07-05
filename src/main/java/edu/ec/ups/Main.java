@@ -5,11 +5,11 @@ import edu.ec.ups.controlador.CarritoController;
 import edu.ec.ups.controlador.ProductoController;
 import edu.ec.ups.controlador.UsuarioController;
 import edu.ec.ups.dao.CarritoDAO;
-import edu.ec.ups.dao.CuestionarioDAO;
+import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.dao.impl.CarritoDAOMemoria;
-import edu.ec.ups.dao.impl.CuestionarioDAOMemoria;
+import edu.ec.ups.dao.impl.PreguntaDAOMemoria;
 import edu.ec.ups.dao.impl.ProductoDAOMemoria;
 import edu.ec.ups.dao.impl.UsuarioDAOMemoria;
 import edu.ec.ups.modelo.Rol;
@@ -48,7 +48,7 @@ public class Main {
                     ProductoDAO productoDAO = new ProductoDAOMemoria();
                     CarritoDAO carritoDAO = new CarritoDAOMemoria();
 
-                    CuestionarioDAO cuestionarioDAO = new CuestionarioDAOMemoria();
+                    PreguntaDAO cuestionarioDAO = new PreguntaDAOMemoria();
                     UsuarioDAO usuarioDAO = new UsuarioDAOMemoria(cuestionarioDAO);
 
                     LoginView loginView = new LoginView(mi);
@@ -84,7 +84,7 @@ public class Main {
                                 UsuarioEliminarView usuarioEliminarView = new UsuarioEliminarView(mi);
                                 UsuarioModificarView usuarioModificarView = new UsuarioModificarView(mi);
 
-                                RegistrarView registrarView = new RegistrarView();
+                                RegistrarView registrarView = new RegistrarView(mi);
 
 
                                 //instanciamos Controladores
@@ -157,7 +157,7 @@ public class Main {
                                 principalView.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
-                                        boolean confirmado = principalView.mostrarMensajePregunta("¿Desea Cerrar Sesión?");
+                                        boolean confirmado = principalView.mostrarMensajePregunta(mi.get("login.main_cerrarSesion"));
                                         if (confirmado) {
                                             principalView.dispose();
                                             loginView.setVisible(true);
@@ -213,7 +213,7 @@ public class Main {
                                 principalView.getMenuItemSalir().addActionListener(new ActionListener() {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
-                                        boolean confirmado = principalView.mostrarMensajePregunta("¿Desea Salir?");
+                                        boolean confirmado = principalView.mostrarMensajePregunta(mi.get("login.main_salir"));
                                         if (confirmado) {
                                             principalView.dispose();
                                             System.exit(0);
