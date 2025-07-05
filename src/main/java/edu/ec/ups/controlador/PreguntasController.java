@@ -4,8 +4,8 @@ import edu.ec.ups.dao.CuestionarioDAO;
 import edu.ec.ups.modelo.Preguntas;
 import edu.ec.ups.modelo.Respuesta;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.PreguntasRecuperarContrasenaView;
-import edu.ec.ups.vista.PreguntaView;
+import edu.ec.ups.vista.loginView.PreguntasRecuperarContrasenaView;
+import edu.ec.ups.vista.loginView.PreguntaView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
 package edu.ec.ups.vista;
 
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
+import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import java.net.URL;

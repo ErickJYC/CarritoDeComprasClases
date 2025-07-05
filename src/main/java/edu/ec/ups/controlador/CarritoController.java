@@ -7,7 +7,7 @@ import edu.ec.ups.modelo.ItemCarrito;
 import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.*;
+import edu.ec.ups.vista.carritoView.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

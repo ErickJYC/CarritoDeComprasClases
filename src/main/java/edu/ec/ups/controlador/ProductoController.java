@@ -3,7 +3,11 @@ package edu.ec.ups.controlador;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.*;
+import edu.ec.ups.vista.carritoView.CarritoAnadirView;
+import edu.ec.ups.vista.productoView.ProductoActualizarView;
+import edu.ec.ups.vista.productoView.ProductoAnadirView;
+import edu.ec.ups.vista.productoView.ProductoEliminarView;
+import edu.ec.ups.vista.productoView.ProductoListaView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

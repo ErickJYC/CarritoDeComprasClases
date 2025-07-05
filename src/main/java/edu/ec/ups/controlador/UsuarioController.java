@@ -6,7 +6,14 @@ import edu.ec.ups.modelo.Preguntas;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.*;
+import edu.ec.ups.vista.loginView.LoginView;
+import edu.ec.ups.vista.loginView.PreguntaView;
+import edu.ec.ups.vista.loginView.PreguntasRecuperarContrasenaView;
+import edu.ec.ups.vista.loginView.RegistrarView;
+import edu.ec.ups.vista.usuarioView.UsuarioCrearView;
+import edu.ec.ups.vista.usuarioView.UsuarioEliminarView;
+import edu.ec.ups.vista.usuarioView.UsuarioListarView;
+import edu.ec.ups.vista.usuarioView.UsuarioModificarView;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
