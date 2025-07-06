@@ -9,20 +9,30 @@ import edu.ec.ups.vista.productoView.ProductoAnadirView;
 import edu.ec.ups.vista.productoView.ProductoEliminarView;
 import edu.ec.ups.vista.productoView.ProductoListaView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Controlador encargado de gestionar todas las operaciones relacionadas con productos,
+ * incluyendo creación, búsqueda, listado, actualización y eliminación.
+ */
 public class ProductoController {
 
+    // Vistas de producto y carrito
     private final ProductoAnadirView productoAnadirView;
     private final ProductoListaView productoListaView;
     private final CarritoAnadirView carritoAnadirView;
     private final ProductoEliminarView productoEliminarView;
     private final ProductoActualizarView productoActualizarView;
+
+    // Acceso a datos de productos
     private final ProductoDAO productoDAO;
+
+    // Manejador de mensajes internacionalizados
     private final MensajeInternacionalizacionHandler mi;
 
+    /**
+     * Constructor principal del controlador de productos.
+     */
     public ProductoController(ProductoDAO productoDAO,
                               ProductoAnadirView productoAnadirView,
                               ProductoListaView productoListaView,
@@ -38,67 +48,36 @@ public class ProductoController {
         this.productoEliminarView = productoEliminarView;
         this.productoActualizarView = productoActualizarView;
         this.mi = mi;
-        this.configurarEventosEnVistas();
+
+        configurarEventosEnVistas();
     }
 
+    /**
+     * Método que configura los listeners para cada acción en las vistas.
+     */
     private void configurarEventosEnVistas() {
-        productoAnadirView.getBtnAceptar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guardarProducto();
-            }
-        });
+        // Añadir producto
+        productoAnadirView.getBtnAceptar().addActionListener(e -> guardarProducto());
 
-        productoListaView.getBtnBuscar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarProducto();
-            }
-        });
+        // Buscar y listar productos
+        productoListaView.getBtnBuscar().addActionListener(e -> buscarProducto());
+        productoListaView.getBtnListar().addActionListener(e -> listarProductos());
 
-        productoListaView.getBtnListar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listarProductos();
-            }
-        });
+        // Buscar producto desde el carrito
+        carritoAnadirView.getBtnBuscar().addActionListener(e -> buscarProductoPorCodigo());
 
-        carritoAnadirView.getBtnBuscar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarProductoPorCodigo();
-            }
-        });
+        // Buscar y eliminar producto
+        productoEliminarView.getBtnBuscar().addActionListener(e -> buscarProductoPorCodigoEliminar());
+        productoEliminarView.getBtnEliminar().addActionListener(e -> eliminarProducto());
 
-        productoEliminarView.getBtnBuscar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarProductoPorCodigoEliminar();
-            }
-        });
-
-        productoEliminarView.getBtnEliminar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eliminarProducto();
-            }
-        });
-
-        productoActualizarView.getBtnBuscar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarProductoPorCodigoActualizar();
-            }
-        });
-
-        productoActualizarView.getBtnActualizar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                actualizarProducto();
-            }
-        });
+        // Buscar y actualizar producto
+        productoActualizarView.getBtnBuscar().addActionListener(e -> buscarProductoPorCodigoActualizar());
+        productoActualizarView.getBtnActualizar().addActionListener(e -> actualizarProducto());
     }
 
+    /**
+     * Guarda un nuevo producto en la base de datos.
+     */
     private void guardarProducto() {
         int codigo = Integer.parseInt(productoAnadirView.getTxtCodigo().getText());
         String nombre = productoAnadirView.getTxtNombre().getText();
@@ -110,21 +89,30 @@ public class ProductoController {
         productoAnadirView.mostrarProductos(productoDAO.listarTodos());
     }
 
+    /**
+     * Busca productos por nombre y los carga en la tabla de la vista.
+     */
     private void buscarProducto() {
         String nombre = productoListaView.getTxtBuscar().getText();
-
         List<Producto> productosEncontrados = productoDAO.buscarPorNombre(nombre);
         productoListaView.cargarDatos(productosEncontrados);
     }
 
+    /**
+     * Lista todos los productos existentes en la base de datos.
+     */
     private void listarProductos() {
         List<Producto> productos = productoDAO.listarTodos();
         productoListaView.cargarDatos(productos);
     }
 
+    /**
+     * Busca un producto por su código desde la vista del carrito y lo muestra.
+     */
     private void buscarProductoPorCodigo() {
         int codigo = Integer.parseInt(carritoAnadirView.getTxtCodigo().getText());
         Producto producto = productoDAO.buscarPorCodigo(codigo);
+
         if (producto == null) {
             carritoAnadirView.mostrarMensaje(mi.get("producto.no_encontrado"));
             carritoAnadirView.getTxtNombre().setText("");
@@ -135,6 +123,9 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Elimina un producto si su código es válido.
+     */
     private void eliminarProducto() {
         String cod = productoEliminarView.getTextField1().getText().trim();
 
@@ -155,7 +146,9 @@ public class ProductoController {
         productoEliminarView.mostrarMensaje(mi.get("producto.eliminado"));
     }
 
-
+    /**
+     * Busca un producto para eliminarlo y muestra su información.
+     */
     private void buscarProductoPorCodigoEliminar() {
         String code = productoEliminarView.getTextField1().getText();
         if (!code.isEmpty()) {
@@ -171,6 +164,9 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Busca un producto para actualizarlo y muestra sus datos.
+     */
     private void buscarProductoPorCodigoActualizar() {
         String code = productoActualizarView.getTextField1().getText();
         if (!code.isEmpty()) {
@@ -186,6 +182,9 @@ public class ProductoController {
         }
     }
 
+    /**
+     * Actualiza los datos de un producto existente.
+     */
     private void actualizarProducto() {
         String cod = productoActualizarView.getTextField1().getText();
         int codigo = Integer.parseInt(cod);
@@ -197,5 +196,3 @@ public class ProductoController {
         productoActualizarView.mostrarMensaje(mi.get("producto.modificado"));
     }
 }
-
-

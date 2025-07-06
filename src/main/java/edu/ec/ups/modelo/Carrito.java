@@ -7,31 +7,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Carrito {
+
     private int codigo;
-
     private GregorianCalendar fechaCreacion;
-
-    //private int contador = 1;
-
     private List<ItemCarrito> items;
-
     private Usuario usuario;
 
-
+    // Constructor por defecto
     public Carrito() {
-        //this.codigo = contador++;
         this.items = new ArrayList<>();
         this.fechaCreacion = new GregorianCalendar();
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
+    // Getters y Setters
     public int getCodigo() {
         return codigo;
     }
@@ -48,6 +36,15 @@ public class Carrito {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    // Agrega un producto al carrito (acumula cantidad si ya existe)
     public void agregarProducto(Producto producto, int cantidad) {
         for (ItemCarrito item : items) {
             if (item.getProducto().getCodigo() == producto.getCodigo()) {
@@ -58,6 +55,7 @@ public class Carrito {
         items.add(new ItemCarrito(producto, cantidad));
     }
 
+    // Elimina un producto del carrito por su código
     public void eliminarProducto(int codigoProducto) {
         Iterator<ItemCarrito> it = items.iterator();
         while (it.hasNext()) {
@@ -68,10 +66,12 @@ public class Carrito {
         }
     }
 
+    // Vacía el carrito completamente
     public void vaciarCarrito() {
         items.clear();
     }
 
+    // Calcula el total sin impuestos
     public double calcularTotal() {
         double total = 0;
         for (ItemCarrito item : items) {
@@ -80,37 +80,40 @@ public class Carrito {
         return total;
     }
 
+    // Devuelve la lista de items
     public List<ItemCarrito> obtenerItems() {
         return items;
     }
 
+    // Verifica si el carrito está vacío
     public boolean estaVacio() {
         return items.isEmpty();
     }
 
-
+    // Calcula el IVA (12%)
     public double calcularIVA() {
-        double total = calcularTotal();
-        return total * 0.12; // Asumiendo un IVA del 12%
+        return calcularTotal() * 0.12;
     }
+
+    // Calcula el total incluyendo el IVA
     public double calcularTotalConIVA() {
         return calcularTotal() + calcularIVA();
     }
 
+    // Devuelve la fecha formateada en "dd/MM/yyyy"
     public String getFechaFormateada() {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(fechaCreacion.getTime());
     }
-    public Carrito copiar(){
+
+    // Devuelve una copia del carrito con sus productos y cantidades
+    public Carrito copiar() {
         Carrito copia = new Carrito();
         copia.setFechaCreacion(this.fechaCreacion);
         copia.setCodigo(this.codigo);
         copia.setUsuario(this.usuario);
         for (ItemCarrito item : this.items) {
-            Producto producto = item.getProducto();
-            int cantidad = item.getCantidad();
-            copia.agregarProducto(producto, cantidad);
-
+            copia.agregarProducto(item.getProducto(), item.getCantidad());
         }
         return copia;
     }

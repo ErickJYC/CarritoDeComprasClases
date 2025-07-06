@@ -9,12 +9,16 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CarritoDAOMemoria implements CarritoDAO {
+
+    // Lista interna que simula la base de datos en memoria
     private List<Carrito> carritos;
 
+    // Constructor: inicializa la lista vacía
     public CarritoDAOMemoria() {
-        this.carritos = new ArrayList<Carrito>();
+        this.carritos = new ArrayList<>();
     }
 
+    // Crear un nuevo carrito: asigna un código y guarda una copia
     @Override
     public void crear(Carrito carrito) {
         carrito.setCodigo(carritos.size() + 1);
@@ -23,6 +27,7 @@ public class CarritoDAOMemoria implements CarritoDAO {
         System.out.println("Carrito creado con código: " + copia.getCodigo());
     }
 
+    // Buscar un carrito por código
     @Override
     public Carrito buscarPorCodigo(int codigo) {
         for (Carrito carrito : carritos) {
@@ -33,6 +38,7 @@ public class CarritoDAOMemoria implements CarritoDAO {
         return null;
     }
 
+    // Actualizar un carrito existente por código
     @Override
     public void actualizar(Carrito carrito) {
         for (int i = 0; i < carritos.size(); i++) {
@@ -43,6 +49,7 @@ public class CarritoDAOMemoria implements CarritoDAO {
         }
     }
 
+    // Eliminar un carrito por código usando iterator para evitar ConcurrentModificationException
     @Override
     public void eliminar(int codigo) {
         Iterator<Carrito> iterator = carritos.iterator();
@@ -54,11 +61,13 @@ public class CarritoDAOMemoria implements CarritoDAO {
         }
     }
 
+    // Listar todos los carritos
     @Override
     public List<Carrito> listarTodos() {
         return carritos;
     }
 
+    // Buscar carritos asociados a un usuario dado (comparando username)
     @Override
     public List<Carrito> buscarPorUsuario(Usuario usuario) {
         List<Carrito> carritosUsuario = new ArrayList<>();

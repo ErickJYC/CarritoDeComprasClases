@@ -1,23 +1,38 @@
 package edu.ec.ups.modelo;
 
+/**
+ * Clase que representa un usuario dentro del sistema.
+ * Contiene información personal, de autenticación y su rol asignado.
+ */
 public class Usuario {
+
+    // Atributos principales del usuario
     private String username;
     private String contrasenia;
     private Rol rol;
     private String nombreCompleto;
-    private String fechaNacimiento; // Formato sugerido: dd/mm/yyyy
+    private String fechaNacimiento; // Formato recomendado: dd/mm/yyyy
     private String celular;
     private String correo;
 
+    /**
+     * Constructor vacío necesario para frameworks o instancias manuales.
+     */
     public Usuario() {
     }
 
+    /**
+     * Constructor básico para autenticación y asignación de rol.
+     */
     public Usuario(String username, String contrasenia, Rol rol) {
         this.username = username;
         this.contrasenia = contrasenia;
         this.rol = rol;
     }
 
+    /**
+     * Constructor completo con toda la información personal.
+     */
     public Usuario(String username, String contrasenia, Rol rol, String nombreCompleto,
                    String fechaNacimiento, String celular, String correo) {
         this.username = username;
@@ -29,7 +44,7 @@ public class Usuario {
         this.correo = correo;
     }
 
-    // Getters y Setters
+    // ===================== Getters y Setters =====================
 
     public String getUsername() {
         return username;
@@ -87,6 +102,9 @@ public class Usuario {
         this.correo = correo;
     }
 
+    /**
+     * Representación en texto del objeto Usuario.
+     */
     @Override
     public String toString() {
         return "Usuario{" +
