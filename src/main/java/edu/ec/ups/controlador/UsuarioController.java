@@ -175,7 +175,7 @@ public class UsuarioController {
             }
 
             PreguntaCuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
-            if (cuestionario == null || cuestionario.getRespuestas().isEmpty()) {
+            if (cuestionario == null || cuestionario.getPreguntas().isEmpty()) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.sin_preguntas"));
                 return;
             }
@@ -409,7 +409,7 @@ public class UsuarioController {
             loginView.mostrarMensaje(mi.get("login.mensaje.usuario_o_contrasena_incorrectos"));
         } else {
             PreguntaCuestionario cuestionario = cuestionarioDAO.buscarPorUsername(username);
-            if (cuestionario == null || cuestionario.getRespuestas().size() < 3) {
+            if (cuestionario == null || cuestionario.getPreguntas().size() < 3) {
                 loginView.mostrarMensaje(mi.get("login.mensaje.completar_cuestionario"));
 
                 PreguntaView cuestionarioView = new PreguntaView(mi);

@@ -2,12 +2,12 @@ package edu.ec.ups.controlador;
 
 import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.UsuarioDAO;
+import edu.ec.ups.modelo.Pregunta;
 import edu.ec.ups.modelo.PreguntaCuestionario;
-import edu.ec.ups.modelo.Respuesta;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.loginView.PreguntasRecuperarContView;
 import edu.ec.ups.vista.loginView.PreguntaView;
+import edu.ec.ups.vista.loginView.PreguntasRecuperarContView;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 public class PreguntaController {
 
     // Lista de preguntas que se le muestran al usuario
-    private List<Respuesta> preguntasAleatorias;
+    private List<Pregunta> preguntasAleatorias;
 
     // DAO para manejar la persistencia del cuestionario
     private final PreguntaDAO cuestionarioDAO;
@@ -58,9 +58,10 @@ public class PreguntaController {
 
         this.cuestionario = new PreguntaCuestionario(username);
         this.cuestionario.aplicarIdioma(mi);
+        this.preguntasAleatorias = cuestionario.preguntasPorDefecto(mi);
 
         // Obtener lista de preguntas y seleccionar las primeras 10
-        List<Respuesta> todasLasPreguntas = cuestionario.preguntasPorDefecto();
+        List<Pregunta> todasLasPreguntas = cuestionario.preguntasPorDefecto(mi);
         preguntasAleatorias = new ArrayList<>();
         for (int i = 0; i < 10 && i < todasLasPreguntas.size(); i++) {
             preguntasAleatorias.add(todasLasPreguntas.get(i));
@@ -90,7 +91,7 @@ public class PreguntaController {
             return;
         }
 
-        preguntasAleatorias = cuestionario.getRespuestas();
+        preguntasAleatorias = cuestionario.getPreguntas();
 
         if (preguntasAleatorias.size() < 3) {
             recuperarView.mostrarMensaje("No hay suficientes preguntas para recuperación.");
@@ -177,10 +178,10 @@ public class PreguntaController {
     private void preguntasCuestionario() {
         int index = cuestionarioView.getCbxPreguntas().getSelectedIndex();
         if (index >= 0) {
-            Respuesta r = preguntasAleatorias.get(index);
+            Pregunta r = preguntasAleatorias.get(index);
             cuestionarioView.getLblPregunta().setText(r.getEnunciado());
 
-            Respuesta respondido = cuestionario.buscarRespuestaPorId(r.getId());
+            Pregunta respondido = cuestionario.buscarPreguntaPorId(r.getId());
             if (respondido != null) {
                 cuestionarioView.getTxtRespuesta().setText(respondido.getRespuesta());
             } else {
@@ -200,21 +201,21 @@ public class PreguntaController {
             return;
         }
 
-        Respuesta seleccionada = preguntasAleatorias.get(index);
+        Pregunta seleccionada = preguntasAleatorias.get(index);
 
-        if (cuestionario.buscarRespuestaPorId(seleccionada.getId()) != null) {
+        if (cuestionario.buscarPreguntaPorId(seleccionada.getId()) != null) {
             cuestionarioView.mostrarMensaje(mi.get("cuestionario.guardar.yaRespondida"));
             return;
         }
 
         seleccionada.setRespuesta(texto);
-        cuestionario.agregarRespuesta(seleccionada);
+        cuestionario.agregarPregunta(seleccionada);
         cuestionarioView.mostrarMensaje(mi.get("cuestionario.guardar.ok"));
     }
 
     // Finaliza el cuestionario y guarda si hay al menos 3 respuestas
     private void finalizar() {
-        if (cuestionario.getRespuestas().size() < 3) {
+        if (cuestionario.getPreguntas().size() < 3) {
             cuestionarioView.mostrarMensaje(mi.get("cuestionario.finalizar.minimo"));
             return;
         }
@@ -234,6 +235,25 @@ public class PreguntaController {
         }
 
         if (cantidadPreguntas > 0) {
+            cuestionarioView.getLblPregunta().setText(preguntasAleatorias.get(0).getEnunciado());
+        }
+    }
+    private void actualizarComboPreguntas() {
+        // Aplica el nuevo idioma a las preguntas
+        for (Pregunta p : preguntasAleatorias) {
+            p.setMensajeIdioma(mi);
+        }
+
+        // Limpia el combo actual
+        cuestionarioView.getCbxPreguntas().removeAllItems();
+
+        // Agrega los nuevos enunciados traducidos
+        for (Pregunta p : preguntasAleatorias) {
+            cuestionarioView.getCbxPreguntas().addItem(p.getEnunciado());
+        }
+
+        // Opcional: mostrar la primera pregunta
+        if (!preguntasAleatorias.isEmpty()) {
             cuestionarioView.getLblPregunta().setText(preguntasAleatorias.get(0).getEnunciado());
         }
     }

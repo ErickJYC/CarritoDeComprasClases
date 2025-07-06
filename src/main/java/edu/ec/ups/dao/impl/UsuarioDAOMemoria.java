@@ -2,10 +2,8 @@ package edu.ec.ups.dao.impl;
 
 import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.modelo.PreguntaCuestionario;
-import edu.ec.ups.modelo.Respuesta;
-import edu.ec.ups.modelo.Rol;
-import edu.ec.ups.modelo.Usuario;
+import edu.ec.ups.modelo.*;
+import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +14,7 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
     // Lista que almacena los usuarios en memoria
     private List<Usuario> usuarios;
     private PreguntaDAO cuestionarioDAO;
+    private MensajeInternacionalizacionHandler  mi;
 
     // Constructor que inicializa la lista y agrega usuarios por defecto
     public UsuarioDAOMemoria(PreguntaDAO cuestionarioDAO) {
@@ -29,16 +28,16 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
 
         // Preguntas por defecto para el usuario admin
         PreguntaCuestionario cuestionarioAdmin = new PreguntaCuestionario("admin");
-        List<Respuesta> preguntas = cuestionarioAdmin.preguntasPorDefecto();
+        List<Pregunta> preguntas = cuestionarioAdmin.preguntasPorDefecto(mi);
 
         preguntas.get(0).setRespuesta("Negro");
         preguntas.get(1).setRespuesta("Kobu");
         preguntas.get(2).setRespuesta("Churrasco");
 
         // Agregar respuestas al cuestionario
-        cuestionarioAdmin.agregarRespuesta(preguntas.get(0));
-        cuestionarioAdmin.agregarRespuesta(preguntas.get(1));
-        cuestionarioAdmin.agregarRespuesta(preguntas.get(2));
+        cuestionarioAdmin.agregarPregunta(preguntas.get(0));
+        cuestionarioAdmin.agregarPregunta(preguntas.get(1));
+        cuestionarioAdmin.agregarPregunta(preguntas.get(2));
 
         cuestionarioDAO.guardar(cuestionarioAdmin);
     }

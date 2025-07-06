@@ -25,4 +25,13 @@ public class MensajeInternacionalizacionHandler {
     public Locale getLocale() {
         return locale;
     }
+    public void cambiarIdioma(String idioma) {
+        Locale nueva = switch (idioma) {
+            case "en" -> new Locale("en", "US");
+            case "fr" -> new Locale("fr", "FR");
+            default -> new Locale("es", "EC");
+        };
+
+        this.bundle = ResourceBundle.getBundle("messages", nueva);
+    }
 }
