@@ -81,17 +81,6 @@ public PreguntaView(MensajeInternacionalizacionHandler mi) {
         lblPregunta.setText(mi.get("cuestionario.pregunta.label"));
         btnGuardar.setText(mi.get("cuestionario.pregunta.boton.guardar"));
         btnTerminar.setText(mi.get("cuestionario.pregunta.boton.terminar"));
-//        cbxPreguntas.setToolTipText(mi.get("ciudad_donde_naciste"));
-//        cbxPreguntas.setToolTipText(mi.get("nombre_de_tu_mascota_en_la_infancia"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.nombre_de_tu_primer_docente"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.mejor_amigo_de_la_infancia"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.juego_infantil_favorito"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.nombre_de_tu_abuelo_materno"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.deportista_favorito"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.apodo_que_tenias_en_la_escuela"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.nombre_de_tu_primer_amor"));
-//        cbxPreguntas.setToolTipText(mi.get("pregunta.lugar_de_vacaciones_mas_memorable"));
-
     }
 
     public JComboBox getCbxPreguntas() {
