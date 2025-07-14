@@ -1,0 +1,139 @@
+@startuml
+
+'================= MODELO =================
+package modelo {
+  class Usuario {
+    - id: int
+    - nombre: String
+    - email: String
+    - password: String
+    - rol: Rol
+    + validarPassword(p: String): boolean
+    + cambiarPassword(p: String): void
+    - encriptarPassword(p: String): String
+  }
+
+  class Rol {
+    - nombre: String
+    + Rol(nombre: String)
+    + getNombre(): String
+  }
+
+  class Producto {
+    - id: int
+    - nombre: String
+    - precio: double
+    + Producto(nombre: String, precio: double)
+    + actualizarPrecio(nuevoPrecio: double): void
+    - validarPrecio(precio: double): boolean
+  }
+
+  class Carrito {
+    - id: int
+    - usuario: Usuario
+    - items: List<ItemCarrito>
+    + agregarItem(item: ItemCarrito): void
+    + eliminarItem(producto: Producto): void
+    + calcularTotal(): double
+    - validarCantidad(cantidad: int): boolean
+  }
+
+  class ItemCarrito {
+    - producto: Producto
+    - cantidad: int
+    + ItemCarrito(producto: Producto, cantidad: int)
+    + aumentarCantidad(cantidad: int): void
+    + disminuirCantidad(cantidad: int): void
+    - validarCantidad(cantidad: int): boolean
+  }
+
+  class Pregunta {
+    - id: int
+    - texto: String
+    + Pregunta(texto: String)
+    + actualizarTexto(nuevoTexto: String): void
+  }
+
+  class PreguntaCuestionario {
+    - pregunta: Pregunta
+    - respuestaCorrecta: Respuesta
+    + PreguntaCuestionario(pregunta: Pregunta, respuestaCorrecta: Respuesta)
+    + validarRespuesta(respuesta: Respuesta): boolean
+  }
+
+  class Respuesta {
+    - id: int
+    - texto: String
+    + Respuesta(texto: String)
+  }
+
+  Carrito "1" *-- "many" ItemCarrito
+  Carrito --> Usuario
+  ItemCarrito --> Producto
+  PreguntaCuestionario --> Pregunta
+  PreguntaCuestionario --> Respuesta
+  Usuario --> Rol
+}
+
+'================= DAO =================
+package dao {
+  UsuarioDAOMemoria ..|> UsuarioDAO
+  ProductoDAOMemoria ..|> ProductoDAO
+  CarritoDAOMemoria ..|> CarritoDAO
+  PreguntaDAOMemoria ..|> PreguntaDAO
+}
+
+'================= CONTROLADOR =================
+package controlador {
+  UsuarioController --> UsuarioDAO
+  UsuarioController --> util.MensajeInternacionalizacionHandler
+  ProductoController --> ProductoDAO
+  CarritoController --> CarritoDAO
+  PreguntaController --> PreguntaDAO
+}
+
+'================= UTIL =================
+package util {
+  ' clases utilitarias
+}
+
+'================= VISTA =================
+package vista {
+  MenuPrincipalView --> MiDesktopPane
+  MenuPrincipalView --> UsuarioCrearView
+  MenuPrincipalView --> UsuarioEliminarView
+  MenuPrincipalView --> UsuarioListarView
+  MenuPrincipalView --> UsuarioModificarView
+  MenuPrincipalView --> ProductoAnadirView
+  MenuPrincipalView --> ProductoActualizarView
+  MenuPrincipalView --> ProductoEliminarView
+  MenuPrincipalView --> ProductoListarView
+  MenuPrincipalView --> CarritoAnadirView
+  MenuPrincipalView --> CarritoDetalleView
+  MenuPrincipalView --> CarritoEliminarView
+  MenuPrincipalView --> CarritoListarView
+  MenuPrincipalView --> CarritoModificarView
+  MenuPrincipalView --> PreguntaView
+  MenuPrincipalView --> RespuestasRecuperarContView
+
+  UsuarioCrearView --> UsuarioController
+  UsuarioEliminarView --> UsuarioController
+  UsuarioListarView --> UsuarioController
+  UsuarioModificarView --> UsuarioController
+
+  ProductoAnadirView --> ProductoController
+  ProductoActualizarView --> ProductoController
+  ProductoEliminarView --> ProductoController
+  ProductoListarView --> ProductoController
+
+  CarritoAnadirView --> CarritoController
+  CarritoDetalleView --> CarritoController
+  CarritoEliminarView --> CarritoController
+  CarritoListarView --> CarritoController
+  CarritoModificarView --> CarritoController
+
+  PreguntaView --> PreguntaController
+  RespuestasRecuperarContView --> PreguntaController
+}
+
+@enduml

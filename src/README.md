@@ -3,6 +3,8 @@
 ----
 ## Nombre: Erick Yunga
 
+## Vide: https://youtu.be/WPIz5ml5iUc
+
 Este proyecto es una aplicación de escritorio en Java, desarrollada con arquitectura MVC, que permite la gestión de usuarios, productos, carritos de compras y preguntas de seguridad.
 
 ## 🧩 Descripción General del Sistema

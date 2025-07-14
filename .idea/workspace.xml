@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5e6a6019-10ee-4ae7-ad49-318546ecd968" name="Changes" comment="fix (UPS-041): Se realizo el README.md">
+      <change afterPath="$PROJECT_DIR$/diagrama_clases.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/CarritoTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/dao/CuestionarioDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/vista/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/vista/ProductoModificarView.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/oppcional" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ErickJYC&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ErickJYC/CarritoDeComprasClases.git&quot;,
+    &quot;accountId&quot;: &quot;ad400a4a-baff-4ab2-b2ae-4611abd363a0&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2yZgU3myvlfaxHAX8RWmy50Ywlg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+    &quot;Application.edu.ec.ups.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.edu.ups.vista.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;133&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;250&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/walte/OneDrive/Documentos/Estructura de datos&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;module&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\walte\OneDrive\Documentos\Estructura de datos\CarritoDeComprasClase\src\main\resources\imagenes" />
+      <recent name="C:\Users\walte\OneDrive\Documentos\Estructura de datos\CarritoDeComprasClase\src\main\java\edu\ec\ups\vista\loginView" />
+      <recent name="C:\Users\walte\OneDrive\Documentos\Estructura de datos\CarritoDeComprasClase\src\main\java\edu\ec\ups\vista\usuarioView" />
+      <recent name="C:\Users\walte\OneDrive\Documentos\Estructura de datos\CarritoDeComprasClase\src\main\java\edu\ec\ups\vista\productoView" />
+      <recent name="C:\Users\walte\OneDrive\Documentos\Estructura de datos\CarritoDeComprasClase\src\main\java\edu\ec\ups\vista\carritoView" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="edu.ec.ups.dao.impl" />
+      <recent name="edu.ec.ups.vista" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="edu.ec.ups" />
+      <recent name="edu.ec.ups.dao" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ec.ups.Main" />
+      <module name="CarritoDeComprasClase" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ec.ups.controlador.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5e6a6019-10ee-4ae7-ad49-318546ecd968" name="Changes" comment="" />
+      <created>1750047525808</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750047525808</updated>
+      <workItem from="1751126495758" duration="3110000" />
+      <workItem from="1751243140713" duration="11574000" />
+      <workItem from="1751255653717" duration="8060000" />
+      <workItem from="1751293842174" duration="287000" />
+      <workItem from="1751301836465" duration="275000" />
+      <workItem from="1751302183950" duration="6377000" />
+      <workItem from="1751315299234" duration="18129000" />
+      <workItem from="1751372133417" duration="128000" />
+      <workItem from="1751380134024" duration="4428000" />
+      <workItem from="1751422178494" duration="18062000" />
+      <workItem from="1751473253867" duration="30000" />
+      <workItem from="1751485347430" duration="10510000" />
+      <workItem from="1751495902879" duration="5298000" />
+      <workItem from="1751504924876" duration="1062000" />
+      <workItem from="1751507941141" duration="16689000" />
+      <workItem from="1751547627863" duration="8228000" />
+      <workItem from="1751570190660" duration="147000" />
+      <workItem from="1751677418512" duration="14954000" />
+      <workItem from="1751693158227" duration="392000" />
+      <workItem from="1751693561925" duration="6312000" />
+      <workItem from="1751699942897" duration="3000" />
+      <workItem from="1751729380068" duration="7674000" />
+      <workItem from="1751773228742" duration="13869000" />
+      <workItem from="1751825344944" duration="388000" />
+      <workItem from="1751825893661" duration="2729000" />
+      <workItem from="1751835714495" duration="38000" />
+      <workItem from="1751842555876" duration="3617000" />
+      <workItem from="1751849685315" duration="7581000" />
+      <workItem from="1751865256041" duration="636000" />
+      <workItem from="1751868906729" duration="9000" />
+      <workItem from="1751905389960" duration="118000" />
+      <workItem from="1751905615422" duration="3309000" />
+      <workItem from="1752160548924" duration="1669000" />
+      <workItem from="1752465752457" duration="1826000" />
+      <workItem from="1752510764436" duration="2956000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat(UPS-001): Se a realizado unas modificaciones ya que el anterior proyecto sucedio un error y en este esta corregido y implementado el modificar y eliminar">
+      <option name="closed" value="true" />
+      <created>1750057310798</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750057310798</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat(UPS-002): Se agrego para que se cambie el codigo">
+      <option name="closed" value="true" />
+      <created>1750058031046</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750058031046</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat(UPS-003): Se creo una nueva ventana en la que pusimos modificar y preguntar si o no y se realizaron algunos cambios todavia falta de completar esperando al push">
+      <option name="closed" value="true" />
+      <created>1750095687439</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750095687439</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat(UPS-004): Se agrego al jDeskopPanel el buscar producto">
+      <option name="closed" value="true" />
+      <created>1750096501488</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750096501488</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat(UPS-00): Se agrego todo items en en main y solo falta hacer que aparescan mas carritos">
+      <option name="closed" value="true" />
+      <created>1750316374677</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1750316374677</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat(UPS-00): Se agrego todo items en en main y solo falta hacer que aparescan mas carritos">
+      <option name="closed" value="true" />
+      <created>1750316387065</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750316387065</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat(UPS-005): Se modifico algunos errores que habian">
+      <option name="closed" value="true" />
+      <created>1750396451712</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750396451712</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat(UPS-005): Se modifico algunos errores que habian">
+      <option name="closed" value="true" />
+      <created>1750396462665</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1750396462665</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat(UPS-006): Se agrego el usuario y se corrigio algunas lineas de codigo que estaban mal">
+      <option name="closed" value="true" />
+      <created>1750484391445</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1750484391445</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat(UPS-007): Se completo el CRUD de producto, carrito, Usuario y agregar la opcion de cerrar sesion">
+      <option name="closed" value="true" />
+      <created>1750486927900</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750486927900</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat(UPS-008): Se agregaron en cuanta el eliminar, listar, crar">
+      <option name="closed" value="true" />
+      <created>1750701639722</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750701639723</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat(UPS-009): Se agregaron vistas de usuarios y falta corregir errores">
+      <option name="closed" value="true" />
+      <created>1750952404205</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750952404205</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix (UPS-0010): Se areglaron algunos errores en el CarritoDeCompras">
+      <option name="closed" value="true" />
+      <created>1751131352856</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1751131352856</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix (UPS-0010): Se realizo los cruds de todo los carritos y usuarios">
+      <option name="closed" value="true" />
+      <created>1751257142196</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1751257142196</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat (UPS-0012): Se realizaron tambien algunos metodos">
+      <option name="closed" value="true" />
+      <created>1751257195193</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1751257195193</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix (UPS-013): Se areglaron algunos errores en CarritoController y ProductoController">
+      <option name="closed" value="true" />
+      <created>1751263711958</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1751263711958</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat (UPS-014): Se puso los titulos en cada vista para que se vea mas atractivo el carrito">
+      <option name="closed" value="true" />
+      <created>1751316632543</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1751316632543</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat (UPS-014): Se agrego MiDesktopPane en el MenuPrincipalView y que se observe">
+      <option name="closed" value="true" />
+      <created>1751318008406</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1751318008406</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat (UPS-015): Se agrego la internacionalizacion en el programa">
+      <option name="closed" value="true" />
+      <created>1751333549701</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1751333549701</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix (UPS-016): Se realizo alguno cambios en el LoginView y en la mensajes_en_US.properties, mensajes_es_EC.properties,mensajes_fr_FR">
+      <option name="closed" value="true" />
+      <created>1751383234587</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1751383234587</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix (UPS-017): Se modifico en CarritoAnadirView">
+      <option name="closed" value="true" />
+      <created>1751491737138</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491737138</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix (UPS-017): Se modifico en CarritoDetalleView">
+      <option name="closed" value="true" />
+      <created>1751491749496</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491749496</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix (UPS-017): Se modifico en CarritoEliminarView">
+      <option name="closed" value="true" />
+      <created>1751491760897</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491760897</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix (UPS-020): Se modifico en CarritoListarView">
+      <option name="closed" value="true" />
+      <created>1751491773597</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491773597</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix (UPS-021): Se modifico en CarritoModificarView">
+      <option name="closed" value="true" />
+      <created>1751491785679</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491785679</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fix (UPS-022): Se agregaron nuevas ventanas para hacer las preguntas">
+      <option name="closed" value="true" />
+      <created>1751491812854</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491812854</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix (UPS-023): Se corrigio el LoginView">
+      <option name="closed" value="true" />
+      <created>1751491839313</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491839313</updated>
+    </task>
+    <task id="LOCAL-00028" summary="feat (UPS-024): Se agrego las respuestas con las preguntas y se corrigio el Producto y el Usuario">
+      <option name="closed" value="true" />
+      <created>1751491930672</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491930672</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fix (UPS-025): Se modifico el ItemCarrito">
+      <option name="closed" value="true" />
+      <created>1751491957904</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1751491957904</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fix (UPS-026): Se ha corregido todo los errores que habian lo que falta seria los iconos">
+      <option name="closed" value="true" />
+      <created>1751495860957</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1751495860957</updated>
+    </task>
+    <task id="LOCAL-00031" summary="fix (UPS-028): Se realizaron modificaciones en la Internacionalizacion en los 3 idiomas">
+      <option name="closed" value="true" />
+      <created>1751497411180</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1751497411180</updated>
+    </task>
+    <task id="LOCAL-00032" summary="fix (UPS-028): Se areglo un error en el cual se estaba puesta una opcion que no dejaba que el programa corriera">
+      <option name="closed" value="true" />
+      <created>1751497457944</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1751497457944</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fix (UPS-030): Se agregaron unos productos">
+      <option name="closed" value="true" />
+      <created>1751505307183</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1751505307183</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix (UPS-031): Se areglaron algunos colores que estaban mal puestos">
+      <option name="closed" value="true" />
+      <created>1751510165983</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1751510165983</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix (UPS-032): Se pusieron mas preguntas">
+      <option name="closed" value="true" />
+      <created>1751510607994</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1751510607994</updated>
+    </task>
+    <task id="LOCAL-00036" summary="fix (UPS-033): Se areglaron algunos errores lo que falta seria poner las imagenes">
+      <option name="closed" value="true" />
+      <created>1751516082818</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1751516082818</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fix (UPS-034): Se cambiaron algunos errores ahora si solo faltan las imagenes">
+      <option name="closed" value="true" />
+      <created>1751516463231</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1751516463231</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fix (UPS-035): Se ha agregado los iconos solofalta agregar algunos y listo">
+      <option name="closed" value="true" />
+      <created>1751524720290</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1751524720290</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat (UPS-036): Se han agregado package para que se vea mejor la vista">
+      <option name="closed" value="true" />
+      <created>1751693789942</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1751693789942</updated>
+    </task>
+    <task id="LOCAL-00040" summary="fix (UPS-037): Se modifico que cuando ingre un correo se pueda poner cualquiera y corrigiendo algunos errores en las vistas">
+      <option name="closed" value="true" />
+      <created>1751697785408</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1751697785408</updated>
+    </task>
+    <task id="LOCAL-00041" summary="feat (UPS-038): Se han egreago ya todos los iconos en las ventanas y botones">
+      <option name="closed" value="true" />
+      <created>1751736770046</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1751736770046</updated>
+    </task>
+    <task id="LOCAL-00042" summary="feat (UPS-039): Le he comentado para que quede bien y que se entienda">
+      <option name="closed" value="true" />
+      <created>1751792023635</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1751792023635</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat (UPS-040): Se ha agregado el README.md">
+      <option name="closed" value="true" />
+      <created>1751828608636</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1751828608636</updated>
+    </task>
+    <task id="LOCAL-00044" summary="fix (UPS-041): Se hicieron algunos cambios para que esta bien estructurado y que valga mejor de lo que ya estaba">
+      <option name="closed" value="true" />
+      <created>1751846308218</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1751846308218</updated>
+    </task>
+    <task id="LOCAL-00045" summary="fix (UPS-041): Se realizo el README.md">
+      <option name="closed" value="true" />
+      <created>1751864317145</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1751864317145</updated>
+    </task>
+    <task id="LOCAL-00046" summary="fix (UPS-041): Se realizo el README.md">
+      <option name="closed" value="true" />
+      <created>1751864336832</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1751864336832</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fix (UPS-041): Se realizo el README.md">
+      <option name="closed" value="true" />
+      <created>1752513418584</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1752513418584</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix (UPS-017): Se modifico en CarritoEliminarView" />
+    <MESSAGE value="fix (UPS-020): Se modifico en CarritoListarView" />
+    <MESSAGE value="fix (UPS-021): Se modifico en CarritoModificarView" />
+    <MESSAGE value="fix (UPS-022): Se agregaron nuevas ventanas para hacer las preguntas" />
+    <MESSAGE value="fix (UPS-023): Se corrigio el LoginView" />
+    <MESSAGE value="feat (UPS-024): Se agrego las respuestas con las preguntas y se corrigio el Producto y el Usuario" />
+    <MESSAGE value="fix (UPS-025): Se modifico el ItemCarrito" />
+    <MESSAGE value="fix (UPS-025): Se ha corregido todo los errores que habian lo que falta seria los iconos" />
+    <MESSAGE value="fix (UPS-026): Se ha corregido todo los errores que habian lo que falta seria los iconos" />
+    <MESSAGE value="fix (UPS-028): Se realizaron modificaciones en la Internacionalizacion en los 3 idiomas" />
+    <MESSAGE value="fix (UPS-028): Se areglo un error en el cual se estaba puesta una opcion que no dejaba que el programa corriera" />
+    <MESSAGE value="fix (UPS-030): Se agregaron unos productos" />
+    <MESSAGE value="fix (UPS-031): Se areglaron algunos colores que estaban mal puestos" />
+    <MESSAGE value="fix (UPS-032): Se pusieron mas preguntas" />
+    <MESSAGE value="fix (UPS-033): Se areglaron algunos errores lo que falta seria poner las imagenes" />
+    <MESSAGE value="fix (UPS-034): Se cambiaron algunos errores ahora si solo faltan las imagenes" />
+    <MESSAGE value="fix (UPS-035): Se ha agregado los iconos solofalta agregar algunos y listo" />
+    <MESSAGE value="feat (UPS-036): Se han agregado package para que se vea mejor la vista" />
+    <MESSAGE value="feat (UPS-036): Se modifico que cuando ingre un correo se pueda poner cualquiera y corrigiendo algunos errores en las vistas" />
+    <MESSAGE value="fix (UPS-037): Se modifico que cuando ingre un correo se pueda poner cualquiera y corrigiendo algunos errores en las vistas" />
+    <MESSAGE value="feat (UPS-038): Se han egreago ya todos los iconos en las ventanas y botones" />
+    <MESSAGE value="feat (UPS-039): Le he comentado para que quede bien y que se entienda" />
+    <MESSAGE value="feat (UPS-040): Se ha agregado el README.md" />
+    <MESSAGE value="fix (UPS-041): Se hicieron algunos cambios para que esta bien estructurado y que valga mejor de lo que ya estaba" />
+    <MESSAGE value="fix (UPS-041): Se realizo el README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix (UPS-041): Se realizo el README.md" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.MissingResourceException" package="java.util" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
