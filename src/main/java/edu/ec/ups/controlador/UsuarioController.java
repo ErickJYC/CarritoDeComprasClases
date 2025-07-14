@@ -132,8 +132,8 @@ public class UsuarioController {
             usuarioCrearView.mostrarMensaje(mi.get("mensaje.error.celular_numerico"));
             return;
         }
-        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            registrarView.mostrarMensaje("mensaje.correo.invalido");
+        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            registrarView.mostrarMensaje(mi.get("mensaje.correo.invalido"));
             return;
         }
 
@@ -225,15 +225,16 @@ public class UsuarioController {
             usuarioModificarView.mostrarMensaje(mi.get("mensaje.campos.obligatorios"));
             return;
         }
-        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            registrarView.mostrarMensaje("mensaje.correo.invalido");
+        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            registrarView.mostrarMensaje(mi.get("mensaje.correo.invalido"));
             return;
         }
 
-        if (!celular.matches("\\d{7,}")) {
-            usuarioModificarView.mostrarMensaje(mi.get("usuario.celular.invalido"));
+        if (!celular.matches("^\\d{10}$")) {
+            registrarView.mostrarMensaje(mi.get("usuario.celular.invalido"));
             return;
         }
+
 
         String fechaNacimiento = diaObj + "/" + mesObj + "/" + anioObj;
 
@@ -376,8 +377,8 @@ public class UsuarioController {
             registrarView.mostrarMensaje(mi.get("usuario.celular.invalido")); // Asegúrate de tener este mensaje en tus archivos .properties
             return;
         }
-        if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            registrarView.mostrarMensaje("mensaje.correo.invalido");
+        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            registrarView.mostrarMensaje(mi.get("mensaje.correo.invalido"));
             return;
         }
 
