@@ -1,5 +1,7 @@
 package edu.ec.ups.modelo;
 
+import javax.swing.*;
+
 /**
  * Clase que representa un usuario dentro del sistema.
  * Contiene información personal, de autenticación y su rol asignado.
@@ -51,15 +53,48 @@ public class Usuario {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        try {
+            if (!username.matches("\\d{10}")) {
+                throw new IllegalArgumentException("El usuario debe contener exactamente 10 números.");
+            }
+            this.username = username;
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error de cédula", JOptionPane.ERROR_MESSAGE);
+            this.username = null; // ⚠️ Esto es clave para evitar que se cree el usuario
+        }
     }
+
 
     public String getContrasenia() {
         return contrasenia;
     }
 
     public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+        try {
+            if (contrasenia.contains(" ")) {
+                throw new IllegalArgumentException("La contraseña no debe contener espacios.");
+            }
+            if (contrasenia.length() < 6) {
+                throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres.");
+            }
+            if (!contrasenia.matches(".*[A-Z].*")) {
+                throw new IllegalArgumentException("la contraseña debe contener una letra mayúscula.");
+            }
+            if (!contrasenia.matches(".*[a-z].*")) {
+                throw new IllegalArgumentException("la contraseña debe contener una letra minúscula.");
+            }
+            if (!contrasenia.matches(".*[@_-].*")) {
+                throw new IllegalArgumentException("La contraseña debe incluir uno de estos caracteres especiales: @, _ o -");
+            }
+
+            this.contrasenia = contrasenia;
+        } catch (IllegalArgumentException e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage(), "Error de seguridad", JOptionPane.ERROR_MESSAGE);
+            this.contrasenia = null; // IMPORTANTE: si es inválida, queda null
+        } catch (Exception e2) {
+            JOptionPane.showMessageDialog(null, "Error general al validar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+            this.contrasenia = null;
+        }
     }
 
     public Rol getRol() {
@@ -91,7 +126,16 @@ public class Usuario {
     }
 
     public void setCelular(String celular) {
-        this.celular = celular;
+        try {
+            if (!celular.matches("\\d{10}")) {
+                throw new IllegalArgumentException("El número de celular debe tener exactamente 10 dígitos.");
+            }
+            this.celular = celular;
+        } catch (IllegalArgumentException e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage(), "Error de celular", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e2) {
+            JOptionPane.showMessageDialog(null, "Error general al validar el celular.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public String getCorreo() {
@@ -99,7 +143,16 @@ public class Usuario {
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        try {
+            if (!correo.contains("@") || !correo.contains(".")) {
+                throw new IllegalArgumentException("Correo inválido. Debe contener '@' y '.'");
+            }
+            this.correo = correo;
+        } catch (IllegalArgumentException e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage(), "Error de correo", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e2) {
+            JOptionPane.showMessageDialog(null, "Error general al asignar el correo electrónico.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**

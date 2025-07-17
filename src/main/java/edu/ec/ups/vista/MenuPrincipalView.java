@@ -43,7 +43,7 @@ public class MenuPrincipalView extends JFrame {
     private MiDesktopPane jDesktopPane;
     private MensajeInternacionalizacionHandler mi;
 
-    public MenuPrincipalView( MensajeInternacionalizacionHandler mi) {
+    public MenuPrincipalView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
 
         jDesktopPane = new MiDesktopPane();
@@ -116,163 +116,164 @@ public class MenuPrincipalView extends JFrame {
         cambiarIdioma();
 
         URL carrito = LoginView.class.getClassLoader().getResource("imagenes/carrito.png");
-        if(carrito != null){
+        if (carrito != null) {
             ImageIcon icono = new ImageIcon(carrito);
             menuCarrito.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
 
         URL usuario = LoginView.class.getClassLoader().getResource("imagenes/usuario.png");
-        if(usuario != null){
+        if (usuario != null) {
             ImageIcon icono = new ImageIcon(usuario);
             menuUsuario.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL idioma = LoginView.class.getClassLoader().getResource("imagenes/idioma.png");
-        if(idioma != null){
+        if (idioma != null) {
             ImageIcon icono = new ImageIcon(idioma);
             menuIdioma.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL producto = LoginView.class.getClassLoader().getResource("imagenes/producto.png");
-        if(producto != null){
+        if (producto != null) {
             ImageIcon icono = new ImageIcon(producto);
             menuProducto.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL salir = LoginView.class.getClassLoader().getResource("imagenes/salir.png");
-        if(salir != null){
+        if (salir != null) {
             ImageIcon icono = new ImageIcon(salir);
             menuSalir.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL carritoAnadir = LoginView.class.getClassLoader().getResource("imagenes/crear.png");
-        if(carritoAnadir != null){
+        if (carritoAnadir != null) {
             ImageIcon icono = new ImageIcon(carritoAnadir);
             menuItemCrearCarrito.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL productoAnadir = LoginView.class.getClassLoader().getResource("imagenes/crear.png");
-        if(productoAnadir != null){
+        if (productoAnadir != null) {
             ImageIcon icono = new ImageIcon(productoAnadir);
             menuItemCrearProducto.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL usuarioAnadir = LoginView.class.getClassLoader().getResource("imagenes/crear.png");
-        if(usuarioAnadir != null){
+        if (usuarioAnadir != null) {
             ImageIcon icono = new ImageIcon(usuarioAnadir);
             menuItemCrearUsuario.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL carritoEliminar = LoginView.class.getClassLoader().getResource("imagenes/eliminar.png");
-        if(carritoEliminar != null){
+        if (carritoEliminar != null) {
             ImageIcon icono = new ImageIcon(carritoEliminar);
             menuItemEliminarCarrito.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL usuarioEliminar = LoginView.class.getClassLoader().getResource("imagenes/eliminar.png");
-        if(usuarioEliminar != null){
+        if (usuarioEliminar != null) {
             ImageIcon icono = new ImageIcon(usuarioEliminar);
             menuItemEliminarUsuario.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL productoEliminar = LoginView.class.getClassLoader().getResource("imagenes/eliminar.png");
-        if(productoEliminar != null){
+        if (productoEliminar != null) {
             ImageIcon icono = new ImageIcon(productoEliminar);
             menuItemEliminarProducto.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL carritoListar = LoginView.class.getClassLoader().getResource("imagenes/listar.png");
-        if(carritoListar != null){
+        if (carritoListar != null) {
             ImageIcon icono = new ImageIcon(carritoListar);
             menuItemBuscarCarrito.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL usuarioListar = LoginView.class.getClassLoader().getResource("imagenes/listar.png");
-        if(usuarioListar != null){
+        if (usuarioListar != null) {
             ImageIcon icono = new ImageIcon(usuarioListar);
             menuItemListarUsuario.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL productoListar = LoginView.class.getClassLoader().getResource("imagenes/listar.png");
-        if(productoListar != null){
+        if (productoListar != null) {
             ImageIcon icono = new ImageIcon(productoListar);
             menuItemBuscarProducto.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL carritoActualizar = LoginView.class.getClassLoader().getResource("imagenes/actualizar.png");
-        if(carritoActualizar != null){
+        if (carritoActualizar != null) {
             ImageIcon icono = new ImageIcon(carritoActualizar);
             menuItemModificarCarrito.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL usuarioActualizar = LoginView.class.getClassLoader().getResource("imagenes/actualizar.png");
-        if(usuarioActualizar != null){
+        if (usuarioActualizar != null) {
             ImageIcon icono = new ImageIcon(usuarioActualizar);
             menuItemActualizarUsuario.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL productoActualizar = LoginView.class.getClassLoader().getResource("imagenes/actualizar.png");
-        if(productoActualizar != null){
+        if (productoActualizar != null) {
             ImageIcon icono = new ImageIcon(productoActualizar);
             menuItemActualizarProducto.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL idiomaEC = LoginView.class.getClassLoader().getResource("imagenes/espanol.png");
-        if(idiomaEC != null){
+        if (idiomaEC != null) {
             ImageIcon icono = new ImageIcon(idiomaEC);
             menuItemEspanol.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL idiomaUS = LoginView.class.getClassLoader().getResource("imagenes/ingles.png");
-        if(idiomaUS != null){
+        if (idiomaUS != null) {
             ImageIcon icono = new ImageIcon(idiomaUS);
             menuItemIngles.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL idiomaFR = LoginView.class.getClassLoader().getResource("imagenes/frances.png");
-        if(idiomaFR != null){
+        if (idiomaFR != null) {
             ImageIcon icono = new ImageIcon(idiomaFR);
             menuItemFrances.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL cerrarSesion = LoginView.class.getClassLoader().getResource("imagenes/cerrarSesion.png");
-        if(cerrarSesion != null){
+        if (cerrarSesion != null) {
             ImageIcon icono = new ImageIcon(cerrarSesion);
             menuItemCerrarSesion.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
         URL salirTodo = LoginView.class.getClassLoader().getResource("imagenes/salirTodo.png");
-        if(salirTodo != null){
+        if (salirTodo != null) {
             ImageIcon icono = new ImageIcon(salirTodo);
             menuItemSalir.setIcon(icono);
-        }else {
+        } else {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
 
 
     }
+
     public void deshabilitarMenusAdministrador() {
         getMenuItemCrearProducto().setEnabled(false);
         getMenuItemBuscarProducto().setEnabled(false);
@@ -384,7 +385,6 @@ public class MenuPrincipalView extends JFrame {
     public JDesktopPane getjDesktopPane() {
         return jDesktopPane;
     }
-
 
 
     public void mostrarMensaje(String mensaje) {
@@ -516,7 +516,4 @@ public class MenuPrincipalView extends JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return respuesta == JOptionPane.YES_OPTION;
     }
-
-
-
 }

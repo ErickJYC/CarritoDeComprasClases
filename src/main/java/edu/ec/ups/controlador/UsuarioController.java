@@ -128,15 +128,31 @@ public class UsuarioController {
             return;
         }
 
-        if (!celular.matches("\\d+")) {
-            usuarioCrearView.mostrarMensaje(mi.get("mensaje.error.celular_numerico"));
-            return;
-        }
-        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            registrarView.mostrarMensaje(mi.get("mensaje.correo.invalido"));
+        // 🚫 Validar que el username sea solo números
+        if (!username.matches("\\d+")) {
+            usuarioCrearView.mostrarMensaje(mi.get("mensaje.usuario.solo_numeros")); // <-- agregar a properties
             return;
         }
 
+        // 🚫 Validar celular
+        if (!celular.matches("^\\d{10}$")) {
+            usuarioCrearView.mostrarMensaje(mi.get("usuario.celular.invalido")); // ya lo tienes
+            return;
+        }
+
+        // 🚫 Validar correo electrónico
+        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            usuarioCrearView.mostrarMensaje(mi.get("mensaje.correo.invalido")); // ya lo tienes
+            return;
+        }
+
+        // 🚫 Validar que la contraseña no tenga espacios
+        if (contrasenia.contains(" ")) {
+            usuarioCrearView.mostrarMensaje(mi.get("mensaje.contrasena.espacios")); // ya lo tienes
+            return;
+        }
+
+        // ✅ Verificar si ya existe el usuario
         if (usuarioDAO.buscarPorUsername(username) != null) {
             usuarioCrearView.mostrarMensaje(mi.get("usuario.nombre.en.uso"));
             return;
@@ -156,6 +172,7 @@ public class UsuarioController {
         usuarioCrearView.mostrarMensaje(mi.get("usuario.creado") + ": " + username);
         usuarioCrearView.limpiarCampos();
     }
+
 
 
     private void recuperar() {
@@ -373,25 +390,30 @@ public class UsuarioController {
             return;
         }
 
-        if (!celular.matches("\\d+")) {
-            registrarView.mostrarMensaje(mi.get("usuario.celular.invalido")); // Asegúrate de tener este mensaje en tus archivos .properties
-            return;
-        }
-        if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            registrarView.mostrarMensaje(mi.get("mensaje.correo.invalido"));
+        // Creamos el usuario
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setUsername(username);       // aquí puede fallar por letras o longitud
+        nuevoUsuario.setContrasenia(contrasenia); // aquí puede fallar por seguridad
+        nuevoUsuario.setNombreCompleto(nombreCompleto);
+        nuevoUsuario.setFechaNacimiento(dia + "/" + mes + "/" + año);
+        nuevoUsuario.setCelular(celular);         // aquí puede fallar si no son 10 dígitos
+        nuevoUsuario.setCorreo(correo);           // aquí puede fallar si no tiene @ y .
+
+        // ✅ Validación antes de guardar
+        if (nuevoUsuario.getUsername() == null || nuevoUsuario.getContrasenia() == null
+                || nuevoUsuario.getCelular() == null || nuevoUsuario.getCorreo() == null) {
+            registrarView.mostrarMensaje("No se puede registrar. Corrige los campos inválidos.");
             return;
         }
 
+        // Verificamos si ya existe
         if (usuarioDAO.buscarPorUsername(username) != null) {
             registrarView.mostrarMensaje(mi.get("usuario.nombre.en.uso"));
             return;
         }
 
-        String fechaNacimiento = dia + "/" + mes + "/" + año;
-
-        Usuario nuevoUsuario = new Usuario(username, contrasenia, Rol.USUARIO, nombreCompleto, fechaNacimiento, celular, correo);
+        // Guardamos
         usuarioDAO.crear(nuevoUsuario);
-
         registrarView.mostrarMensaje(mi.get("usuario.creado"));
         registrarView.limpiarCampos();
         registrarView.dispose();
@@ -399,12 +421,23 @@ public class UsuarioController {
     }
 
 
-
-
     private void autenticar() {
         String username = loginView.getTxtUsername().getText().trim();
-        String contrasenia = loginView.getTxtContrasenia().getText().trim();
+        String contrasenia = loginView.getTxtContrasenia().getText();
 
+        // Verifica si hay campos vacíos
+        if (username.isEmpty() || contrasenia.isEmpty()) {
+            loginView.mostrarMensaje(mi.get("mensaje.campos.obligatorios"));
+            return;
+        }
+
+        // ✅ Validación: contraseña no debe tener espacios
+        if (contrasenia.contains(" ")) {
+            loginView.mostrarMensaje(mi.get("mensaje.contrasena.espacios"));
+            return;
+        }
+
+        // Continuar con la autenticación
         usuario = usuarioDAO.autenticar(username, contrasenia);
         if (usuario == null) {
             loginView.mostrarMensaje(mi.get("login.mensaje.usuario_o_contrasena_incorrectos"));
@@ -456,12 +489,7 @@ public class UsuarioController {
             loginView.mostrarMensaje(mi.get("usuario.crear.cancelado"));
         }
     }
-
-
-
-
     public Usuario getUsuarioAutenticado(){
         return usuario;
     }
-
 }

@@ -9,6 +9,7 @@ import edu.ec.ups.vista.productoView.ProductoAnadirView;
 import edu.ec.ups.vista.productoView.ProductoEliminarView;
 import edu.ec.ups.vista.productoView.ProductoListaView;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -79,14 +80,43 @@ public class ProductoController {
      * Guarda un nuevo producto en la base de datos.
      */
     private void guardarProducto() {
-        int codigo = Integer.parseInt(productoAnadirView.getTxtCodigo().getText());
-        String nombre = productoAnadirView.getTxtNombre().getText();
-        double precio = Double.parseDouble(productoAnadirView.getTxtPrecio().getText());
+        try {
+            String codTexto = productoAnadirView.getTxtCodigo().getText().trim();
+            String nombre = productoAnadirView.getTxtNombre().getText().trim();
+            String precioTexto = productoAnadirView.getTxtPrecio().getText().trim();
 
-        productoDAO.crear(new Producto(codigo, nombre, precio));
-        productoAnadirView.mostrarMensaje(mi.get("producto.guardado"));
-        productoAnadirView.limpiarCampos();
-        productoAnadirView.mostrarProductos(productoDAO.listarTodos());
+            if (codTexto.isEmpty() || nombre.isEmpty() || precioTexto.isEmpty()) {
+                productoAnadirView.mostrarMensaje("Todos los campos son obligatorios.");
+                return;
+            }
+
+            int codigo = Integer.parseInt(codTexto);
+            double precio = Double.parseDouble(precioTexto.replace(",", "."));
+
+            // 🔎 Verificar si ya existe un producto con ese código
+            if (productoDAO.buscarPorCodigo(codigo) != null) {
+                productoAnadirView.mostrarMensaje("Ya existe un producto con ese código. Usa otro diferente.");
+                return;
+            }
+
+            Producto nuevoProducto = new Producto();
+            nuevoProducto.setCodigo(codigo);
+            nuevoProducto.setNombre(nombre);
+            nuevoProducto.setPrecio(precio);
+
+            if (nuevoProducto.getCodigo() <= 0 || nuevoProducto.getNombre() == null || nuevoProducto.getPrecio() <= 0) {
+                productoAnadirView.mostrarMensaje("Corrige los campos inválidos antes de guardar.");
+                return;
+            }
+
+            productoDAO.crear(nuevoProducto);
+            productoAnadirView.mostrarMensaje(mi.get("producto.guardado"));
+            productoAnadirView.limpiarCampos();
+            productoAnadirView.mostrarProductos(productoDAO.listarTodos());
+
+        } catch (NumberFormatException e) {
+            productoAnadirView.mostrarMensaje("Código y precio deben ser números válidos.");
+        }
     }
 
     /**
@@ -95,8 +125,16 @@ public class ProductoController {
     private void buscarProducto() {
         String nombre = productoListaView.getTxtBuscar().getText();
         List<Producto> productosEncontrados = productoDAO.buscarPorNombre(nombre);
+
+        if (productosEncontrados.isEmpty()) {
+            productoListaView.mostrarMensaje("❌ No se encontró ningún producto con ese nombre.");
+            productoListaView.cargarDatos(List.of()); // Limpia la tabla si no hay resultados
+            return;
+        }
+
         productoListaView.cargarDatos(productosEncontrados);
     }
+
 
     /**
      * Lista todos los productos existentes en la base de datos.
@@ -142,9 +180,30 @@ public class ProductoController {
             return;
         }
 
-        productoDAO.eliminar(codigo);
-        productoEliminarView.mostrarMensaje(mi.get("producto.eliminado"));
+        Producto producto = productoDAO.buscarPorCodigo(codigo);
+        if (producto == null) {
+            productoEliminarView.mostrarMensaje(mi.get("producto.no_encontrado"));
+            return;
+        }
+
+        // ✅ Confirmar antes de eliminar
+        int respuesta = JOptionPane.showConfirmDialog(
+                null,
+                "¿Estás seguro de eliminar el producto con código " + codigo + "?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            productoDAO.eliminar(codigo);
+            productoEliminarView.mostrarMensaje(mi.get("producto.eliminado"));
+            productoEliminarView.limpiarCampos();
+        } else {
+            productoEliminarView.mostrarMensaje("Eliminación cancelada.");
+        }
     }
+
 
     /**
      * Busca un producto para eliminarlo y muestra su información.

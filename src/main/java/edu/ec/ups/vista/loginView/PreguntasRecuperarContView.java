@@ -177,6 +177,4 @@ public class PreguntasRecuperarContView extends JFrame{
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
 }
-

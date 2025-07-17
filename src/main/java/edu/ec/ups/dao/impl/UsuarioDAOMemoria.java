@@ -22,7 +22,6 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         this.cuestionarioDAO = cuestionarioDAO;
 
         // Usuarios por defecto
-        crear(new Usuario("", "", Rol.ADMINISTRADOR));
         crear(new Usuario("admin", "12345", Rol.ADMINISTRADOR));
         crear(new Usuario("user", "12345", Rol.USUARIO));
 

@@ -154,14 +154,43 @@ public class PreguntaController {
                 );
 
                 if (resultado == JOptionPane.OK_OPTION) {
-                    String nueva = new String(nuevaContrasena.getPassword()).trim();
-                    if (nueva.isEmpty()) {
+                    String nueva = new String(nuevaContrasena.getPassword());
+
+                    if (nueva.trim().isEmpty()) {
                         recuperarView.mostrarMensaje(mi.get("cuestionario.recuperar.campoVacio"));
-                    } else {
-                        usuario.setContrasenia(nueva);
-                        usuarioDAO.actualizar(usuario);
-                        recuperarView.mostrarMensaje(mi.get("cuestionario.recuperar.exito"));
+                        return;
                     }
+
+                    if (nueva.matches(".*\\s+.*")) {
+                        recuperarView.mostrarMensaje(mi.get("mensaje.contrasena.espacios"));
+                        return;
+                    }
+
+                    // NUEVAS VALIDACIONES AÑADIDAS:
+                    if (nueva.length() < 6) {
+                        recuperarView.mostrarMensaje(mi.get("mensaje.contrasena.minima"));
+                        return;
+                    }
+
+                    if (!nueva.matches(".*[A-Z].*")) {
+                        recuperarView.mostrarMensaje(mi.get("mensaje.contrasena.mayuscula"));
+                        return;
+                    }
+
+                    if (!nueva.matches(".*[a-z].*")) {
+                        recuperarView.mostrarMensaje(mi.get("mensaje.contrasena.minuscula"));
+                        return;
+                    }
+
+                    if (!nueva.matches(".*[@_-].*")) {
+                        recuperarView.mostrarMensaje(mi.get("mensaje.contrasena.caracterEspecial"));
+                        return;
+                    }
+
+                    // Si pasa todas las validaciones:
+                    usuario.setContrasenia(nueva);
+                    usuarioDAO.actualizar(usuario);
+                    recuperarView.mostrarMensaje(mi.get("cuestionario.recuperar.exito"));
                 }
             }
         } else {

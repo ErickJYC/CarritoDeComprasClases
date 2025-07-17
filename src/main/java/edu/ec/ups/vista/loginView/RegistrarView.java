@@ -30,7 +30,7 @@ public class RegistrarView extends JFrame {
     public RegistrarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
-        setTitle("Recuperar Contraseña");
+        setTitle("Registrar Usuario");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setLocationRelativeTo(null);
