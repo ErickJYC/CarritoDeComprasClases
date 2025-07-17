@@ -1,12 +1,13 @@
 package edu.ec.ups.modelo;
 
 import javax.swing.*;
+import java.io.Serializable;
 
 /**
  * Clase que representa un usuario dentro del sistema.
  * Contiene información personal, de autenticación y su rol asignado.
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     // Atributos principales del usuario
     private String username;
@@ -16,6 +17,7 @@ public class Usuario {
     private String fechaNacimiento; // Formato recomendado: dd/mm/yyyy
     private String celular;
     private String correo;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor vacío necesario para frameworks o instancias manuales.

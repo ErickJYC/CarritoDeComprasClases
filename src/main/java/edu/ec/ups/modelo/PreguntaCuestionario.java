@@ -2,6 +2,7 @@ package edu.ec.ups.modelo;
 
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +10,14 @@ import java.util.List;
  * Representa un conjunto de respuestas a preguntas de seguridad asociadas a un usuario.
  * Se utiliza para la recuperación de contraseña y verificación de identidad.
  */
-public class PreguntaCuestionario {
+public class PreguntaCuestionario implements Serializable {
 
 
 private String username;
     private List<Pregunta> preguntas;
     private Usuario usuario;
     private MensajeInternacionalizacionHandler mi;
+    private static final long serialVersionUID = 1L;
 
     public PreguntaCuestionario(String username) {
         this.username = username;

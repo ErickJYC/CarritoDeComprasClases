@@ -1,17 +1,19 @@
 package edu.ec.ups.modelo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
-public class Carrito {
+public class Carrito implements Serializable {
 
     private int codigo;
     private GregorianCalendar fechaCreacion;
     private List<ItemCarrito> items;
     private Usuario usuario;
+    private static final long serialVersionUID = 1L;
 
     // Constructor por defecto
     public Carrito() {

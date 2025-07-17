@@ -1,15 +1,17 @@
 package edu.ec.ups.modelo;
 
 import javax.swing.*;
+import java.io.Serializable;
 
 /**
  * Representa un producto disponible para agregar al carrito de compras.
  */
-public class Producto {
+public class Producto implements Serializable {
 
     private int codigo;       // Código único del producto
     private String nombre;    // Nombre del producto
     private double precio;    // Precio unitario del producto
+    private static final long serialVersionUID = 1L;
 
     // Constructor vacío (requerido para frameworks o uso genérico)
     public Producto() {

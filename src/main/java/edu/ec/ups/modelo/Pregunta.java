@@ -2,11 +2,14 @@ package edu.ec.ups.modelo;
 
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
-public class Pregunta {
+import java.io.Serializable;
+
+public class Pregunta implements Serializable {
     private int id;
     private String claveInternacionalizacion;
     private String respuesta;
     private transient MensajeInternacionalizacionHandler mi;
+    private static final long serialVersionUID = 1L;
 
     public Pregunta(int id, String claveInternacionalizacion, MensajeInternacionalizacionHandler mi) {
         this.id = id;

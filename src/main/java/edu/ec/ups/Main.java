@@ -8,14 +8,12 @@ import edu.ec.ups.dao.CarritoDAO;
 import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.dao.impl.CarritoDAOMemoria;
-import edu.ec.ups.dao.impl.PreguntaDAOMemoria;
-import edu.ec.ups.dao.impl.ProductoDAOMemoria;
-import edu.ec.ups.dao.impl.UsuarioDAOMemoria;
+import edu.ec.ups.dao.impl.*;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
-import edu.ec.ups.vista.*;
+import edu.ec.ups.vista.MenuPrincipalView;
+import edu.ec.ups.vista.StorageSelectorDialog;
 import edu.ec.ups.vista.carritoView.CarritoAnadirView;
 import edu.ec.ups.vista.carritoView.CarritoEliminarView;
 import edu.ec.ups.vista.carritoView.CarritoListarView;
@@ -45,11 +43,24 @@ public class Main {
                 //Iniciar sesión
                 MensajeInternacionalizacionHandler mi = new MensajeInternacionalizacionHandler("es", "EC");
 
+
+                // Mostrar ventana para elegir almacenamiento
+                StorageSelectorDialog selector = new StorageSelectorDialog(null, mi);
+                selector.setVisible(true);
+
+                int opcion = selector.getOpcionSeleccionada();
+                String rutaArchivo = selector.getRutaArchivo();
+
                 ProductoDAO productoDAO = new ProductoDAOMemoria();
                 CarritoDAO carritoDAO = new CarritoDAOMemoria();
-
                 PreguntaDAO cuestionarioDAO = new PreguntaDAOMemoria();
-                UsuarioDAO usuarioDAO = new UsuarioDAOMemoria(cuestionarioDAO);
+                UsuarioDAO usuarioDAO;
+
+                switch (opcion) {
+                    case 2 -> usuarioDAO = new UsuarioDAOArchivoTexto(rutaArchivo);
+                    case 3 -> usuarioDAO = new UsuarioDAOArchivoBinario(rutaArchivo);
+                    default -> usuarioDAO = new UsuarioDAOMemoria(cuestionarioDAO);
+                }
 
                 LoginView loginView = new LoginView(mi);
                 loginView.setVisible(true);
