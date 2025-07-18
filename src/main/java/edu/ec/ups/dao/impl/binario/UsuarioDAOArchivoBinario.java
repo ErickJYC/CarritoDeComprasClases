@@ -161,5 +161,4 @@ public class UsuarioDAOArchivoBinario implements UsuarioDAO {
                 .filter(u -> u.getUsername().toLowerCase().startsWith(username.toLowerCase()))
                 .collect(Collectors.toList());
     }
-
 }
