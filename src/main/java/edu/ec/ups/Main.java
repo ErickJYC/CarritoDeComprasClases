@@ -8,7 +8,10 @@ import edu.ec.ups.dao.CarritoDAO;
 import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.dao.UsuarioDAO;
-import edu.ec.ups.dao.impl.*;
+import edu.ec.ups.dao.impl.CarritoDAOMemoria;
+import edu.ec.ups.dao.impl.PreguntaDAOMemoria;
+import edu.ec.ups.dao.impl.ProductoDAOMemoria;
+import edu.ec.ups.dao.impl.UsuarioDAOMemoria;
 import edu.ec.ups.dao.impl.binario.CarritoDAOArchivoBinario;
 import edu.ec.ups.dao.impl.binario.PreguntaDAOArchivoBinario;
 import edu.ec.ups.dao.impl.binario.ProductoDAOArchivoBinario;
@@ -17,9 +20,7 @@ import edu.ec.ups.dao.impl.texto.CarritoDAOArchivoTexto;
 import edu.ec.ups.dao.impl.texto.PreguntaDAOArchivoTexto;
 import edu.ec.ups.dao.impl.texto.ProductoDAOArchivoTexto;
 import edu.ec.ups.dao.impl.texto.UsuarioDAOArchivoTexto;
-import edu.ec.ups.modelo.Producto;
-import edu.ec.ups.modelo.Rol;
-import edu.ec.ups.modelo.Usuario;
+import edu.ec.ups.modelo.*;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import edu.ec.ups.vista.MenuPrincipalView;
 import edu.ec.ups.vista.SelectorAlmacenamientoDialog;
@@ -42,6 +43,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
+
 /**
  * Clase principal del sistema.
  * Encargada de iniciar la aplicación, seleccionar el tipo de almacenamiento (memoria, texto o binario),
@@ -81,6 +84,7 @@ public class Main {
                         carritoDAO = new CarritoDAOArchivoTexto(rutaArchivo + "/carritos.txt");
                         cuestionarioDAO = new PreguntaDAOArchivoTexto(rutaArchivo + "/preguntas.txt");
                         inicializarProductos(productoDAO);
+                        inicializarAdmin(usuarioDAO, cuestionarioDAO, mi);
                     }
                     case 3 -> {
                         usuarioDAO = new UsuarioDAOArchivoBinario(rutaArchivo + "/usuarios.dat");
@@ -88,6 +92,7 @@ public class Main {
                         carritoDAO = new CarritoDAOArchivoBinario(rutaArchivo + "/carritos.dat");
                         cuestionarioDAO = new PreguntaDAOArchivoBinario(rutaArchivo + "/preguntas.dat");
                         inicializarProductos(productoDAO);
+                        inicializarAdmin(usuarioDAO, cuestionarioDAO, mi);
                     }
                     default -> {
                         cuestionarioDAO = new PreguntaDAOMemoria(); // primero creamos esto
@@ -357,4 +362,27 @@ public class Main {
             System.out.println("✔ Productos ya existen, no se cargan nuevamente.");
         }
     }
+    private static void inicializarAdmin(UsuarioDAO usuarioDAO, PreguntaDAO preguntaDAO, MensajeInternacionalizacionHandler mi) {
+        if (usuarioDAO.buscarPorUsername("0102896362") == null) {
+            Usuario admin = new Usuario("0102896362", "Admin@1", Rol.ADMINISTRADOR);
+            usuarioDAO.crear(admin);
+
+            // Crear cuestionario con preguntas por defecto
+            PreguntaCuestionario cuestionarioAdmin = new PreguntaCuestionario("0102896362");
+            List<Pregunta> preguntas = cuestionarioAdmin.preguntasPorDefecto(mi);
+
+            preguntas.get(0).setRespuesta("Negro");
+            preguntas.get(1).setRespuesta("Kobu");
+            preguntas.get(2).setRespuesta("Churrasco");
+
+            // Agregar las preguntas al cuestionario
+            cuestionarioAdmin.agregarPregunta(preguntas.get(0));
+            cuestionarioAdmin.agregarPregunta(preguntas.get(1));
+            cuestionarioAdmin.agregarPregunta(preguntas.get(2));
+
+            // Guardar el cuestionario
+            preguntaDAO.guardar(cuestionarioAdmin);
+        }
+    }
+
 }
