@@ -9,6 +9,7 @@ import edu.ec.ups.dao.PreguntaDAO;
 import edu.ec.ups.dao.ProductoDAO;
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.dao.impl.*;
+import edu.ec.ups.modelo.Producto;
 import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
@@ -62,12 +63,16 @@ public class Main {
                         productoDAO = new ProductoDAOArchivoTexto(rutaArchivo + "/productos.txt");
                         carritoDAO = new CarritoDAOArchivoTexto(rutaArchivo + "/carritos.txt");
                         cuestionarioDAO = new PreguntaDAOArchivoTexto(rutaArchivo + "/preguntas.txt");
+                        inicializarAdmin(usuarioDAO);
+                        inicializarProductos(productoDAO);
                     }
                     case 3 -> {
                         usuarioDAO = new UsuarioDAOArchivoBinario(rutaArchivo + "/usuarios.dat");
                         productoDAO = new ProductoDAOArchivoBinario(rutaArchivo + "/productos.dat");
                         carritoDAO = new CarritoDAOArchivoBinario(rutaArchivo + "/carritos.dat");
                         cuestionarioDAO = new PreguntaDAOArchivoBinario(rutaArchivo + "/preguntas.dat");
+                        inicializarAdmin(usuarioDAO);
+                        inicializarProductos(productoDAO);
                     }
                     default -> {
                         usuarioDAO = new UsuarioDAOMemoria(null); // se inicializa después
@@ -315,5 +320,32 @@ public class Main {
                 });
             }
         });
+    }
+    // ✅ Crear usuario admin si no existe
+    private static void inicializarAdmin(UsuarioDAO usuarioDAO) {
+        String adminUsername = "9999999999";
+        String adminPassword = "Admin123"; // Asegura que tenga al menos 6 caracteres y una mayúscula
+
+        if (usuarioDAO.buscarPorUsername(adminUsername) == null) {
+            Usuario admin = new Usuario(adminUsername, adminPassword, Rol.ADMINISTRADOR);
+            usuarioDAO.crear(admin);
+            System.out.println("✔ Usuario administrador creado: " + adminUsername);
+        }
+    }
+
+    // ✅ Crear productos predefinidos si no existen
+    private static void inicializarProductos(ProductoDAO productoDAO) {
+        if (productoDAO.listarTodos().isEmpty()) {
+            productoDAO.crear(new Producto(100, "Laptop", 150.99));
+            productoDAO.crear(new Producto(200, "Monitor", 200.98));
+            productoDAO.crear(new Producto(300, "Teclado", 100.99));
+            productoDAO.crear(new Producto(400, "Mouse", 120.99));
+            productoDAO.crear(new Producto(500, "Smartphone", 1000.99));
+            productoDAO.crear(new Producto(600, "Tablet", 1500.99));
+            productoDAO.crear(new Producto(700, "Cinta de Retina", 100.99));
+            productoDAO.crear(new Producto(800, "Pulsera", 0.99));
+            productoDAO.crear(new Producto(900, "Medias", 10.99));
+            System.out.println("✔ Productos predefinidos creados.");
+        }
     }
 }

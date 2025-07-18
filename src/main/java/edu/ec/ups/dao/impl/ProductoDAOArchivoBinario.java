@@ -10,6 +10,7 @@ import java.util.List;
 public class ProductoDAOArchivoBinario implements ProductoDAO {
 
     private String rutaArchivo;
+    private List<Producto> productos;
 
     public ProductoDAOArchivoBinario(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
@@ -17,10 +18,14 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
         try {
             if (!f.exists()) {
                 f.createNewFile();
-                guardarProductos(new ArrayList<>());
+                productos = new ArrayList<>();
+                guardarProductos(productos);
+            } else {
+                productos = cargarProductos();
             }
         } catch (IOException e) {
             e.printStackTrace();
+            productos = new ArrayList<>();
         }
     }
 
@@ -48,14 +53,12 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
 
     @Override
     public void crear(Producto producto) {
-        List<Producto> productos = cargarProductos();
         productos.add(producto);
         guardarProductos(productos);
     }
 
     @Override
     public Producto buscarPorCodigo(int codigo) {
-        List<Producto> productos = cargarProductos();
         for (Producto p : productos) {
             if (p.getCodigo() == codigo) {
                 return p;
@@ -66,7 +69,6 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
 
     @Override
     public List<Producto> buscarPorNombre(String nombre) {
-        List<Producto> productos = cargarProductos();
         List<Producto> resultado = new ArrayList<>();
         for (Producto p : productos) {
             if (p.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
@@ -78,7 +80,6 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
 
     @Override
     public void actualizar(Producto producto) {
-        List<Producto> productos = cargarProductos();
         for (int i = 0; i < productos.size(); i++) {
             if (productos.get(i).getCodigo() == producto.getCodigo()) {
                 productos.set(i, producto);
@@ -90,13 +91,12 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
 
     @Override
     public void eliminar(int codigo) {
-        List<Producto> productos = cargarProductos();
         productos.removeIf(p -> p.getCodigo() == codigo);
         guardarProductos(productos);
     }
 
     @Override
     public List<Producto> listarTodos() {
-        return cargarProductos();
+        return new ArrayList<>(productos);
     }
 }
