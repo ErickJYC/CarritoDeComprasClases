@@ -1,4 +1,4 @@
-package edu.ec.ups.dao.impl;
+package edu.ec.ups.dao.impl.binario;
 
 import edu.ec.ups.dao.UsuarioDAO;
 import edu.ec.ups.modelo.Rol;
@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UsuarioDAOArchivoTexto implements UsuarioDAO {
-
+public class UsuarioDAOArchivoBinario implements UsuarioDAO {
     private String rutaArchivo;
 
-    public UsuarioDAOArchivoTexto(String rutaArchivo) {
+    public UsuarioDAOArchivoBinario(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
         File f = new File(rutaArchivo);
         if (!f.exists()) {
             try {
                 f.createNewFile();
+                // Inicializar archivo con lista vacía para evitar EOFException
+                guardarLista(new ArrayList<>());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -26,34 +27,34 @@ public class UsuarioDAOArchivoTexto implements UsuarioDAO {
         }
     }
 
-    // Formato en archivo por línea: username,password,rol
-    private String usuarioToLinea(Usuario u) {
-        return u.getUsername() + "," + u.getContrasenia() + "," + (u.getRol() != null ? u.getRol().name() : "USUARIO");
+    @SuppressWarnings("unchecked")
+    private List<Usuario> leerLista() {
+        List<Usuario> lista = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(rutaArchivo))) {
+            lista = (List<Usuario>) ois.readObject();
+        } catch (EOFException eof) {
+            // Archivo vacío, retornamos lista vacía
+            lista = new ArrayList<>();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            lista = new ArrayList<>();
+        }
+        return lista;
     }
 
-    private Usuario lineaToUsuario(String linea) {
-        String[] parts = linea.split(",");
-        if (parts.length >= 3) {
-            Usuario u = new Usuario();
-            u.setUsername(parts[0]);
-            u.setContrasenia(parts[1]);
-            try {
-                u.setRol(Rol.valueOf(parts[2]));
-            } catch (IllegalArgumentException e) {
-                u.setRol(Rol.USUARIO);
-            }
-            return u;
+    private void guardarLista(List<Usuario> lista) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(rutaArchivo, false))) {
+            oos.writeObject(lista);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
     @Override
     public Usuario autenticar(String username, String contrasenia) {
         List<Usuario> usuarios = listarTodos();
         for (Usuario u : usuarios) {
-            if (u.getUsername().equals(username) &&
-                    u.getContrasenia() != null &&
-                    u.getContrasenia().equals(contrasenia)) {
+            if (u.getUsername().equalsIgnoreCase(username) && u.getContrasenia().equals(contrasenia)) {
                 return u;
             }
         }
@@ -98,17 +99,7 @@ public class UsuarioDAOArchivoTexto implements UsuarioDAO {
 
     @Override
     public List<Usuario> listarTodos() {
-        List<Usuario> usuarios = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                Usuario u = lineaToUsuario(linea);
-                if (u != null) usuarios.add(u);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return usuarios;
+        return leerLista();
     }
 
     @Override
@@ -119,14 +110,4 @@ public class UsuarioDAOArchivoTexto implements UsuarioDAO {
                 .collect(Collectors.toList());
     }
 
-    private void guardarLista(List<Usuario> usuarios) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, false))) {
-            for (Usuario u : usuarios) {
-                bw.write(usuarioToLinea(u));
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
