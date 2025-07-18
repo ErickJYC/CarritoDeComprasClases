@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e6a6019-10ee-4ae7-ad49-318546ecd968" name="Changes" comment="fix (UPS-041): Se realizo el README.md">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ec/ups/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ec/ups/dao/impl/ProductoDAOArchivoBinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ec/ups/dao/impl/ProductoDAOArchivoBinario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/ec/ups/dao/impl/ProductoDAOArchivoBinario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/ec/ups/dao/impl/ProductoDAOArchivoBinario.class" afterDir="false" />
-    </list>
+    <list default="true" id="5e6a6019-10ee-4ae7-ad49-318546ecd968" name="Changes" comment="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +69,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "editor.preferences.appearance",
     "vue.rearranger.settings.migration": "true"
   },
@@ -195,14 +173,6 @@
       <workItem from="1752160548924" duration="1669000" />
       <workItem from="1752465752457" duration="1826000" />
       <workItem from="1752510764436" duration="2956000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat(UPS-001): Se a realizado unas modificaciones ya que el anterior proyecto sucedio un error y en este esta corregido y implementado el modificar y eliminar">
-      <option name="closed" value="true" />
-      <created>1750057310798</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1750057310798</updated>
     </task>
     <task id="LOCAL-00002" summary="feat(UPS-002): Se agrego para que se cambie el codigo">
       <option name="closed" value="true" />
@@ -572,14 +542,37 @@
       <option name="project" value="LOCAL" />
       <updated>1752513418584</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)">
+      <option name="closed" value="true" />
+      <created>1752818499221</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1752818499221</updated>
+    </task>
+    <task id="LOCAL-00049" summary="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)">
+      <option name="closed" value="true" />
+      <created>1752818561249</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1752818561249</updated>
+    </task>
+    <task id="LOCAL-00050" summary="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)">
+      <option name="closed" value="true" />
+      <created>1752818569055</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1752818569056</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix (UPS-017): Se modifico en CarritoEliminarView" />
     <MESSAGE value="fix (UPS-020): Se modifico en CarritoListarView" />
     <MESSAGE value="fix (UPS-021): Se modifico en CarritoModificarView" />
     <MESSAGE value="fix (UPS-022): Se agregaron nuevas ventanas para hacer las preguntas" />
@@ -604,7 +597,8 @@
     <MESSAGE value="feat (UPS-040): Se ha agregado el README.md" />
     <MESSAGE value="fix (UPS-041): Se hicieron algunos cambios para que esta bien estructurado y que valga mejor de lo que ya estaba" />
     <MESSAGE value="fix (UPS-041): Se realizo el README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix (UPS-041): Se realizo el README.md" />
+    <MESSAGE value="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat (UPS-047): Se ha imprementado en el dao el archivo tanto como texto(txt) y binario(dat)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
