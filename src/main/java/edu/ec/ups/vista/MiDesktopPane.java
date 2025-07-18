@@ -3,8 +3,17 @@ package edu.ec.ups.vista;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
-
+/**
+ * Clase personalizada que extiende JDesktopPane para mostrar un diseño visual atractivo.
+ * Incluye fondo degradado, curvas decorativas, título, eslogan y elementos gráficos como
+ * carrito de compras, caja y bolsa. Sirve como fondo principal de la aplicación.
+ */
 public class MiDesktopPane extends JDesktopPane {
+    /**
+     * Sobrescribe el método paintComponent para pintar el fondo y decoraciones personalizadas.
+     *
+     * @param g el objeto Graphics usado para dibujar.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -48,7 +57,7 @@ public class MiDesktopPane extends JDesktopPane {
         g2d.setColor(new Color(90, 90, 90));
         g2d.drawString(slogan, xSlogan, yCentro + 40);
 
-        // 🛒 Carrito grande en la izquierda
+        // Carrito grande en la izquierda
         int cartX = 60;
         int cartY = h - 180;
         g2d.setColor(new Color(255, 130, 40));
@@ -59,7 +68,7 @@ public class MiDesktopPane extends JDesktopPane {
         g2d.setStroke(new BasicStroke(4f));
         g2d.drawLine(cartX + 120, cartY, cartX + 150, cartY - 40); // asa
 
-        // 📦 Caja grande en la derecha
+        // Caja grande en la derecha
         int boxX = w - 200;
         int boxY = h - 190;
         g2d.setColor(new Color(210, 120, 50));
@@ -69,7 +78,7 @@ public class MiDesktopPane extends JDesktopPane {
         g2d.drawLine(boxX + 100, boxY, boxX + 50, boxY - 30);
         g2d.drawLine(boxX + 50, boxY - 30, boxX + 50, boxY + 20); // tapa
 
-        // 🛍 Bolsa central abajo
+        //  Bolsa central abajo
         int bagX = w / 2 - 40;
         int bagY = h - 170;
         g2d.setColor(new Color(255, 200, 120));

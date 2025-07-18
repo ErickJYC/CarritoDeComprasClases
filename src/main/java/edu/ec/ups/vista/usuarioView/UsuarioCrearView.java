@@ -8,7 +8,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
+/**
+ * Ventana interna para la creación de un nuevo usuario.
+ * Permite ingresar nombre, usuario, contraseña, correo, celular, fecha de nacimiento y rol.
+ * Soporta cambio de idioma dinámico.
+ */
 public class UsuarioCrearView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField TxtNombreCompleto;
@@ -31,7 +35,10 @@ public class UsuarioCrearView extends JInternalFrame {
     private JLabel lblFechaN;
     private JLabel lblCelular;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de creación de usuario con componentes y textos internacionalizados.
+     * @param mi Manejador de internacionalización.
+     */
     public UsuarioCrearView ( MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -75,6 +82,9 @@ public class UsuarioCrearView extends JInternalFrame {
             cbxMes.addItem(mes);
         }
     }
+    /**
+     * Cambia el idioma de los textos de la interfaz según el idioma actual del handler.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("usuario.crear.titulo"));
         lblNuevoUsuario.setText(mi.get("usuario.crear.tituloEtiqueta"));
@@ -269,15 +279,27 @@ public class UsuarioCrearView extends JInternalFrame {
         cbxMes.setSelectedIndex(0);
         cbxAño.setSelectedIndex(0);
     }
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+    /**
+     * Carga los roles disponibles en el sistema dentro del ComboBox.
+     * Actualmente se añaden los roles "ADMINISTRADOR" y "USUARIO".
+     */
     public void cargarRoles() {
         CbxRol.removeAllItems();
         CbxRol.addItem("ADMINISTRADOR");
         CbxRol.addItem("USUARIO");
     }
-
+    /**
+     * Obtiene el rol seleccionado por el usuario desde el ComboBox.
+     *
+     * @return Rol seleccionado como objeto de tipo {@link Rol}, o null si no coincide con los valores definidos.
+     */
     public Rol getRolSeleccionado() {
         String rolSeleccionado = (String) CbxRol.getSelectedItem();
         if (rolSeleccionado.equals("ADMINISTRADOR")) {

@@ -5,7 +5,11 @@ import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import java.net.URL;
-
+/**
+ * Clase que representa la ventana principal del sistema.
+ * Contiene menús para gestionar productos, carritos, usuarios e idioma.
+ * Integra internacionalización para cambiar dinámicamente los textos.
+ */
 public class MenuPrincipalView extends JFrame {
 
     private JMenuBar menuBar;
@@ -42,7 +46,11 @@ public class MenuPrincipalView extends JFrame {
 
     private MiDesktopPane jDesktopPane;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa los menús, ítems y configuración principal de la ventana.
+     *
+     * @param mi Manejador de internacionalización que permite cambiar dinámicamente el idioma.
+     */
     public MenuPrincipalView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
 
@@ -273,7 +281,10 @@ public class MenuPrincipalView extends JFrame {
 
 
     }
-
+    /**
+     * Método que desactiva ciertos ítems del menú para usuarios con rol administrador.
+     * Esto permite limitar el acceso a funcionalidades según el rol.
+     */
     public void deshabilitarMenusAdministrador() {
         getMenuItemCrearProducto().setEnabled(false);
         getMenuItemBuscarProducto().setEnabled(false);
@@ -284,7 +295,10 @@ public class MenuPrincipalView extends JFrame {
         getMenuItemActualizarUsuario().setEnabled(false);
         getMenuItemEliminarUsuario().setEnabled(false);
     }
-
+    /**
+     * Cambia los textos de todos los menús e ítems del sistema de acuerdo al idioma seleccionado.
+     * Utiliza las claves del archivo de propiedades asociado a la localización actual.
+     */
     public void cambiarIdioma() {
         if (mi == null) return;
 
@@ -386,7 +400,11 @@ public class MenuPrincipalView extends JFrame {
         return jDesktopPane;
     }
 
-
+    /**
+     * Muestra un mensaje de información simple en una ventana emergente.
+     *
+     * @param mensaje El mensaje que se desea mostrar al usuario.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
@@ -510,7 +528,12 @@ public class MenuPrincipalView extends JFrame {
     public void setMenuItemFrances(JMenuItem menuItemFrances) {
         this.menuItemFrances = menuItemFrances;
     }
-
+    /**
+     * Muestra un mensaje de confirmación con opciones Sí/No.
+     *
+     * @param mensaje El texto de la pregunta a mostrar.
+     * @return true si el usuario selecciona \"Sí\", false en caso contrario.
+     */
     public boolean mostrarMensajePregunta(String mensaje) {
         int respuesta = JOptionPane.showConfirmDialog(this, mensaje, "Confirmación",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Vista interna que permite buscar y eliminar productos del sistema.
+ * Incluye internacionalización y visualización en tabla.
+ */
 public class ProductoEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField textField1;
@@ -19,7 +22,10 @@ public class ProductoEliminarView extends JInternalFrame{
     private JLabel lblEliminar;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de eliminación de productos.
+     * @param mi Manejador de internacionalización.
+     */
     public ProductoEliminarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -56,7 +62,9 @@ public class ProductoEliminarView extends JInternalFrame{
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos visibles según el idioma actual del sistema.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("producto.eliminar.titulo"));
 
@@ -145,7 +153,10 @@ public class ProductoEliminarView extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Carga los datos de productos en la tabla.
+     * @param listaProductos Lista de productos a mostrar.
+     */
     public void cargarDatos(List<Producto> listaProductos) {
         modelo.setNumRows(0);
 
@@ -158,11 +169,16 @@ public class ProductoEliminarView extends JInternalFrame{
             modelo.addRow(fila);
         }
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia el campo de búsqueda y borra los datos de la tabla.
+     */
     public void limpiarCampos() {
         textField1.setText("");
         modelo.setNumRows(0);

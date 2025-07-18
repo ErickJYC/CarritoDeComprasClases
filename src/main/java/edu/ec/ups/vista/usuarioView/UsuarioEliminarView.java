@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Ventana interna para eliminar usuarios del sistema.
+ * Permite buscar usuarios por nombre de usuario y visualizarlos en una tabla.
+ */
 public class UsuarioEliminarView extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField TxtUsuario;
@@ -19,7 +22,10 @@ public class UsuarioEliminarView extends JInternalFrame{
     private JLabel lblEliminar;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor de la vista que inicializa la interfaz con sus componentes.
+     * @param mi Manejador de internacionalización para los textos.
+     */
     public UsuarioEliminarView( MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -54,7 +60,9 @@ public class UsuarioEliminarView extends JInternalFrame{
         tblUser.setModel(modelo);
         cambiarIdioma();
     }
-
+    /**
+     * Cambia el idioma de todos los componentes visuales de acuerdo al idioma actual del sistema.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("usuario.eliminar.titulo"));
         lblEliminar.setText(mi.get("usuario.eliminar.tituloEtiqueta"));
@@ -143,10 +151,17 @@ public class UsuarioEliminarView extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+    /**
+     * Carga los datos de los usuarios en la tabla.
+     * @param usuarios Lista de usuarios a mostrar.
+     */
     public void cargarUsuario(List<Usuario> usuarios) {
         modelo.setRowCount(0);
 

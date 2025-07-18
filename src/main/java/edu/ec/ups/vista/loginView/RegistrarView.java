@@ -4,7 +4,10 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import java.net.URL;
-
+/**
+ * Vista gráfica para registrar nuevos usuarios.
+ * Permite ingresar información personal y seleccionar el idioma de la interfaz.
+ */
 public class RegistrarView extends JFrame {
     private JLabel lblNombreCompleto;
     private JTextField txtNombreCompleto;
@@ -26,7 +29,10 @@ public class RegistrarView extends JFrame {
     private JLabel lblCelular;
     private JComboBox cbxIdiomas;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de registro de usuario.
+     * @param mi Manejador de internacionalización para cambiar textos según el idioma.
+     */
     public RegistrarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -82,12 +88,14 @@ public class RegistrarView extends JFrame {
                         break;
                 }
 
-                cambiarIdioma(); // Esta línea actualiza los textos visibles
+                cambiarIdioma();
             }
         });
         cambiarIdioma();
     }
-
+    /**
+     * Cambia los textos visibles de la interfaz al idioma actual.
+     */
     public void cambiarIdioma() {
         lblRegistrar.setText(mi.get("registrar.titulo"));
         lblNombreCompleto.setText(mi.get("registrar.nombre"));
@@ -243,6 +251,9 @@ public class RegistrarView extends JFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+    /**
+     * Limpia todos los campos del formulario.
+     */
     public void limpiarCampos() {
         txtNombreCompleto.setText("");
         txtUsuario.setText("");

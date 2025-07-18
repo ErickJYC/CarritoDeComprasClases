@@ -5,7 +5,10 @@ import edu.ec.ups.vista.loginView.LoginView;
 
 import javax.swing.*;
 import java.net.URL;
-
+/**
+ * Vista interna para modificar los datos de un usuario en el sistema.
+ * Permite buscar un usuario y actualizar su información personal, con soporte para múltiples idiomas.
+ */
 public class UsuarioModificarView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField txtName;
@@ -28,7 +31,10 @@ public class UsuarioModificarView extends JInternalFrame {
     private JTextField txtCelular;
     private JLabel lblCelular;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la interfaz gráfica para modificar usuarios.
+     * @param mi Manejador de internacionalización
+     */
     public UsuarioModificarView( MensajeInternacionalizacionHandler mi) {
 
         this.mi = mi;
@@ -60,6 +66,9 @@ public class UsuarioModificarView extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
+    /**
+     * Cambia el idioma de la interfaz gráfica utilizando las claves definidas en el archivo de propiedades.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("usuario.modificar.titulo"));
         lblUser.setText(mi.get("usuario.modificar.usuario_buscar"));
@@ -249,14 +258,26 @@ public class UsuarioModificarView extends JInternalFrame {
         this.mi = mi;
     }
 
+    /**
+     * Limpia los campos de texto principales (nombre, usuario, contraseña).
+     */
     public void limpiarCampos() {
         txtName.setText("");
         txtUsername.setText("");
         txtContrasenia.setText("");
     }
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
+    /**
+     * Muestra un cuadro de confirmación con opciones de Sí / No.
+     * @param mensaje Pregunta a mostrar al usuario.
+     * @return true si el usuario selecciona "Sí", false en caso contrario.
+     */
     public boolean mostrarMensajePregunta(String mensaje) {
         int respuesta = JOptionPane.showConfirmDialog(this, mensaje, "Confirmación",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

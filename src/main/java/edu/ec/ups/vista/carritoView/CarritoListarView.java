@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Ventana interna que permite listar todos los carritos existentes y mostrar sus detalles.
+ * También permite buscar un carrito específico por su código.
+ */
 public class CarritoListarView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField txtCarrito;
@@ -20,7 +23,10 @@ public class CarritoListarView extends JInternalFrame {
     private JButton btnMostrardetalle;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista con los elementos gráficos y textos internacionalizados.
+     * @param mi Manejador de internacionalización.
+     */
     public CarritoListarView(MensajeInternacionalizacionHandler mi) {
         super(mi.get("carrito.listar.titulo"), true, true, false, true);
         this.mi = mi;
@@ -66,7 +72,9 @@ public class CarritoListarView extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos de la interfaz gráfica al idioma correspondiente.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("carrito.listar.titulo"));
         lblListar.setText(mi.get("carrito.listar.etiqueta"));
@@ -83,7 +91,10 @@ public class CarritoListarView extends JInternalFrame {
                 mi.get("carrito.listar.columna.total")
         });
     }
-
+    /**
+     * Carga en la tabla los datos de una lista de carritos.
+     * @param carritos Lista de objetos {@link Carrito}.
+     */
     public void cargarDatos(List<Carrito> carritos) {
         modelo.setRowCount(0);
         for (Carrito carrito : carritos) {
@@ -96,11 +107,16 @@ public class CarritoListarView extends JInternalFrame {
             });
         }
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje El mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia los campos de texto y la tabla.
+     */
     public void limpiarCampos() {
         txtCarrito.setText("");
         modelo.setNumRows(0);

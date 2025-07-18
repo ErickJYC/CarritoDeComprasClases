@@ -5,6 +5,11 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import javax.swing.*;
 import java.net.URL;
 
+/**
+ * Ventana de inicio de sesión del sistema.
+ * Permite ingresar usuario y contraseña, seleccionar idioma,
+ * registrarse, recuperar contraseña y salir.
+ */
 public class LoginView extends JFrame{
 
     private JPanel panelSecundario;
@@ -20,7 +25,10 @@ public class LoginView extends JFrame{
     private JComboBox cbxIdiomas;
     private JButton btnSalir;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de login y sus componentes gráficos.
+     * @param mi Manejador de mensajes internacionalizados.
+     */
     public LoginView( MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -163,21 +171,33 @@ public class LoginView extends JFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Muestra un mensaje emergente.
+     * @param mensaje Contenido del mensaje.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Muestra una ventana de confirmación al usuario.
+     * @param mensaje Texto de la pregunta.
+     * @return true si el usuario presiona "Sí", false si presiona "No".
+     */
     public boolean mostrarMensajePregunta(String mensaje) {
         int respuesta = JOptionPane.showConfirmDialog(this, mensaje, "Confirmación",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return respuesta == JOptionPane.YES_OPTION;
     }
-
+    /**
+     * Limpia los campos de texto de usuario y contraseña.
+     */
     public void limpiarCampos() {
         txtUsername.setText("");
         txtContrasenia.setText("");
     }
+    /**
+     * Inicializa los componentes del ComboBox de idiomas y textos en pantalla.
+     */
     public void inicializarComponentes() {
         cbxIdiomas.removeAllItems();
         cbxIdiomas.addItem("Español");
@@ -186,7 +206,10 @@ public class LoginView extends JFrame{
         actualizarTextos(mi);
 
     }
-
+    /**
+     * Actualiza los textos de la interfaz gráfica con base en el idioma seleccionado.
+     * @param mi Manejador actualizado de idioma.
+     */
     public void actualizarTextos(MensajeInternacionalizacionHandler mi) {
         this.mi = mi; // actualizamos el handler si cambia
 

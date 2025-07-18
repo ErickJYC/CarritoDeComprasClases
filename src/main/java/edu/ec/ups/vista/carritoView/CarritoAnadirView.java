@@ -7,7 +7,10 @@ import edu.ec.ups.vista.loginView.LoginView;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
-
+/**
+ * Ventana interna (JInternalFrame) para añadir productos a un carrito de compras.
+ * Permite buscar productos, añadirlos con cantidad, calcular subtotal, IVA y total, y guardar el carrito.
+ */
 public class CarritoAnadirView  extends JInternalFrame {
     private JButton btnBuscar;
     private JTextField txtCodigo;
@@ -33,7 +36,11 @@ public class CarritoAnadirView  extends JInternalFrame {
     private Carrito carrito;
     DefaultTableModel modelo = new DefaultTableModel();
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista del carrito con componentes e idioma.
+     *
+     * @param mi Manejador de internacionalización.
+     */
     public CarritoAnadirView(MensajeInternacionalizacionHandler mi) {
         super("Carrito de Compras", true, true, false, true);
         this.mi = mi;
@@ -46,7 +53,12 @@ public class CarritoAnadirView  extends JInternalFrame {
         tblProductos.setModel(modelo);
 
         cambiarIdioma();
-
+        /**
+        * Carga un icono desde un recurso y lo asigna a un botón.
+        *
+        * @param boton  Botón al que se asignará el icono.
+        * @param ruta   Ruta del recurso de imagen.
+        */
         URL buscar = LoginView.class.getClassLoader().getResource("imagenes/buscar.png");
         if(buscar != null){
             ImageIcon icono = new ImageIcon(buscar);
@@ -76,7 +88,9 @@ public class CarritoAnadirView  extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Carga las cantidades disponibles para selección (1 a 20).
+     */
     private void cargarDatos() {
         cbxCantidad.removeAllItems();
         for (int i = 0; i < 20; i++) {
@@ -279,7 +293,9 @@ public class CarritoAnadirView  extends JInternalFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia todos los campos del formulario de ingreso de productos.
+     */
     public void limpiarCampos() {
         txtCodigo.setText("");
         txtNombre.setText("");
@@ -290,7 +306,9 @@ public class CarritoAnadirView  extends JInternalFrame {
         txtIva.setText("");
         txtTotal.setText("");
     }
-
+    /**
+     * Cambia el idioma de todos los textos de la interfaz gráfica.
+     */
     public void cambiarIdioma() {
         mi.setLenguaje(mi.getLocale().getLanguage(), mi.getLocale().getCountry());
 

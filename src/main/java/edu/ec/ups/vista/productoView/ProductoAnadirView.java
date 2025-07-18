@@ -9,7 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Vista interna para añadir un nuevo producto al sistema.
+ * Permite ingresar código, nombre y precio del producto.
+ * Incluye soporte para internacionalización y manejo de eventos.
+ */
 public class ProductoAnadirView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField txtPrecio;
@@ -22,7 +26,10 @@ public class ProductoAnadirView extends JInternalFrame {
     private JLabel lblNombre;
     private JLabel lblPrecio;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de añadir producto.
+     * @param mi Manejador de internacionalización.
+     */
     public ProductoAnadirView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -57,7 +64,9 @@ public class ProductoAnadirView extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos visibles según el idioma actual del sistema.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("producto.anadir.titulo"));
         lblNuevoP.setText(mi.get("producto.anadir.encabezado"));
@@ -155,17 +164,25 @@ public class ProductoAnadirView extends JInternalFrame {
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Mensaje que se desea mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia todos los campos de texto del formulario.
+     */
     public void limpiarCampos() {
         txtCodigo.setText("");
         txtNombre.setText("");
         txtPrecio.setText("");
     }
-
+    /**
+     * Muestra por consola los productos registrados (solo para pruebas).
+     * @param productos Lista de productos a mostrar.
+     */
     public void mostrarProductos(List<Producto> productos) {
         for (Producto producto : productos) {
             System.out.println(producto);

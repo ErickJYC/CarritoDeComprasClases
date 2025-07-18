@@ -4,7 +4,10 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import java.net.URL;
-
+/**
+ * Vista para seleccionar y responder una pregunta de seguridad como parte del cuestionario
+ * de recuperación de cuenta. Permite al usuario registrar su respuesta y cambiar el idioma de la interfaz.
+ */
 public class PreguntaView extends JFrame{
     private JComboBox cbxPreguntas;
     private JTextField txtRespuesta;
@@ -15,7 +18,10 @@ public class PreguntaView extends JFrame{
     private JPanel panelPrincipal;
     private JComboBox cbxIdiomas;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la interfaz de preguntas de seguridad.
+     * @param mi Manejador de internacionalización para cambiar idioma.
+     */
 public PreguntaView(MensajeInternacionalizacionHandler mi) {
     this.mi = mi;
     setContentPane(panelPrincipal);
@@ -75,6 +81,9 @@ public PreguntaView(MensajeInternacionalizacionHandler mi) {
     cambiarIdioma(); // Cargar textos al inicio
 
 }
+    /**
+     * Actualiza los textos visibles de la interfaz según el idioma seleccionado.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("cuestionario.pregunta.titulo"));
         lblTitulo.setText(mi.get("cuestionario.pregunta.titulo"));

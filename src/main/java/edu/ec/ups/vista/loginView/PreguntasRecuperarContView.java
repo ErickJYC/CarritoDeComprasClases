@@ -4,7 +4,11 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import java.net.URL;
-
+/**
+ * Ventana para la recuperación de contraseña mediante preguntas de seguridad.
+ * Permite al usuario responder tres preguntas personalizadas para validar su identidad
+ * y así proceder con la recuperación de su cuenta.
+ */
 public class PreguntasRecuperarContView extends JFrame{
     private JTextField txtRespuesta1;
     private JTextField txtRespuesta3;
@@ -18,7 +22,10 @@ public class PreguntasRecuperarContView extends JFrame{
     private JLabel lblTitulo;
     private JComboBox cbxIdiomas;
     private final MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor de la vista de recuperación de contraseña.
+     * @param mi Manejador de internacionalización para soporte multilenguaje.
+     */
     public PreguntasRecuperarContView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -81,6 +88,9 @@ public class PreguntasRecuperarContView extends JFrame{
 
         cambiarIdioma();
     }
+    /**
+     * Actualiza todos los textos de la interfaz según el idioma seleccionado.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("cuestionario.recuperar.titulo"));
         lblTitulo.setText(mi.get("cuestionario.recuperar.titulo"));

@@ -5,17 +5,37 @@ import java.io.Serializable;
 
 /**
  * Clase que representa un usuario dentro del sistema.
- * Contiene información personal, de autenticación y su rol asignado.
+ * Contiene información personal, credenciales de acceso y su rol asignado.
  */
 public class Usuario implements Serializable {
 
-    // Atributos principales del usuario
+    /**
+     * Nombre de usuario, generalmente cédula o identificador único (10 dígitos).
+     */
     private String username;
+    /**
+     * Contraseña del usuario con validación de seguridad.
+     */
     private String contrasenia;
+    /**
+     * Rol del usuario (ADMINISTRADOR o USUARIO).
+     */
     private Rol rol;
+    /**
+     * Nombre completo del usuario.
+     */
     private String nombreCompleto;
-    private String fechaNacimiento; // Formato recomendado: dd/mm/yyyy
+    /**
+     * Fecha de nacimiento del usuario (formato recomendado: dd/mm/yyyy).
+     */
+    private String fechaNacimiento;
+    /**
+     * Número de celular del usuario (10 dígitos).
+     */
     private String celular;
+    /**
+     * Dirección de correo electrónico del usuario.
+     */
     private String correo;
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +46,11 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * Constructor básico para autenticación y asignación de rol.
+     * Constructor con parámetros básicos para autenticación y asignación de rol.
+     *
+     * @param username    Identificador único del usuario.
+     * @param contrasenia Contraseña del usuario.
+     * @param rol         Rol asignado (ADMINISTRADOR o USUARIO).
      */
     public Usuario(String username, String contrasenia, Rol rol) {
         setUsername(username);
@@ -35,7 +59,15 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * Constructor completo con toda la información personal.
+     * Constructor completo con todos los atributos personales.
+     *
+     * @param username        Identificador único del usuario.
+     * @param contrasenia     Contraseña con validaciones.
+     * @param rol             Rol asignado.
+     * @param nombreCompleto  Nombre completo.
+     * @param fechaNacimiento Fecha de nacimiento.
+     * @param celular         Número celular (10 dígitos).
+     * @param correo          Correo electrónico.
      */
     public Usuario(String username, String contrasenia, Rol rol, String nombreCompleto,
                    String fechaNacimiento, String celular, String correo) {
@@ -53,7 +85,11 @@ public class Usuario implements Serializable {
     public String getUsername() {
         return username;
     }
-
+    /**
+     * Asigna el nombre de usuario con validación de 10 dígitos numéricos.
+     *
+     * @param username Username a asignar.
+     */
     public void setUsername(String username) {
         try {
             if (!username.matches("\\d{10}")) {
@@ -70,7 +106,12 @@ public class Usuario implements Serializable {
     public String getContrasenia() {
         return contrasenia;
     }
-
+    /**
+     * Asigna una contraseña al usuario con validaciones de seguridad.
+     * Debe tener al menos 6 caracteres, una mayúscula, una minúscula y un carácter especial (@, _ o -).
+     *
+     * @param contrasenia Contraseña a asignar.
+     */
     public void setContrasenia(String contrasenia) {
         try {
             if (contrasenia == null || contrasenia.trim().isEmpty()) {
@@ -132,7 +173,11 @@ public class Usuario implements Serializable {
     public String getCelular() {
         return celular;
     }
-
+    /**
+     * Asigna el número de celular del usuario con validación de 10 dígitos.
+     *
+     * @param celular Número de celular.
+     */
     public void setCelular(String celular) {
         try {
             if (!celular.matches("\\d{10}")) {
@@ -149,7 +194,11 @@ public class Usuario implements Serializable {
     public String getCorreo() {
         return correo;
     }
-
+    /**
+     * Asigna el correo electrónico del usuario validando que tenga '@' y '.'.
+     *
+     * @param correo Dirección de correo.
+     */
     public void setCorreo(String correo) {
         try {
             if (!correo.contains("@") || !correo.contains(".")) {

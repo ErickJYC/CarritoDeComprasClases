@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Ventana interna de Swing que permite actualizar productos existentes.
+ * Utiliza internacionalización para soportar múltiples idiomas.
+ */
 public class ProductoActualizarView extends JInternalFrame{
     private JTextField textField2;
     private JTextField textField3;
@@ -23,7 +26,10 @@ public class ProductoActualizarView extends JInternalFrame{
     private JTextField textField1;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa los componentes de la vista y aplica internacionalización.
+     * @param mi Manejador de internacionalización para textos multilingües.
+     */
     public ProductoActualizarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -53,7 +59,9 @@ public class ProductoActualizarView extends JInternalFrame{
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos de la interfaz al idioma actual usando el manejador de internacionalización.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("producto.actualizar.titulo"));
         lblActualizar.setText(mi.get("producto.actualizar.encabezado"));
@@ -175,7 +183,10 @@ public class ProductoActualizarView extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Carga la lista de productos en la tabla.
+     * @param listaProductos Lista de productos a mostrar.
+     */
     public void cargarDatos(List<Producto> listaProductos) {
         modelo.setNumRows(0);
         for (Producto producto : listaProductos) {
@@ -187,11 +198,16 @@ public class ProductoActualizarView extends JInternalFrame{
             modelo.addRow(fila);
         }
     }
-
+    /**
+     * Muestra un mensaje al usuario en forma de cuadro de diálogo.
+     * @param mensaje El texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia los campos del formulario y la tabla.
+     */
     public void limpiarCampos() {
         textField1.setText("");
         modelo.setNumRows(0);

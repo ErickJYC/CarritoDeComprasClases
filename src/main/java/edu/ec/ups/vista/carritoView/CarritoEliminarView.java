@@ -10,7 +10,10 @@ import edu.ec.ups.vista.loginView.LoginView;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
-
+/**
+ * Ventana interna que permite eliminar un carrito de compras.
+ * Muestra los productos dentro del carrito, y permite buscar y eliminar un carrito por su código.
+ */
 public class CarritoEliminarView extends JInternalFrame {
     private JPanel panelPrincipal;
     private JTextField txtCodigo;
@@ -22,7 +25,10 @@ public class CarritoEliminarView extends JInternalFrame {
     private CarritoDAO carritoDAO;
     DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que configura la interfaz gráfica y los textos internacionalizados.
+     * @param mi Manejador de internacionalización.
+     */
     public CarritoEliminarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -62,7 +68,9 @@ public class CarritoEliminarView extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia el idioma de todos los textos visibles en la ventana.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("carrito.eliminar.titulo"));
         lblEliminar.setText(mi.get("carrito.eliminar.etiqueta"));
@@ -159,7 +167,10 @@ public class CarritoEliminarView extends JInternalFrame {
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Carga los productos del carrito en la tabla.
+     * @param carrito carrito del que se extraen los productos.
+     */
     public void cargarDatos(Carrito carrito) {
         modelo.setRowCount(0);
 
@@ -176,12 +187,17 @@ public class CarritoEliminarView extends JInternalFrame {
             modelo.addRow(fila);
         }
     }
-
+    /**
+     * Limpia los campos de entrada y la tabla de resultados.
+     */
     public void limpiarCampos() {
         modelo.setRowCount(0);
         txtCodigo.setText("");
     }
-
+    /**
+     * Muestra un mensaje en una ventana emergente.
+     * @param mensaje texto que se desea mostrar al usuario.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }

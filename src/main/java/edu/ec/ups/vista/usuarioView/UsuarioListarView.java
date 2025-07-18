@@ -6,7 +6,10 @@ import edu.ec.ups.vista.loginView.LoginView;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
-
+/**
+ * Clase que representa la vista para listar usuarios en el sistema.
+ * Permite buscar y mostrar usuarios en una tabla, con soporte para internacionalización.
+ */
 public class UsuarioListarView  extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField TxtUsuario;
@@ -17,7 +20,10 @@ public class UsuarioListarView  extends JInternalFrame{
     private JLabel lblListar;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa los componentes de la vista y configura la interfaz gráfica.
+     * @param mi Manejador de internacionalización para los textos.
+     */
     public UsuarioListarView( MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -53,6 +59,9 @@ public class UsuarioListarView  extends JInternalFrame{
         cambiarIdioma();
 
     }
+    /**
+     * Cambia el idioma de todos los componentes gráficos de acuerdo al idioma definido en el manejador.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("usuario.listar.titulo"));
         lblListar.setText(mi.get("usuario.listar.tituloTabla"));
@@ -142,7 +151,10 @@ public class UsuarioListarView  extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }

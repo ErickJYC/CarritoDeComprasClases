@@ -8,15 +8,24 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * Implementación de UsuarioDAO que gestiona usuarios completamente en memoria.
+ * Incluye autenticación, creación, eliminación, búsqueda y actualización de usuarios,
+ * así como asociación con preguntas de seguridad.
+ */
 public class UsuarioDAOMemoria implements UsuarioDAO {
 
-    // Lista que almacena los usuarios en memoria
+    /** Lista que almacena los usuarios en memoria */
     private List<Usuario> usuarios;
+    /** DAO para manejar preguntas de seguridad asociadas al usuario */
     private PreguntaDAO cuestionarioDAO;
+    /** Manejador de internacionalización (no inicializado en este constructor) */
     private MensajeInternacionalizacionHandler  mi;
-
-    // Constructor que inicializa la lista y agrega usuarios por defecto
+    /**
+     * Constructor que inicializa la lista y agrega usuarios y preguntas por defecto.
+     *
+     * @param cuestionarioDAO DAO para guardar y acceder a los cuestionarios de preguntas de seguridad
+     */
     public UsuarioDAOMemoria(PreguntaDAO cuestionarioDAO) {
         this.usuarios = new ArrayList<>();
         this.cuestionarioDAO = cuestionarioDAO;
@@ -41,7 +50,13 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         cuestionarioDAO.guardar(cuestionarioAdmin);
     }
 
-    // Autentica usuario verificando username y contraseña
+    /**
+     * Autentica un usuario comparando su nombre de usuario y contraseña.
+     *
+     * @param username Nombre de usuario
+     * @param contrasenia Contraseña
+     * @return Usuario autenticado o null si no coincide
+     */
     @Override
     public Usuario autenticar(String username, String contrasenia) {
         for (Usuario usuario : usuarios) {
@@ -52,13 +67,22 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         return null;
     }
 
-    // Crea un nuevo usuario y lo agrega a la lista
+    /**
+     * Agrega un nuevo usuario a la lista en memoria.
+     *
+     * @param usuario Usuario a crear
+     */
     @Override
     public void crear(Usuario usuario) {
         usuarios.add(usuario);
     }
 
-    // Busca un usuario por username exacto
+    /**
+     * Busca un usuario por su nombre exacto.
+     *
+     * @param username Nombre de usuario a buscar
+     * @return Usuario encontrado o null si no existe
+     */
     @Override
     public Usuario buscarPorUsername(String username) {
         for (Usuario usuario : usuarios) {
@@ -69,7 +93,11 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         return null;
     }
 
-    // Elimina un usuario por username
+    /**
+     * Elimina un usuario de la lista, buscando por su nombre de usuario.
+     *
+     * @param username Nombre de usuario a eliminar
+     */
     @Override
     public void eliminar(String username) {
         Iterator<Usuario> iterator = usuarios.iterator();
@@ -82,7 +110,11 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         }
     }
 
-    // Actualiza los datos de un usuario existente
+    /**
+     * Actualiza la información de un usuario existente.
+     *
+     * @param usuario Usuario con datos actualizados
+     */
     @Override
     public void actualizar(Usuario usuario) {
         for (int i = 0; i < usuarios.size(); i++) {
@@ -94,13 +126,21 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         }
     }
 
-    // Devuelve la lista completa de usuarios
+    /**
+     * Devuelve la lista completa de usuarios en memoria.
+     *
+     * @return Lista de usuarios
+     */
     @Override
     public List<Usuario> listarTodos() {
         return usuarios;
     }
 
-    // Lista usuarios cuyo username inicia con la cadena dada
+    /**
+     * Permite establecer el DAO de preguntas de seguridad si no fue proporcionado en el constructor.
+     *
+     * @param username para gestionar los cuestionarios
+     */
     @Override
     public List<Usuario> listarPorUsername(String username) {
         List<Usuario> usuariosEncontrados = new ArrayList<>();

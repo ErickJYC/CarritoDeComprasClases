@@ -7,7 +7,11 @@ import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ * Vista que muestra los detalles de un carrito de compras.
+ * Presenta una tabla con los productos añadidos, su cantidad, subtotal, IVA y total.
+ * Además permite cambiar dinámicamente el idioma de los textos según la localización configurada.
+ */
 public class CarritoDetalleView extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField txtTotal;
@@ -20,7 +24,11 @@ public class CarritoDetalleView extends JInternalFrame{
     private JTextField txtIva;
     DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la ventana de detalle del carrito con su idioma correspondiente.
+     *
+     * @param mi Manejador de internacionalización para adaptar los textos al idioma seleccionado.
+     */
     public CarritoDetalleView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -124,18 +132,28 @@ public class CarritoDetalleView extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Limpia los datos mostrados en la tabla y los campos de subtotal, IVA y total.
+     */
     public void limpiarTabla() {
         modelo.setRowCount(0);
         txtSubtotal.setText("");
         txtIva.setText("");
         txtTotal.setText("");
     }
-
+    /**
+     * Muestra un mensaje emergente al usuario.
+     *
+     * @param mensaje Mensaje que se desea mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Carga los productos de un carrito en la tabla visual.
+     *
+     * @param carrito Objeto carrito cuyos productos se van a mostrar.
+     */
     public void cargarDatos(Carrito carrito) {
         modelo.setRowCount(0);
 
@@ -150,7 +168,9 @@ public class CarritoDetalleView extends JInternalFrame{
             modelo.addRow(fila);
         }
     }
-
+    /**
+     * Cambia el idioma de todos los textos e identificadores visibles en la interfaz gráfica.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("carrito.detalle.titulo"));
         lblDetalle.setText(mi.get("carrito.detalle.etiqueta"));

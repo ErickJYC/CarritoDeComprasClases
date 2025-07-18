@@ -5,26 +5,48 @@ import java.io.Serializable;
 
 /**
  * Representa un producto disponible para agregar al carrito de compras.
+ * Cada producto tiene un código único, un nombre y un precio.
  */
 public class Producto implements Serializable {
-
-    private int codigo;       // Código único del producto
-    private String nombre;    // Nombre del producto
-    private double precio;    // Precio unitario del producto
+    /**
+     * Código único del producto.
+     */
+    private int codigo;
+    /**
+     * Nombre del producto.
+     */
+    private String nombre;
+    /**
+     * Precio unitario del producto.
+     */
+    private double precio;
     private static final long serialVersionUID = 1L;
 
-    // Constructor vacío (requerido para frameworks o uso genérico)
+    /**
+     * Constructor vacío requerido por algunos frameworks o procesos de serialización.
+     */
     public Producto() {
     }
 
-    // Constructor con parámetros
+
+    /**
+     * Constructor que inicializa el producto con sus atributos.
+     *
+     * @param codigo Código único del producto.
+     * @param nombre Nombre del producto.
+     * @param precio Precio unitario del producto.
+     */
     public Producto(int codigo, String nombre, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
     }
 
-    // Setters
+    /**
+     * Establece el código del producto validando que sea positivo.
+     *
+     * @param codigo Código a establecer.
+     */
     public void setCodigo(int codigo) {
         try {
             if (codigo <= 0) {
@@ -36,7 +58,11 @@ public class Producto implements Serializable {
             this.codigo = -1; // señal de error
         }
     }
-
+    /**
+     * Establece el nombre del producto, validando que no sea nulo ni vacío.
+     *
+     * @param nombre Nombre del producto.
+     */
     public void setNombre(String nombre) {
         try {
             if (nombre == null || nombre.trim().isEmpty()) {
@@ -48,7 +74,11 @@ public class Producto implements Serializable {
             this.nombre = null;
         }
     }
-
+    /**
+     * Establece el precio del producto, validando que sea mayor a cero.
+     *
+     * @param precio Precio del producto.
+     */
     public void setPrecio(double precio) {
         try {
             if (precio <= 0) {

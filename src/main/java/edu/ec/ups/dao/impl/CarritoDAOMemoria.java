@@ -7,18 +7,27 @@ import edu.ec.ups.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * Implementación de la interfaz CarritoDAO que almacena los carritos en memoria.
+ * Esta clase simula una base de datos usando una lista en tiempo de ejecución.
+ */
 public class CarritoDAOMemoria implements CarritoDAO {
 
-    // Lista interna que simula la base de datos en memoria
+    /** Lista que actúa como base de datos en memoria para almacenar carritos */
     private List<Carrito> carritos;
 
-    // Constructor: inicializa la lista vacía
+    /**
+     * Constructor que inicializa la lista de carritos vacía.
+     */
     public CarritoDAOMemoria() {
         this.carritos = new ArrayList<>();
     }
 
-    // Crear un nuevo carrito: asigna un código y guarda una copia
+    /**
+     * Crea un nuevo carrito, le asigna un código incremental y lo almacena en memoria.
+     *
+     * @param carrito Carrito a ser creado
+     */
     @Override
     public void crear(Carrito carrito) {
         carrito.setCodigo(carritos.size() + 1);
@@ -27,7 +36,12 @@ public class CarritoDAOMemoria implements CarritoDAO {
         System.out.println("Carrito creado con código: " + copia.getCodigo());
     }
 
-    // Buscar un carrito por código
+    /**
+     * Busca un carrito por su código.
+     *
+     * @param codigo Código único del carrito
+     * @return Carrito encontrado o null si no existe
+     */
     @Override
     public Carrito buscarPorCodigo(int codigo) {
         for (Carrito carrito : carritos) {
@@ -38,7 +52,11 @@ public class CarritoDAOMemoria implements CarritoDAO {
         return null;
     }
 
-    // Actualizar un carrito existente por código
+    /**
+     * Actualiza un carrito existente si el código coincide.
+     *
+     * @param carrito Carrito con información actualizada
+     */
     @Override
     public void actualizar(Carrito carrito) {
         for (int i = 0; i < carritos.size(); i++) {
@@ -49,7 +67,12 @@ public class CarritoDAOMemoria implements CarritoDAO {
         }
     }
 
-    // Eliminar un carrito por código usando iterator para evitar ConcurrentModificationException
+    /**
+     * Elimina un carrito del sistema según su código.
+     * Se utiliza un iterator para evitar ConcurrentModificationException.
+     *
+     * @param codigo Código del carrito a eliminar
+     */
     @Override
     public void eliminar(int codigo) {
         Iterator<Carrito> iterator = carritos.iterator();
@@ -61,13 +84,23 @@ public class CarritoDAOMemoria implements CarritoDAO {
         }
     }
 
-    // Listar todos los carritos
+    /**
+     * Lista todos los carritos almacenados en memoria.
+     *
+     * @return Lista de todos los carritos
+     */
     @Override
     public List<Carrito> listarTodos() {
         return carritos;
     }
 
-    // Buscar carritos asociados a un usuario dado (comparando username)
+    /**
+     * Busca todos los carritos asociados a un usuario específico.
+     * Se compara por el nombre de usuario.
+     *
+     * @param usuario Usuario del cual se quieren obtener los carritos
+     * @return Lista de carritos pertenecientes al usuario
+     */
     @Override
     public List<Carrito> buscarPorUsuario(Usuario usuario) {
         List<Carrito> carritosUsuario = new ArrayList<>();

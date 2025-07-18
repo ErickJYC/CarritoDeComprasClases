@@ -10,6 +10,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 
+/**
+ * Vista interna para modificar un carrito existente.
+ * Permite buscar un carrito por código, actualizar la cantidad de productos,
+ * ver los totales y realizar cambios.
+ */
 public class CarritoModificarView extends JInternalFrame{
     private JPanel panelPrincipal;
     private JTextField txtCarrito;
@@ -29,7 +34,10 @@ public class CarritoModificarView extends JInternalFrame{
     private JTextField txtTotal;
     DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la interfaz y sus componentes.
+     * @param mi Manejador de internacionalización.
+     */
     public CarritoModificarView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -68,7 +76,9 @@ public class CarritoModificarView extends JInternalFrame{
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos de la interfaz gráfica al idioma actual.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("carrito.modificar.titulo"));
         lblModificar.setText(mi.get("carrito.modificar.etiqueta"));
@@ -232,11 +242,16 @@ public class CarritoModificarView extends JInternalFrame{
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
-
+    /**
+     * Muestra un mensaje emergente.
+     * @param mensaje Texto del mensaje.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Limpia los campos de texto y la tabla.
+     */
     public void limpiarCampos() {
         modelo.setRowCount(0);
         txtCarrito.setText("");
@@ -244,14 +259,19 @@ public class CarritoModificarView extends JInternalFrame{
         txtIva.setText("");
         txtTotal.setText("");
     }
-
+    /**
+     * Carga el ComboBox con cantidades del 1 al 20.
+     */
     private void cargarDatosCantidad() {
         cbxCantidad.removeAllItems();
         for (int i = 0; i < 20; i++) {
             cbxCantidad.addItem(String.valueOf(i + 1));
         }
     }
-
+    /**
+     * Carga en la tabla los productos del carrito seleccionado.
+     * @param carrito Carrito a cargar.
+     */
     public void cargarDatos(Carrito carrito) {
         modelo.setRowCount(0);
         for (ItemCarrito itemCarrito : carrito.obtenerItems()) {

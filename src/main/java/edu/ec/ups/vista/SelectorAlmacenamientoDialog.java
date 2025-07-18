@@ -6,7 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * Diálogo de selección de almacenamiento e idioma para la aplicación.
+ * Permite al usuario seleccionar el tipo de almacenamiento (memoria, archivo de texto o binario),
+ * la carpeta de destino para archivos y el idioma de la interfaz.
+ */
 public class SelectorAlmacenamientoDialog extends JDialog {
 
     private int opcionSeleccionada = 1; // 1=Memoria, 2=Texto, 3=Binario
@@ -20,7 +24,12 @@ public class SelectorAlmacenamientoDialog extends JDialog {
 
     private JLabel lblRuta;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor del diálogo.
+     *
+     * @param parent ventana principal de la cual depende el diálogo.
+     * @param mi     manejador de internacionalización para cambiar textos e idioma.
+     */
     public SelectorAlmacenamientoDialog(Frame parent, MensajeInternacionalizacionHandler mi) {
         super(parent, true);
         this.mi = mi;
@@ -74,7 +83,9 @@ public class SelectorAlmacenamientoDialog extends JDialog {
         setSize(500, 220);
         setLocationRelativeTo(parent);
     }
-
+    /**
+     * Cambia el idioma seleccionado y actualiza los textos visibles.
+     */
     private void cambiarIdioma() {
         switch (cbxIdiomas.getSelectedIndex()) {
             case 0 -> mi.setLenguaje("es", "EC");
@@ -83,7 +94,9 @@ public class SelectorAlmacenamientoDialog extends JDialog {
         }
         actualizarTextos();
     }
-
+    /**
+     * Actualiza todos los textos visibles del diálogo de acuerdo al idioma actual.
+     */
     private void actualizarTextos() {
         setTitle(mi.get("storage.titulo"));
         cbxAlmacenamiento.removeAllItems();
@@ -94,7 +107,9 @@ public class SelectorAlmacenamientoDialog extends JDialog {
         btnAceptar.setText(mi.get("storage.aceptar"));
         btnCancelar.setText(mi.get("storage.cancelar"));
     }
-
+    /**
+     * Abre un selector de carpetas para que el usuario elija dónde guardar los archivos.
+     */
     private void abrirSelectorCarpeta() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -104,7 +119,10 @@ public class SelectorAlmacenamientoDialog extends JDialog {
             lblRuta.setText(carpetaSeleccionada);
         }
     }
-
+    /**
+     * Acción realizada al presionar el botón Aceptar.
+     * Verifica si la ruta es válida (si aplica) y crea los archivos por defecto si no existen.
+     */
     private void onAceptar() {
         opcionSeleccionada = cbxAlmacenamiento.getSelectedIndex() + 1;
         if (opcionSeleccionada != 1 && (carpetaSeleccionada == null || carpetaSeleccionada.isBlank())) {
@@ -119,7 +137,11 @@ public class SelectorAlmacenamientoDialog extends JDialog {
         }
         dispose();
     }
-
+    /**
+     * Crea un archivo vacío por defecto si no existe aún en la ruta seleccionada.
+     *
+     * @param nombreArchivo nombre del archivo a crear (ej. usuarios.txt).
+     */
     private void crearArchivoPorDefecto(String nombreArchivo) {
         File archivo = new File(carpetaSeleccionada, nombreArchivo);
         if (!archivo.exists()) {
@@ -130,7 +152,12 @@ public class SelectorAlmacenamientoDialog extends JDialog {
             }
         }
     }
-
+    /**
+     * Determina el índice de idioma en el combo box según el idioma actual del sistema.
+     *
+     * @param mi manejador de internacionalización.
+     * @return índice correspondiente en el combo (0=es, 1=en, 2=fr).
+     */
     private int idiomaIndex(MensajeInternacionalizacionHandler mi) {
         return switch (mi.getLocale().getLanguage()) {
             case "es" -> 0;

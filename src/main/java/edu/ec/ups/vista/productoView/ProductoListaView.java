@@ -8,7 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.net.URL;
 import java.util.List;
-
+/**
+ * Vista interna para listar y buscar productos en el sistema.
+ * Permite visualizar los productos en una tabla y cambiar el idioma de la interfaz.
+ */
 public class ProductoListaView extends JInternalFrame {
 
     private JTextField txtBuscar;
@@ -20,7 +23,10 @@ public class ProductoListaView extends JInternalFrame {
     private JLabel lblLista;
     private DefaultTableModel modelo;
     private MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor que inicializa la vista de listado de productos.
+     * @param mi Manejador de internacionalización.
+     */
     public ProductoListaView(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
         setContentPane(panelPrincipal);
@@ -57,7 +63,9 @@ public class ProductoListaView extends JInternalFrame {
             System.err.println("Error: No se ha cargado el icono de Login");
         }
     }
-
+    /**
+     * Cambia los textos e identificadores de columnas según el idioma seleccionado.
+     */
     public void cambiarIdioma() {
         setTitle(mi.get("producto.lista.titulo"));
 
@@ -148,10 +156,17 @@ public class ProductoListaView extends JInternalFrame {
     public void setMi(MensajeInternacionalizacionHandler mi) {
         this.mi = mi;
     }
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
-
+    /**
+     * Carga una lista de productos en la tabla de la vista.
+     * @param listaProductos Lista de productos a mostrar.
+     */
     public void cargarDatos(List<Producto> listaProductos) {
         modelo.setNumRows(0);
 
