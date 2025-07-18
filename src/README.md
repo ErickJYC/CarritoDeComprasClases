@@ -76,3 +76,84 @@ La lógica del sistema depende de **interfaces** (como `UsuarioDAO`, `ProductoDA
 > Estudiante de Programación en Java – Ecuador 🇪🇨  
 > Email: erick.yunga@example.com *(opcional)*  
 > GitHub: [github.com/erickyunga](https://github.com/erickyunga) *(opcional)*
+
+---
+
+## 🛒 Informe Técnico del Sistema de Compras - Ñemu
+
+- Nombre: Erick Yunga
+
+## 📌 Descripción General
+- Ñemu es una aplicación de escritorio desarrollada en Java con arquitectura MVC y soporte multilenguaje. Permite la gestión de usuarios, productos, carritos y recuperación de contraseña mediante preguntas de seguridad. Integra principios de diseño SOLID, y ofrece almacenamiento configurable: en memoria, archivo de texto o archivo binario.
+
+- ✨ Funcionalidades Clave
+- CRUD completo de usuarios, productos y carritos
+
+- Inicio de sesión con autenticación de preguntas
+
+- Recuperación de contraseña por seguridad
+
+- Cambiar idioma dinámicamente (Español 🇪🇸, Inglés 🇺🇸, Francés 🇫🇷)
+
+- Visualización adaptada según región (moneda y fecha)
+
+- Fondo visual personalizado con diseño gráfico propio (MiDesktopPane)
+
+---
+
+## 🗃️ Tipos de Almacenamiento
+- Memoria: ideal para pruebas rápidas (no persistente)
+
+- Archivo de Texto (.txt): simple y legible
+
+- Archivo Binario (.dat): persistente, eficiente y serializado
+
+- ⚠️ El usuario administrador predeterminado se inicializa automáticamente si no existe en los archivos.
+
+- 🔧 Principios SOLID Aplicados
+- SRP (Responsabilidad Única): cada clase tiene un propósito claro (DAO, controlador, vista).
+
+- OCP (Abierto/Cerrado): se pueden agregar más idiomas o tipos de almacenamiento sin modificar clases existentes.
+
+- DIP (Inversión de Dependencia): uso de interfaces (UsuarioDAO, ProductoDAO, etc.) para desacoplar lógica y facilitar pruebas o cambios.
+
+---
+
+## ✅ Objetivos Alcanzados
+- Implementar sistema modular con arquitectura MVC
+
+- Aplicar principios SOLID para escalabilidad
+
+- Gestionar almacenamiento flexible (memoria, texto, binario)
+
+- Internacionalizar completamente la interfaz
+
+- Garantizar autenticación segura con preguntas personalizadas
+
+---
+
+## 📦 Resultados Obtenidos
+- Se generaron correctamente archivos según el tipo de almacenamiento:
+
+- usuarios.txt (texto)
+
+- usuarios.dat (binario)
+
+- Almacenamiento en memoria funcional durante ejecución
+
+---
+
+## ✅ Conclusiones
+- ES: El sistema cumple los requerimientos planteados, integrando una estructura modular, segura y adaptable. Su diseño visual mejora la experiencia del usuario.
+
+- EN: The system meets the proposed requirements, integrating a modular, secure, and adaptable architecture. Its visual design enhances the user experience.
+
+---
+## 💡 Recomendaciones
+- Ampliar el sistema con conexión a base de datos relacional (MySQL, PostgreSQL)
+
+- Incorporar roles personalizados y permisos por funcionalidad
+
+- Añadir manejo de logs y reportes de actividad
+
+
