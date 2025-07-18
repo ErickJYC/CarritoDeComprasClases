@@ -7,11 +7,27 @@ import edu.ec.ups.modelo.PreguntaCuestionario;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Implementación del DAO de preguntas utilizando almacenamiento en archivo de texto.
+ * Se guarda la información en formato plano, donde cada cuestionario se identifica
+ * por un "USER:" seguido por varias líneas "PREG:" que representan preguntas y respuestas.
+ *
+ * Este DAO permite guardar y recuperar cuestionarios por nombre de usuario.
+ *
+ * Formato del archivo:
+ * USER:username
+ * PREG:id;claveInternacionalizacion;respuesta
+ *
+ */
 public class PreguntaDAOArchivoTexto implements PreguntaDAO {
-
+    /** Ruta del archivo de texto que almacena los cuestionarios */
     private String rutaArchivo;
-
+    /**
+     * Constructor que inicializa el DAO con la ruta al archivo de texto.
+     * Si el archivo no existe, lo crea automáticamente.
+     *
+     * @param rutaArchivo Ruta al archivo donde se guardan los cuestionarios
+     */
     public PreguntaDAOArchivoTexto(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
         File f = new File(rutaArchivo);
@@ -24,7 +40,12 @@ public class PreguntaDAOArchivoTexto implements PreguntaDAO {
         }
     }
 
-    // Carga todos los cuestionarios
+    /**
+     * Carga todos los cuestionarios desde el archivo de texto.
+     * Cada cuestionario se identifica por un "USER:" seguido de líneas "PREG:".
+     *
+     * @return Lista de objetos PreguntaCuestionario
+     */
     private List<PreguntaCuestionario> cargarCuestionarios() {
         List<PreguntaCuestionario> cuestionarios = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
@@ -58,7 +79,11 @@ public class PreguntaDAOArchivoTexto implements PreguntaDAO {
         return cuestionarios;
     }
 
-    // Guarda todos los cuestionarios en archivo texto
+    /**
+     * Guarda todos los cuestionarios recibidos sobrescribiendo el archivo.
+     *
+     * @param cuestionarios Lista de cuestionarios a guardar
+     */
     private void guardarCuestionarios(List<PreguntaCuestionario> cuestionarios) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, false))) {
             for (PreguntaCuestionario c : cuestionarios) {
@@ -73,7 +98,11 @@ public class PreguntaDAOArchivoTexto implements PreguntaDAO {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Guarda un cuestionario. Si ya existe uno con el mismo username, lo reemplaza.
+     *
+     * @param cuestionario Cuestionario que se va a guardar o actualizar
+     */
     @Override
     public void guardar(PreguntaCuestionario cuestionario) {
         List<PreguntaCuestionario> cuestionarios = cargarCuestionarios();
@@ -90,7 +119,12 @@ public class PreguntaDAOArchivoTexto implements PreguntaDAO {
         }
         guardarCuestionarios(cuestionarios);
     }
-
+    /**
+     * Busca y devuelve un cuestionario asociado a un nombre de usuario.
+     *
+     * @param username Nombre del usuario asociado al cuestionario
+     * @return Cuestionario encontrado o null si no existe
+     */
     @Override
     public PreguntaCuestionario buscarPorUsername(String username) {
         List<PreguntaCuestionario> cuestionarios = cargarCuestionarios();

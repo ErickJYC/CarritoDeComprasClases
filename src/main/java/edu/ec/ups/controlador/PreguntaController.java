@@ -14,39 +14,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controlador que gestiona la lógica del cuestionario de preguntas de seguridad
- * tanto para el registro como para la recuperación de contraseña.
+ * Controlador que maneja la lógica relacionada con el cuestionario de preguntas de seguridad,
+ * utilizado tanto en el registro de nuevos usuarios como en la recuperación de contraseñas.
+ * Permite mostrar preguntas, guardar respuestas, validar respuestas, actualizar la contraseña,
+ * y aplicar internacionalización.
+ *
+ * Se conecta con las vistas `PreguntaView` y `PreguntasRecuperarContView`,
+ * y utiliza DAOs para manejar preguntas y usuarios.
  */
 public class PreguntaController {
 
-    // Lista de preguntas que se le muestran al usuario
+    /** Lista de preguntas aleatorias mostradas al usuario */
     private List<Pregunta> preguntasAleatorias;
 
-    // DAO para manejar la persistencia del cuestionario
+    /** DAO encargado de guardar y recuperar cuestionarios */
     private final PreguntaDAO cuestionarioDAO;
 
-    // Cuestionario actual que se está respondiendo o recuperando
+    /** Cuestionario actual que se está llenando o validando */
     private final PreguntaCuestionario cuestionario;
 
-    // Vista para recuperación de contraseña
+    /** Vista de recuperación de contraseña */
     private final PreguntasRecuperarContView recuperarView;
 
-    // Vista para completar el cuestionario
+    /** Vista para responder el cuestionario de seguridad */
     private final PreguntaView cuestionarioView;
 
-    // Contraseña del usuario (solo se usa durante recuperación)
+    /** Contraseña temporal del usuario (usada solo en recuperación) */
     private String contraseniaU;
 
-    // Usuario autenticado
+    /** Usuario autenticado o en proceso de autenticación */
     private Usuario usuario;
 
-    // DAO de usuario para actualizar contraseña
+    /** DAO que gestiona operaciones de usuario (como actualizar contraseña) */
     private final UsuarioDAO usuarioDAO;
 
-    // Manejador de internacionalización
+    /** Manejador de mensajes multilenguaje (internacionalización) */
     private final MensajeInternacionalizacionHandler mi;
 
-    // Constructor para vista de completar cuestionario al momento del registro
+    /**
+     * Constructor para uso durante el registro de un usuario.
+     * Carga una lista de preguntas y permite guardar respuestas.
+     *
+     * @param vista Vista del cuestionario de seguridad.
+     * @param dao DAO para persistencia de preguntas.
+     * @param username Nombre del usuario.
+     * @param mi Manejador de internacionalización.
+     * @param usuarioDAO DAO de usuario para actualizar datos.
+     */
     public PreguntaController(PreguntaView vista, PreguntaDAO dao, String username,
                               MensajeInternacionalizacionHandler mi, UsuarioDAO usuarioDAO) {
         this.mi = mi;
@@ -71,7 +85,18 @@ public class PreguntaController {
         configurarEventosCuestionario();
     }
 
-    // Constructor para vista de recuperación de contraseña
+    /**
+     * Constructor para uso en recuperación de contraseña.
+     * Carga las preguntas previamente respondidas y permite validar respuestas.
+     *
+     * @param recuperarView Vista para recuperación.
+     * @param dao DAO para preguntas.
+     * @param usuarioDAO DAO de usuario.
+     * @param usuario Usuario que solicita la recuperación.
+     * @param username Nombre de usuario.
+     * @param contrasenia Contraseña temporal.
+     * @param mi Manejador de internacionalización.
+     */
     public PreguntaController(PreguntasRecuperarContView recuperarView, PreguntaDAO dao,
                               UsuarioDAO usuarioDAO, Usuario usuario,
                               String username, String contrasenia,
@@ -107,20 +132,29 @@ public class PreguntaController {
         configurarEventosRecuperar();
     }
 
-    // Eventos para vista de cuestionario de seguridad
+    /**
+     * Asocia los botones de la vista de registro con sus eventos:
+     * guardar, terminar, y seleccionar pregunta.
+     */
     private void configurarEventosCuestionario() {
         cuestionarioView.getCbxPreguntas().addActionListener(e -> preguntasCuestionario());
         cuestionarioView.getBtnGuardar().addActionListener(e -> guardar());
         cuestionarioView.getBtnTerminar().addActionListener(e -> finalizar());
     }
 
-    // Eventos para vista de recuperación de contraseña
+    /**
+     * Asocia los botones de la vista de recuperación con sus eventos:
+     * enviar respuestas y terminar proceso.
+     */
     private void configurarEventosRecuperar() {
         recuperarView.getBtnEnviar().addActionListener(e -> comprobarTodasRespuestas());
         recuperarView.getBtnTerminar().addActionListener(e -> finalizarRecuperar());
     }
 
-    // Verifica si las respuestas ingresadas por el usuario son correctas
+    /**
+     * Verifica que las respuestas a las tres preguntas de seguridad sean correctas.
+     * Si son válidas, permite que el usuario cambie su contraseña.
+     */
     private void comprobarTodasRespuestas() {
         String respuesta1 = recuperarView.getTxtRespuesta1().getText().trim();
         String respuesta2 = recuperarView.getTxtRespuesta2().getText().trim();
@@ -198,12 +232,17 @@ public class PreguntaController {
         }
     }
 
-    // Cierra la vista de recuperación
+    /**
+     * Cierra la ventana de recuperación de contraseña.
+     */
     private void finalizarRecuperar() {
         recuperarView.dispose();
     }
 
-    // Muestra la pregunta seleccionada en el combo y su respuesta (si ya fue respondida)
+    /**
+     * Muestra el enunciado de la pregunta seleccionada en el combo box,
+     * y su respuesta previa si ya fue respondida.
+     */
     private void preguntasCuestionario() {
         int index = cuestionarioView.getCbxPreguntas().getSelectedIndex();
         if (index >= 0) {
@@ -219,7 +258,10 @@ public class PreguntaController {
         }
     }
 
-    // Guarda la respuesta a la pregunta seleccionada
+    /**
+     * Guarda la respuesta ingresada por el usuario para la pregunta seleccionada.
+     * Solo permite guardar una vez por cada pregunta.
+     */
     private void guardar() {
         int index = cuestionarioView.getCbxPreguntas().getSelectedIndex();
         if (index < 0) return;
@@ -242,7 +284,10 @@ public class PreguntaController {
         cuestionarioView.mostrarMensaje(mi.get("cuestionario.guardar.ok"));
     }
 
-    // Finaliza el cuestionario y guarda si hay al menos 3 respuestas
+    /**
+     * Finaliza el cuestionario de seguridad si el usuario ha respondido al menos 3 preguntas.
+     * Guarda el cuestionario en la base de datos.
+     */
     private void finalizar() {
         if (cuestionario.getPreguntas().size() < 3) {
             cuestionarioView.mostrarMensaje(mi.get("cuestionario.finalizar.minimo"));
@@ -254,7 +299,9 @@ public class PreguntaController {
         cuestionarioView.dispose();
     }
 
-    // Carga las preguntas al combo box de la vista
+    /**
+     * Carga los enunciados de las preguntas aleatorias en el combo box de selección.
+     */
     private void cargarComboPreguntas() {
         int cantidadPreguntas = preguntasAleatorias.size();
 
@@ -267,6 +314,9 @@ public class PreguntaController {
             cuestionarioView.getLblPregunta().setText(preguntasAleatorias.get(0).getEnunciado());
         }
     }
+    /**
+     * Actualiza los enunciados del combo box aplicando el nuevo idioma seleccionado.
+     */
     private void actualizarComboPreguntas() {
         // Aplica el nuevo idioma a las preguntas
         for (Pregunta p : preguntasAleatorias) {

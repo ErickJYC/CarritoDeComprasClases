@@ -18,20 +18,44 @@ import edu.ec.ups.vista.usuarioView.UsuarioModificarView;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+/**
+ * Controlador encargado de gestionar la lógica relacionada con los usuarios del sistema.
+ * Permite el registro, autenticación, modificación, eliminación, listado y recuperación de contraseña.
+ * Se conecta con las vistas del módulo usuario, login y recuperación, además de interactuar con DAOs.
+ * Soporta internacionalización a través del manejador de mensajes `MensajeInternacionalizacionHandler`.
+ *
+ */
 public class UsuarioController {
+    /** Usuario autenticado actualmente en el sistema */
     private Usuario usuario;
+    /** DAO para operaciones CRUD y autenticación de usuarios */
     private final UsuarioDAO usuarioDAO;
+    /** Vista principal de inicio de sesión */
     private LoginView loginView;
+    /** Vista para registrar un nuevo usuario */
     private UsuarioCrearView usuarioCrearView;
+    /** Vista para recuperación de contraseña mediante preguntas de seguridad */
     private UsuarioListarView usuarioListarView;
+    /** DAO para acceder a los cuestionarios de preguntas de seguridad */
     private UsuarioEliminarView usuarioEliminarView;
+    /** Vista para crear usuarios desde el módulo de administración */
     private UsuarioModificarView usuarioModificarView;
+    /** Vista para listar usuarios */
     private PreguntaDAO cuestionarioDAO;
+    /** Vista para eliminar usuarios */
     private RegistrarView registrarView;
+    /** Vista para modificar usuarios */
     private PreguntasRecuperarContView recuperarView;
+    /** Manejador de internacionalización de mensajes */
     private final MensajeInternacionalizacionHandler mi;
-
+    /**
+     * Constructor para control desde la vista de login.
+     *
+     * @param usuarioDAO DAO de usuario
+     * @param loginView Vista principal de login
+     * @param cuestionarioDAO DAO para preguntas de seguridad
+     * @param mi Manejador de internacionalización
+     */
     public UsuarioController(UsuarioDAO usuarioDAO, LoginView loginView, PreguntaDAO cuestionarioDAO, MensajeInternacionalizacionHandler mi) {
         this.usuarioDAO = usuarioDAO;
         this.loginView = loginView;
@@ -42,7 +66,17 @@ public class UsuarioController {
         configurarEventosEnVistas();
         recuperarView = new PreguntasRecuperarContView(mi);
     }
-
+    /**
+     * Constructor para control desde las vistas administrativas (crear, modificar, listar, eliminar usuarios).
+     *
+     * @param usuarioDAO DAO de usuario
+     * @param usuarioCrearView Vista de creación de usuarios
+     * @param usuarioListarView Vista de listado
+     * @param usuarioEliminarView Vista de eliminación
+     * @param usuarioModificarView Vista de modificación
+     * @param mi Manejador de internacionalización
+     * @param registrarView Vista de registro (login)
+     */
     public UsuarioController(UsuarioDAO usuarioDAO, UsuarioCrearView usuarioCrearView,
                              UsuarioListarView usuarioListarView, UsuarioEliminarView usuarioEliminarView,
                              UsuarioModificarView usuarioModificarView, MensajeInternacionalizacionHandler mi, RegistrarView registrarView) {
@@ -55,7 +89,9 @@ public class UsuarioController {
         this.registrarView = registrarView;
         configurarEventosUsuarios();
     }
-
+    /**
+     * Configura los eventos de los botones en la vista de login.
+     */
     private void configurarEventosEnVistas() {
         loginView.getBtnIniciarSesion().addActionListener(e -> autenticar());
 
@@ -68,7 +104,9 @@ public class UsuarioController {
         loginView.getCbxIdiomas().addActionListener(e -> cambiarIdioma());
 
     }
-
+    /**
+     * Configura los eventos de las vistas de administración de usuarios.
+     */
     private void configurarEventosUsuarios(){
         usuarioCrearView.getBtnRegistrar().addActionListener(e -> registrarUsuario());
 
@@ -84,7 +122,9 @@ public class UsuarioController {
 
         usuarioModificarView.getBtnEditar().addActionListener(e -> modificarUsuario());
     }
-
+    /**
+     * Cambia el idioma de la interfaz gráfica según la selección del usuario.
+     */
     private void cambiarIdioma() {
         String seleccion = (String) loginView.getCbxIdiomas().getSelectedItem();
 
@@ -106,11 +146,17 @@ public class UsuarioController {
 
         }
     }
-
+    /**
+     * Cierra el sistema.
+     */
     private void salir() {
         loginView.dispose();
         System.exit(0);
     }
+    /**
+     * Registra un nuevo usuario desde la vista de creación administrativa.
+     * Realiza validaciones sobre el formato de los campos antes de guardar.
+     */
     private void registrarUsuario() {
         String nombreCompleto = usuarioCrearView.getTxtNombreCompleto().getText().trim();
         String username = usuarioCrearView.getTxtUsername().getText().trim();
@@ -128,31 +174,31 @@ public class UsuarioController {
             return;
         }
 
-        // 🚫 Validar que el username sea solo números
+        // Validar que el username sea solo números
         if (!username.matches("\\d+")) {
             usuarioCrearView.mostrarMensaje(mi.get("mensaje.usuario.solo_numeros")); // <-- agregar a properties
             return;
         }
 
-        // 🚫 Validar celular
+        // Validar celular
         if (!celular.matches("^\\d{10}$")) {
             usuarioCrearView.mostrarMensaje(mi.get("usuario.celular.invalido")); // ya lo tienes
             return;
         }
 
-        // 🚫 Validar correo electrónico
+        // Validar correo electrónico
         if (!correo.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             usuarioCrearView.mostrarMensaje(mi.get("mensaje.correo.invalido")); // ya lo tienes
             return;
         }
 
-        // 🚫 Validar que la contraseña no tenga espacios
+        // Validar que la contraseña no tenga espacios
         if (contrasenia.contains(" ")) {
             usuarioCrearView.mostrarMensaje(mi.get("mensaje.contrasena.espacios")); // ya lo tienes
             return;
         }
 
-        // ✅ Verificar si ya existe el usuario
+        // Verificar si ya existe el usuario
         if (usuarioDAO.buscarPorUsername(username) != null) {
             usuarioCrearView.mostrarMensaje(mi.get("usuario.nombre.en.uso"));
             return;
@@ -172,9 +218,9 @@ public class UsuarioController {
         usuarioCrearView.mostrarMensaje(mi.get("usuario.creado") + ": " + username);
         usuarioCrearView.limpiarCampos();
     }
-
-
-
+    /**
+     * Inicia el proceso de recuperación de contraseña mediante preguntas de seguridad.
+     */
     private void recuperar() {
         boolean confirmado = loginView.mostrarMensajePregunta(mi.get("login.mensaje.pregunta_recuperar"));
         if (confirmado) {
@@ -217,7 +263,9 @@ public class UsuarioController {
             loginView.mostrarMensaje(mi.get("login.mensaje.recuperacion_cancelada"));
         }
     }
-
+    /**
+     * Modifica los datos de un usuario desde la vista administrativa.
+     */
     private void modificarUsuario() {
         String nombreBusqueda = usuarioModificarView.getTxtName().getText().trim();
 
@@ -267,8 +315,9 @@ public class UsuarioController {
         usuarioModificarView.mostrarMensaje(mi.get("usuario.modificado") + ": " + username);
         usuarioModificarView.limpiarCampos();
     }
-
-
+    /**
+     * Busca un usuario en la vista de modificación y carga sus datos en el formulario.
+     */
     private void buscarUsuarioParaModificar() {
         String usernameBusqueda = usuarioModificarView.getTxtName().getText().trim();
 
@@ -292,8 +341,9 @@ public class UsuarioController {
             usuarioModificarView.getCbxAño().setSelectedItem(Integer.parseInt(fecha[2]));
         }
     }
-
-
+    /**
+     * Busca un usuario en la vista de eliminación y lo muestra en la tabla.
+     */
     private void buscarUsuarioParaEliminar() {
         usuarioEliminarView.getModelo().setRowCount(0);
         String usernameBuscado = usuarioEliminarView.getTxtUsuario().getText().trim();
@@ -322,7 +372,9 @@ public class UsuarioController {
         }
 
     }
-
+    /**
+     * Elimina un usuario si existe en la base de datos.
+     */
     private void eliminarUsuario() {
         String username = usuarioEliminarView.getTxtUsuario().getText();
         Usuario usuario = usuarioDAO.buscarPorUsername(username);
@@ -334,7 +386,9 @@ public class UsuarioController {
         usuarioEliminarView.mostrarMensaje(mi.get("usuario.eliminado") + ": " + username);
         usuarioEliminarView.getTxtUsuario().setText("");
     }
-
+    /**
+     * Lista todos los usuarios registrados y los muestra en la tabla correspondiente.
+     */
     private void listarUsuarios() {
         usuarioListarView.getModelo().setRowCount(0);
         for (Usuario usuario : usuarioDAO.listarTodos()) {
@@ -351,7 +405,9 @@ public class UsuarioController {
         }
         usuarioListarView.mostrarMensaje(mi.get("usuario.listado.exito"));
     }
-
+    /**
+     * Busca un usuario específico por nombre de usuario y lo muestra en la tabla.
+     */
     private void buscarUsuario() {
         usuarioListarView.getModelo().setRowCount(0);
         String nombreUsuario = usuarioListarView.getTxtUsuario().getText().trim();
@@ -372,7 +428,9 @@ public class UsuarioController {
             }
         }
     }
-
+    /**
+     * Registra un nuevo usuario desde la vista de registro del login.
+     */
     private void registrarNuevoUsuario() {
         String nombreCompleto = registrarView.getTxtNombreCompleto().getText().trim();
         String username = registrarView.getTxtUsuario().getText().trim();
@@ -399,7 +457,7 @@ public class UsuarioController {
         nuevoUsuario.setCelular(celular);         // aquí puede fallar si no son 10 dígitos
         nuevoUsuario.setCorreo(correo);           // aquí puede fallar si no tiene @ y .
 
-        // ✅ Validación antes de guardar
+        // Validación antes de guardar
         if (nuevoUsuario.getUsername() == null || nuevoUsuario.getContrasenia() == null
                 || nuevoUsuario.getCelular() == null || nuevoUsuario.getCorreo() == null) {
             registrarView.mostrarMensaje("No se puede registrar. Corrige los campos inválidos.");
@@ -419,8 +477,10 @@ public class UsuarioController {
         registrarView.dispose();
         loginView.setVisible(true);
     }
-
-
+    /**
+     * Autentica al usuario ingresado en la vista de login.
+     * Si no ha respondido el cuestionario de seguridad, se lo redirige a completarlo.
+     */
     private void autenticar() {
         String username = loginView.getTxtUsername().getText().trim();
         String contrasenia = loginView.getTxtContrasenia().getText();
@@ -431,7 +491,7 @@ public class UsuarioController {
             return;
         }
 
-        // ✅ Validación: contraseña no debe tener espacios
+        // Validación: contraseña no debe tener espacios
         if (contrasenia.contains(" ")) {
             loginView.mostrarMensaje(mi.get("mensaje.contrasena.espacios"));
             return;
@@ -466,7 +526,9 @@ public class UsuarioController {
             }
         }
     }
-
+    /**
+     * Muestra la vista de registro desde el login si el usuario lo confirma.
+     */
     private void crearUsuario() {
         boolean confirmado = loginView.mostrarMensajePregunta(mi.get("usuario.crear.confirmacion"));
         if (confirmado) {
@@ -489,6 +551,11 @@ public class UsuarioController {
             loginView.mostrarMensaje(mi.get("usuario.crear.cancelado"));
         }
     }
+    /**
+     * Retorna el usuario autenticado actualmente.
+     *
+     * @return Usuario autenticado o null si no ha iniciado sesión.
+     */
     public Usuario getUsuarioAutenticado(){
         return usuario;
     }

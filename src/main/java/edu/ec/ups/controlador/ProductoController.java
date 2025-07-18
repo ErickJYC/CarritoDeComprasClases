@@ -15,24 +15,38 @@ import java.util.List;
 /**
  * Controlador encargado de gestionar todas las operaciones relacionadas con productos,
  * incluyendo creación, búsqueda, listado, actualización y eliminación.
+ * Se conecta con las vistas correspondientes del módulo producto y también con el carrito.
+ * Utiliza un DAO para interactuar con la base de datos y un manejador para internacionalización.
+ *
+ * @author Erick Yunga
  */
 public class ProductoController {
 
-    // Vistas de producto y carrito
+    /** Vista para añadir productos */
     private final ProductoAnadirView productoAnadirView;
+    /** Vista para listar productos */
     private final ProductoListaView productoListaView;
+    /** Vista del carrito para añadir productos desde allí */
     private final CarritoAnadirView carritoAnadirView;
+    /** Vista para eliminar productos */
     private final ProductoEliminarView productoEliminarView;
+    /** Vista para actualizar productos */
     private final ProductoActualizarView productoActualizarView;
-
-    // Acceso a datos de productos
+    /** DAO que gestiona operaciones CRUD de productos */
     private final ProductoDAO productoDAO;
-
-    // Manejador de mensajes internacionalizados
+    /** Manejador de internacionalización para los mensajes */
     private final MensajeInternacionalizacionHandler mi;
 
     /**
-     * Constructor principal del controlador de productos.
+     * Constructor principal del controlador de productos. Configura vistas y eventos.
+     *
+     * @param productoDAO DAO que gestiona productos
+     * @param productoAnadirView Vista para añadir productos
+     * @param productoListaView Vista para listar productos
+     * @param carritoAnadirView Vista del carrito para búsquedas de productos
+     * @param productoEliminarView Vista para eliminar productos
+     * @param productoActualizarView Vista para actualizar productos
+     * @param mi Manejador de internacionalización
      */
     public ProductoController(ProductoDAO productoDAO,
                               ProductoAnadirView productoAnadirView,
@@ -54,7 +68,7 @@ public class ProductoController {
     }
 
     /**
-     * Método que configura los listeners para cada acción en las vistas.
+     * Configura todos los eventos (botones) de las vistas del módulo producto y carrito.
      */
     private void configurarEventosEnVistas() {
         // Añadir producto
@@ -77,7 +91,8 @@ public class ProductoController {
     }
 
     /**
-     * Guarda un nuevo producto en la base de datos.
+     * Guarda un nuevo producto en la base de datos a partir de los datos ingresados en la vista.
+     * Realiza validaciones básicas antes de guardar.
      */
     private void guardarProducto() {
         try {
@@ -120,7 +135,7 @@ public class ProductoController {
     }
 
     /**
-     * Busca productos por nombre y los carga en la tabla de la vista.
+     * Busca productos por nombre y los muestra en la tabla de la vista de lista.
      */
     private void buscarProducto() {
         String nombre = productoListaView.getTxtBuscar().getText();
@@ -137,7 +152,7 @@ public class ProductoController {
 
 
     /**
-     * Lista todos los productos existentes en la base de datos.
+     * Lista todos los productos registrados y los carga en la tabla de la vista de lista.
      */
     private void listarProductos() {
         List<Producto> productos = productoDAO.listarTodos();
@@ -145,7 +160,7 @@ public class ProductoController {
     }
 
     /**
-     * Busca un producto por su código desde la vista del carrito y lo muestra.
+     * Busca un producto por código desde la vista del carrito para mostrar nombre y precio.
      */
     private void buscarProductoPorCodigo() {
         int codigo = Integer.parseInt(carritoAnadirView.getTxtCodigo().getText());
@@ -162,7 +177,7 @@ public class ProductoController {
     }
 
     /**
-     * Elimina un producto si su código es válido.
+     * Elimina un producto por código si existe y el usuario confirma la acción.
      */
     private void eliminarProducto() {
         String cod = productoEliminarView.getTextField1().getText().trim();
@@ -186,7 +201,7 @@ public class ProductoController {
             return;
         }
 
-        // ✅ Confirmar antes de eliminar
+        // Confirmar antes de eliminar
         int respuesta = JOptionPane.showConfirmDialog(
                 null,
                 "¿Estás seguro de eliminar el producto con código " + codigo + "?",
@@ -206,7 +221,7 @@ public class ProductoController {
 
 
     /**
-     * Busca un producto para eliminarlo y muestra su información.
+     * Busca un producto por código desde la vista de eliminación para mostrar su información.
      */
     private void buscarProductoPorCodigoEliminar() {
         String code = productoEliminarView.getTextField1().getText();
@@ -224,7 +239,7 @@ public class ProductoController {
     }
 
     /**
-     * Busca un producto para actualizarlo y muestra sus datos.
+     * Busca un producto por código desde la vista de actualización para mostrar su información.
      */
     private void buscarProductoPorCodigoActualizar() {
         String code = productoActualizarView.getTextField1().getText();
@@ -242,7 +257,7 @@ public class ProductoController {
     }
 
     /**
-     * Actualiza los datos de un producto existente.
+     * Actualiza los datos de un producto existente con los valores ingresados en la vista.
      */
     private void actualizarProducto() {
         String cod = productoActualizarView.getTextField1().getText();
