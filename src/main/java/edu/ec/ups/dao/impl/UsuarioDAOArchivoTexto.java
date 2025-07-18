@@ -22,6 +22,7 @@ public class UsuarioDAOArchivoTexto implements UsuarioDAO {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            crear(new Usuario("0102896362", "Admin@1", Rol.ADMINISTRADOR));
         }
     }
 
@@ -50,7 +51,9 @@ public class UsuarioDAOArchivoTexto implements UsuarioDAO {
     public Usuario autenticar(String username, String contrasenia) {
         List<Usuario> usuarios = listarTodos();
         for (Usuario u : usuarios) {
-            if (u.getUsername().equalsIgnoreCase(username) && u.getContrasenia().equals(contrasenia)) {
+            if (u.getUsername().equals(username) &&
+                    u.getContrasenia() != null &&
+                    u.getContrasenia().equals(contrasenia)) {
                 return u;
             }
         }

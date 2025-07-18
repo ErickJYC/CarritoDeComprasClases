@@ -1,10 +1,13 @@
 package edu.ec.ups.modelo;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa un ítem dentro del carrito de compras.
  * Cada ítem contiene un producto y su cantidad correspondiente.
  */
-public class ItemCarrito  {
+public class ItemCarrito implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Producto producto;
     private int cantidad;

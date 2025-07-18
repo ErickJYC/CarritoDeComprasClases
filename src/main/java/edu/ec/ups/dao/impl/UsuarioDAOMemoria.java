@@ -22,11 +22,11 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         this.cuestionarioDAO = cuestionarioDAO;
 
         // Usuarios por defecto
-        crear(new Usuario("admin", "12345", Rol.ADMINISTRADOR));
-        crear(new Usuario("user", "12345", Rol.USUARIO));
+        crear(new Usuario("0102896362", "Admin@1", Rol.ADMINISTRADOR));
+        crear(new Usuario("0102896364", "User@1", Rol.USUARIO));
 
-        // Preguntas por defecto para el usuario admin
-        PreguntaCuestionario cuestionarioAdmin = new PreguntaCuestionario("admin");
+        // Preguntas por defecto para el usuario 0102896362
+        PreguntaCuestionario cuestionarioAdmin = new PreguntaCuestionario("0102896362");
         List<Pregunta> preguntas = cuestionarioAdmin.preguntasPorDefecto(mi);
 
         preguntas.get(0).setRespuesta("Negro");

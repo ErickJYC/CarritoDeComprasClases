@@ -29,8 +29,8 @@ public class Usuario implements Serializable {
      * Constructor básico para autenticación y asignación de rol.
      */
     public Usuario(String username, String contrasenia, Rol rol) {
-        this.username = username;
-        this.contrasenia = contrasenia;
+        setUsername(username);
+        setContrasenia(contrasenia);
         this.rol = rol;
     }
 
@@ -73,6 +73,12 @@ public class Usuario implements Serializable {
 
     public void setContrasenia(String contrasenia) {
         try {
+            if (contrasenia == null || contrasenia.trim().isEmpty()) {
+                throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+            }
+
+            contrasenia = contrasenia.trim(); // elimina espacios invisibles
+
             if (contrasenia.contains(" ")) {
                 throw new IllegalArgumentException("La contraseña no debe contener espacios.");
             }
@@ -80,10 +86,10 @@ public class Usuario implements Serializable {
                 throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres.");
             }
             if (!contrasenia.matches(".*[A-Z].*")) {
-                throw new IllegalArgumentException("la contraseña debe contener una letra mayúscula.");
+                throw new IllegalArgumentException("La contraseña debe contener una letra mayúscula.");
             }
             if (!contrasenia.matches(".*[a-z].*")) {
-                throw new IllegalArgumentException("la contraseña debe contener una letra minúscula.");
+                throw new IllegalArgumentException("La contraseña debe contener una letra minúscula.");
             }
             if (!contrasenia.matches(".*[@_-].*")) {
                 throw new IllegalArgumentException("La contraseña debe incluir uno de estos caracteres especiales: @, _ o -");
@@ -92,7 +98,7 @@ public class Usuario implements Serializable {
             this.contrasenia = contrasenia;
         } catch (IllegalArgumentException e1) {
             JOptionPane.showMessageDialog(null, e1.getMessage(), "Error de seguridad", JOptionPane.ERROR_MESSAGE);
-            this.contrasenia = null; // IMPORTANTE: si es inválida, queda null
+            this.contrasenia = null;
         } catch (Exception e2) {
             JOptionPane.showMessageDialog(null, "Error general al validar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
             this.contrasenia = null;

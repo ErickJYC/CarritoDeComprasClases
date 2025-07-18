@@ -27,7 +27,9 @@ public class ProductoDAOArchivoBinario implements ProductoDAO {
             e.printStackTrace();
             productos = new ArrayList<>();
         }
+        System.out.println("📦 Productos cargados desde archivo: " + productos.size());
     }
+
 
     @SuppressWarnings("unchecked")
     private List<Producto> cargarProductos() {

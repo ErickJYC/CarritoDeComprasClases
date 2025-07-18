@@ -1,6 +1,7 @@
 package edu.ec.ups.dao.impl;
 
 import edu.ec.ups.dao.UsuarioDAO;
+import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 
 import java.io.*;
@@ -22,6 +23,7 @@ public class UsuarioDAOArchivoBinario implements UsuarioDAO {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            crear(new Usuario("0102896362", "Admin@1", Rol.ADMINISTRADOR));
         }
     }
 

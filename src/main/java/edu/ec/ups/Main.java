@@ -63,7 +63,6 @@ public class Main {
                         productoDAO = new ProductoDAOArchivoTexto(rutaArchivo + "/productos.txt");
                         carritoDAO = new CarritoDAOArchivoTexto(rutaArchivo + "/carritos.txt");
                         cuestionarioDAO = new PreguntaDAOArchivoTexto(rutaArchivo + "/preguntas.txt");
-                        inicializarAdmin(usuarioDAO);
                         inicializarProductos(productoDAO);
                     }
                     case 3 -> {
@@ -71,15 +70,13 @@ public class Main {
                         productoDAO = new ProductoDAOArchivoBinario(rutaArchivo + "/productos.dat");
                         carritoDAO = new CarritoDAOArchivoBinario(rutaArchivo + "/carritos.dat");
                         cuestionarioDAO = new PreguntaDAOArchivoBinario(rutaArchivo + "/preguntas.dat");
-                        inicializarAdmin(usuarioDAO);
                         inicializarProductos(productoDAO);
                     }
                     default -> {
-                        usuarioDAO = new UsuarioDAOMemoria(null); // se inicializa después
+                        cuestionarioDAO = new PreguntaDAOMemoria(); // primero creamos esto
+                        usuarioDAO = new UsuarioDAOMemoria(cuestionarioDAO); // ya no es null
                         productoDAO = new ProductoDAOMemoria();
                         carritoDAO = new CarritoDAOMemoria();
-                        cuestionarioDAO = new PreguntaDAOMemoria();
-                        ((UsuarioDAOMemoria) usuarioDAO).setPreguntaDAO(cuestionarioDAO); // aseguramos conexión
                     }
                 }
 
@@ -321,21 +318,9 @@ public class Main {
             }
         });
     }
-    // ✅ Crear usuario admin si no existe
-    private static void inicializarAdmin(UsuarioDAO usuarioDAO) {
-        String adminUsername = "9999999999";
-        String adminPassword = "Admin123"; // Asegura que tenga al menos 6 caracteres y una mayúscula
-
-        if (usuarioDAO.buscarPorUsername(adminUsername) == null) {
-            Usuario admin = new Usuario(adminUsername, adminPassword, Rol.ADMINISTRADOR);
-            usuarioDAO.crear(admin);
-            System.out.println("✔ Usuario administrador creado: " + adminUsername);
-        }
-    }
-
-    // ✅ Crear productos predefinidos si no existen
     private static void inicializarProductos(ProductoDAO productoDAO) {
-        if (productoDAO.listarTodos().isEmpty()) {
+        if (productoDAO.listarTodos() == null || productoDAO.listarTodos().isEmpty()) {
+            System.out.println("Cargando productos predefinidos...");
             productoDAO.crear(new Producto(100, "Laptop", 150.99));
             productoDAO.crear(new Producto(200, "Monitor", 200.98));
             productoDAO.crear(new Producto(300, "Teclado", 100.99));
@@ -346,6 +331,8 @@ public class Main {
             productoDAO.crear(new Producto(800, "Pulsera", 0.99));
             productoDAO.crear(new Producto(900, "Medias", 10.99));
             System.out.println("✔ Productos predefinidos creados.");
+        } else {
+            System.out.println("✔ Productos ya existen, no se cargan nuevamente.");
         }
     }
 }
