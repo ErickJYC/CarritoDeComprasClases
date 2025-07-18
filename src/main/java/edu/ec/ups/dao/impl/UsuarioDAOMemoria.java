@@ -111,4 +111,7 @@ public class UsuarioDAOMemoria implements UsuarioDAO {
         }
         return usuariosEncontrados;
     }
+    public void setPreguntaDAO(PreguntaDAO cuestionarioDAO) {
+        this.cuestionarioDAO = cuestionarioDAO;
+    }
 }

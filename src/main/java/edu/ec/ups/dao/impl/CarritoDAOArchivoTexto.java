@@ -14,6 +14,7 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
 
     private String rutaArchivo;
     private SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+    private int ultimoCodigo = 0;
 
     public CarritoDAOArchivoTexto(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
@@ -25,9 +26,9 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cargarUltimoCodigo();
     }
 
-    // Carga todos los carritos desde el archivo texto
     public List<Carrito> cargarCarritos() {
         List<Carrito> carritos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
@@ -35,11 +36,12 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
             Carrito carrito = null;
             while ((linea = br.readLine()) != null) {
                 if (linea.startsWith("CAR:")) {
-                    // Nueva línea de carrito: CAR:codigo;fecha;username
                     String[] partes = linea.substring(4).split(";");
                     if (partes.length == 3) {
                         carrito = new Carrito();
-                        carrito.setCodigo(Integer.parseInt(partes[0]));
+                        int codigo = Integer.parseInt(partes[0]);
+                        carrito.setCodigo(codigo);
+                        if (codigo > ultimoCodigo) ultimoCodigo = codigo;
                         try {
                             carrito.setFechaCreacion(new GregorianCalendar());
                             Date fecha = formatoFecha.parse(partes[1]);
@@ -53,7 +55,6 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
                         carritos.add(carrito);
                     }
                 } else if (linea.startsWith("ITEM:") && carrito != null) {
-                    // Línea item: ITEM:codigoProducto;nombre;precio;cantidad
                     String[] partes = linea.substring(5).split(";");
                     if (partes.length == 4) {
                         try {
@@ -76,7 +77,6 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
         return carritos;
     }
 
-    // Guarda todos los carritos en archivo texto
     public void guardarCarritos(List<Carrito> carritos) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo, false))) {
             for (Carrito c : carritos) {
@@ -94,9 +94,27 @@ public class CarritoDAOArchivoTexto implements CarritoDAO {
         }
     }
 
+    private void cargarUltimoCodigo() {
+        List<Carrito> carritos = cargarCarritos();
+        for (Carrito c : carritos) {
+            if (c.getCodigo() > ultimoCodigo) {
+                ultimoCodigo = c.getCodigo();
+            }
+        }
+    }
+
     @Override
     public void crear(Carrito carrito) {
         List<Carrito> carritos = cargarCarritos();
+
+        // Obtener el mayor código actual para asignar uno nuevo único
+        ultimoCodigo = carritos.stream()
+                .mapToInt(Carrito::getCodigo)
+                .max()
+                .orElse(0);
+
+        carrito.setCodigo(++ultimoCodigo); // Asignar nuevo código
+
         carritos.add(carrito);
         guardarCarritos(carritos);
     }

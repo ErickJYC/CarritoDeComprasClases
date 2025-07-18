@@ -10,6 +10,7 @@ import java.util.List;
 public class CarritoDAOArchivoBinario implements CarritoDAO {
 
     private String rutaArchivo;
+    private int ultimoCodigo = 0;
 
     public CarritoDAOArchivoBinario(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
@@ -22,6 +23,7 @@ public class CarritoDAOArchivoBinario implements CarritoDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cargarUltimoCodigo();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,9 +48,27 @@ public class CarritoDAOArchivoBinario implements CarritoDAO {
         }
     }
 
+    private void cargarUltimoCodigo() {
+        List<Carrito> carritos = cargarCarritos();
+        for (Carrito c : carritos) {
+            if (c.getCodigo() > ultimoCodigo) {
+                ultimoCodigo = c.getCodigo();
+            }
+        }
+    }
+
     @Override
     public void crear(Carrito carrito) {
         List<Carrito> carritos = cargarCarritos();
+
+        // Obtener el mayor código actual para asignar uno nuevo único
+        ultimoCodigo = carritos.stream()
+                .mapToInt(Carrito::getCodigo)
+                .max()
+                .orElse(0);
+
+        carrito.setCodigo(++ultimoCodigo); // Asignar nuevo código
+
         carritos.add(carrito);
         guardarCarritos(carritos);
     }

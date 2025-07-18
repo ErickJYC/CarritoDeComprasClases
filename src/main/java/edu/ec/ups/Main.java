@@ -13,7 +13,7 @@ import edu.ec.ups.modelo.Rol;
 import edu.ec.ups.modelo.Usuario;
 import edu.ec.ups.util.MensajeInternacionalizacionHandler;
 import edu.ec.ups.vista.MenuPrincipalView;
-import edu.ec.ups.vista.StorageSelectorDialog;
+import edu.ec.ups.vista.SelectorAlmacenamientoDialog;
 import edu.ec.ups.vista.carritoView.CarritoAnadirView;
 import edu.ec.ups.vista.carritoView.CarritoEliminarView;
 import edu.ec.ups.vista.carritoView.CarritoListarView;
@@ -45,21 +45,37 @@ public class Main {
 
 
                 // Mostrar ventana para elegir almacenamiento
-                StorageSelectorDialog selector = new StorageSelectorDialog(null, mi);
+                SelectorAlmacenamientoDialog selector = new SelectorAlmacenamientoDialog(null, mi);
                 selector.setVisible(true);
 
                 int opcion = selector.getOpcionSeleccionada();
-                String rutaArchivo = selector.getRutaArchivo();
+                String rutaArchivo = selector.getCarpetaSeleccionada();
 
-                ProductoDAO productoDAO = new ProductoDAOMemoria();
-                CarritoDAO carritoDAO = new CarritoDAOMemoria();
-                PreguntaDAO cuestionarioDAO = new PreguntaDAOMemoria();
                 UsuarioDAO usuarioDAO;
+                ProductoDAO productoDAO;
+                CarritoDAO carritoDAO;
+                PreguntaDAO cuestionarioDAO;
 
                 switch (opcion) {
-                    case 2 -> usuarioDAO = new UsuarioDAOArchivoTexto(rutaArchivo);
-                    case 3 -> usuarioDAO = new UsuarioDAOArchivoBinario(rutaArchivo);
-                    default -> usuarioDAO = new UsuarioDAOMemoria(cuestionarioDAO);
+                    case 2 -> {
+                        usuarioDAO = new UsuarioDAOArchivoTexto(rutaArchivo + "/usuarios.txt");
+                        productoDAO = new ProductoDAOArchivoTexto(rutaArchivo + "/productos.txt");
+                        carritoDAO = new CarritoDAOArchivoTexto(rutaArchivo + "/carritos.txt");
+                        cuestionarioDAO = new PreguntaDAOArchivoTexto(rutaArchivo + "/preguntas.txt");
+                    }
+                    case 3 -> {
+                        usuarioDAO = new UsuarioDAOArchivoBinario(rutaArchivo + "/usuarios.dat");
+                        productoDAO = new ProductoDAOArchivoBinario(rutaArchivo + "/productos.dat");
+                        carritoDAO = new CarritoDAOArchivoBinario(rutaArchivo + "/carritos.dat");
+                        cuestionarioDAO = new PreguntaDAOArchivoBinario(rutaArchivo + "/preguntas.dat");
+                    }
+                    default -> {
+                        usuarioDAO = new UsuarioDAOMemoria(null); // se inicializa después
+                        productoDAO = new ProductoDAOMemoria();
+                        carritoDAO = new CarritoDAOMemoria();
+                        cuestionarioDAO = new PreguntaDAOMemoria();
+                        ((UsuarioDAOMemoria) usuarioDAO).setPreguntaDAO(cuestionarioDAO); // aseguramos conexión
+                    }
                 }
 
                 LoginView loginView = new LoginView(mi);
